@@ -1,0 +1,229 @@
+{
+  "_notes": [
+    "Spanish voices, for python3 tools/voice/generate.py --locale es. Same fields as cast.json; the clips go to voice/es/<character>/<clip>.mp3, and the words come from translations/es.po.",
+    "Fill in voice_name and voice_id for each speaker with a Spanish-speaking LuvVoice voice (python3 tools/voice/generate.py --list-voices standard, or cloned). A speaker with no voice_id is skipped, so you can try a few first.",
+    "english_voice is the voice that speaker has in cast.json, for reference only; nothing reads it.",
+    "voice_type 'cloned' for cloned and Featured public custom voices, 'standard' otherwise."
+  ],
+  "pronunciations": {
+    "_notes": "Whole-word replacements in the text sent to LuvVoice only. A Spanish voice reads most names right as written (Nefi, Lehi, Lamán); add any it gets wrong.",
+    "WASD": "W, A, S, D"
+  },
+  "variables": {
+    "_notes": "Values a {{variable}} in a line can take. Each line using one gets a clip per value, named <ID>__<value>.mp3. For example \"fruit\": [\"apples\", \"figs\"], for a line like \"These are delicious {{fruit}}.\" In Spanish the words each value puts into the line are its translation in es.po."
+  },
+  "characters": {
+    "narrator": {
+      "voice_name": "Everett",
+      "voice_id": "d8b4b003-4f29-45ff-aed2-489d5c8f6640",
+      "voice_type": "cloned",
+      "rate": 0,
+      "pitch": 0,
+      "volume": 0,
+      "english_voice": "Isabel Stone",
+      "description": "Older Nephi reading the scripture scroll verses (story/scriptures.gd), as in the intro narration. Clips are named by verse key, e.g. voice/narrator/1_nephi_17_8.mp3."
+    },
+    "nephi": {
+      "voice_name": "Percival",
+      "voice_id": "f1ed451d-e374-47c7-a89a-e39a4d7300a2",
+      "voice_type": "cloned",
+      "rate": 0,
+      "pitch": 0,
+      "volume": 0,
+      "english_voice": "Tristan Bancroft",
+      "description": "Young Nephi, the player. Faithful, earnest, respectful to his father."
+    },
+    "lehi": {
+      "voice_name": "Finley",
+      "voice_id": "27aafb1f-75d1-4f69-b4b2-81ab7854ed2b",
+      "voice_type": "cloned",
+      "rate": 0,
+      "pitch": 0,
+      "volume": 0,
+      "english_voice": "Holden Nash - Deep Narrator Custom",
+      "description": "The prophet and father. Old, warm, deep and steady."
+    },
+    "sariah": {
+      "voice_name": "",
+      "voice_id": "",
+      "voice_type": "standard",
+      "rate": 0,
+      "pitch": 0,
+      "volume": 0,
+      "english_voice": "Theresa",
+      "description": "Nephi's mother. Warm, tired from the journey, quietly faithful. Needs a mature woman's voice."
+    },
+    "laman": {
+      "voice_name": "Sebastian",
+      "voice_id": "82ed9a64-7e13-45f5-964a-22b2335deb36",
+      "voice_type": "cloned",
+      "rate": 0,
+      "pitch": 0,
+      "volume": 0,
+      "english_voice": "Franklin",
+      "description": "Eldest brother. Scornful and sarcastic until humbled."
+    },
+    "lemuel": {
+      "voice_name": "",
+      "voice_id": "",
+      "voice_type": "standard",
+      "rate": 0,
+      "pitch": 0,
+      "volume": 0,
+      "english_voice": "Oscar",
+      "description": "Second brother, follows Laman's lead, whiny."
+    },
+    "sam": {
+      "voice_name": "",
+      "voice_id": "",
+      "voice_type": "standard",
+      "rate": 0,
+      "pitch": 0,
+      "volume": 0,
+      "english_voice": "John",
+      "description": "Third brother, loyal to Nephi, cheerful."
+    },
+    "jacob": {
+      "voice_name": "",
+      "voice_id": "",
+      "voice_type": "standard",
+      "rate": 0,
+      "pitch": 0,
+      "volume": 0,
+      "english_voice": "Andrew",
+      "description": "Youngest brother, born in the wilderness; a young child. Needs a child's voice, or an adult voice with pitch raised."
+    },
+    "joseph": {
+      "voice_name": "",
+      "voice_id": "",
+      "voice_type": "standard",
+      "rate": 0,
+      "pitch": 0,
+      "volume": 0,
+      "english_voice": "David",
+      "description": "Jacob's younger brother, also born in the wilderness; the smallest child. Should be distinguishable from Jacob."
+    },
+    "zoram": {
+      "voice_name": "",
+      "voice_id": "",
+      "voice_type": "standard",
+      "rate": 0,
+      "pitch": 0,
+      "volume": 0,
+      "english_voice": "Ethan",
+      "description": "Laban's former servant from Jerusalem. Loyal, grateful, a bit of an outsider."
+    },
+    "ishmael_wife": {
+      "voice_name": "",
+      "voice_id": "",
+      "voice_type": "standard",
+      "rate": 0,
+      "pitch": 0,
+      "volume": 0,
+      "english_voice": "Felicity",
+      "description": "Ishmael's widow. Older woman, gentle and a little grieving; should be distinguishable from Sariah."
+    },
+    "ishmael_son_1": {
+      "voice_name": "",
+      "voice_id": "",
+      "voice_type": "standard",
+      "rate": 0,
+      "pitch": 0,
+      "volume": 0,
+      "english_voice": "Cole",
+      "description": "Ishmael's elder son. Sides with Laman, skeptical and grudging."
+    },
+    "ishmael_son_2": {
+      "voice_name": "",
+      "voice_id": "",
+      "voice_type": "standard",
+      "rate": 0,
+      "pitch": 0,
+      "volume": 0,
+      "english_voice": "Christopher",
+      "description": "Ishmael's younger son. Friends with Laman and Lemuel, easygoing, wants to rest and party."
+    },
+    "ishmael_daughter_1": {
+      "voice_name": "",
+      "voice_id": "",
+      "voice_type": "standard",
+      "rate": 0,
+      "pitch": 0,
+      "volume": 0,
+      "english_voice": "Daphne",
+      "description": "Ishmael's eldest daughter, Zoram's wife. Composed, admiring."
+    },
+    "ishmael_daughter_2": {
+      "voice_name": "",
+      "voice_id": "",
+      "voice_type": "standard",
+      "rate": 0,
+      "pitch": 0,
+      "volume": 0,
+      "english_voice": "Abigail",
+      "description": "Laman's wife. Frank and practical, a little wry about her husband."
+    },
+    "ishmael_daughter_3": {
+      "voice_name": "",
+      "voice_id": "",
+      "voice_type": "standard",
+      "rate": 0,
+      "pitch": 0,
+      "volume": 0,
+      "english_voice": "Maren",
+      "description": "Sam's wife. Sweet and affectionate."
+    },
+    "ishmael_daughter_4": {
+      "voice_name": "",
+      "voice_id": "",
+      "voice_type": "standard",
+      "rate": 0,
+      "pitch": 0,
+      "volume": 0,
+      "english_voice": "Michelle",
+      "description": "Lemuel's wife. Hopeful but a little exasperated."
+    },
+    "ishmael_daughter_5": {
+      "voice_name": "",
+      "voice_id": "",
+      "voice_type": "standard",
+      "rate": 0,
+      "pitch": 0,
+      "volume": 0,
+      "english_voice": "Jenny",
+      "description": "Nephi's wife (she calls him husband). Warm, proud of him, caring. The most prominent of the daughters."
+    },
+    "sister_1": {
+      "voice_name": "",
+      "voice_id": "",
+      "voice_type": "standard",
+      "rate": 0,
+      "pitch": 0,
+      "volume": 0,
+      "english_voice": "Katherine",
+      "description": "Nephi's sister, the older of the two. Cheerful, dreamy, looking forward to the voyage. A girl or young woman."
+    },
+    "sister_2": {
+      "voice_name": "",
+      "voice_id": "",
+      "voice_type": "standard",
+      "rate": 0,
+      "pitch": 0,
+      "volume": 0,
+      "english_voice": "Ava",
+      "description": "Nephi's younger sister. Excited about collecting shells; childlike."
+    },
+    "sheep": {
+      "skip": true,
+      "description": "Baa. Use a real sheep sound effect."
+    },
+    "goat": {
+      "skip": true,
+      "description": "Maaa. Use a real goat sound effect."
+    },
+    "chicken": {
+      "skip": true,
+      "description": "Bawk. Use a real chicken sound effect."
+    }
+  }
+}

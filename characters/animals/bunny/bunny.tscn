@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://d4dwbqrpe8sp5"]
+
+[ext_resource type="Script" uid="uid://c8rkh6rkcrxy1" path="res://characters/animals/bunny/bunny.gd" id="1_bunny"]
+
+[node name="Bunny" type="CharacterBody2D" unique_id=1559181699]
+y_sort_enabled = true
+motion_mode = 1
+script = ExtResource("1_bunny")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="." unique_id=913059874]
+centered = false
+offset = Vector2(-32, -56)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." unique_id=1571731548]
+polygon = PackedVector2Array(-7, -5, 0, -13, 7, -5, 0, 3)

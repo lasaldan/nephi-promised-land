@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://c5j3kxwqevc3b"]
+
+[ext_resource type="PackedScene" uid="uid://cperson0base1" path="res://characters/person.tscn" id="1_person"]
+[ext_resource type="Texture2D" uid="uid://ccp7e1t2xdwrb" path="res://characters/cast/ishmael_daughter_3/daughter_3_universal.png" id="2_texture"]
+
+[node name="IshmaelDaughter3" instance=ExtResource("1_person")]
+
+[node name="Sprite2D" parent="." index="0"]
+texture = ExtResource("2_texture")
+vframes = 21

@@ -1,0 +1,13 @@
+clip,character,title,text,tts_text,tts_override,status,hash,generated_hash,notes
+BAA_AA_AA_I_THE_SHEEP_KEEPS_CH_495A30,sheep,talk_sheep,¡Beee-ee-ee!,¡Beee-ee-ee!,,skip,d96a56087427,,
+BAWK_BAWK_BAWK_BAWK_I_SHE_SEEM_1B9313,chicken,talk_chicken,"¡Coc! Coc, coc... ¡COCOCÓ!","¡Coc! Coc, coc... ¡COCOCÓ!",,skip,832c7329662d,,
+MAAA_I_THE_GOAT_TRIES_TO_NIBBL_57AA79,goat,talk_goat,¡Meee!,¡Meee!,,skip,aced8773e898,,
+tour_walk_touch,nephi,ui_tour,Arrastra aquí para ayudarme a caminar.,Arrastra aquí para ayudarme a caminar.,,missing,13e5c21aaa56,,
+tour_walk_desktop,nephi,ui_tour,Usa las teclas WASD para ayudarme a caminar.,"Usa las teclas W, A, S, D para ayudarme a caminar.",,missing,674045479d16,,
+tour_use_touch,nephi,ui_tour,"Cuando esté cerca de algo, toca aquí para recogerlo o para hablar con alguien.","Cuando esté cerca de algo, toca aquí para recogerlo o para hablar con alguien.",,missing,7794119dd31c,,
+tour_use_desktop,nephi,ui_tour,"Cuando esté cerca de algo, presiona Espacio, o haz clic aquí, para recogerlo o hablar con alguien.","Cuando esté cerca de algo, presiona Espacio, o haz clic aquí, para recogerlo o hablar con alguien.",,missing,6e6523dd40b0,,
+tour_quest_touch,nephi,ui_tour,Esto nos dice qué hacer después. Tócalo para escucharlo.,Esto nos dice qué hacer después. Tócalo para escucharlo.,,missing,b533f649a9c8,,
+tour_quest_desktop,nephi,ui_tour,Esto nos dice qué hacer después. Haz clic para escucharlo.,Esto nos dice qué hacer después. Haz clic para escucharlo.,,missing,be5a8969fb0f,,
+tour_pray_touch,nephi,ui_tour,¿No sabes adónde ir? Toca aquí y oraré para saber el camino.,¿No sabes adónde ir? Toca aquí y oraré para saber el camino.,,missing,da575bf8999d,,
+tour_pray_desktop,nephi,ui_tour,¿No sabes adónde ir? Haz clic aquí y oraré para saber el camino.,¿No sabes adónde ir? Haz clic aquí y oraré para saber el camino.,,missing,64b80c5679cd,,
+tour_backpack,nephi,ui_tour,"Lo que recogemos va aquí, en mi mochila. ¡Ahora, vamos!","Lo que recogemos va aquí, en mi mochila. ¡Ahora, vamos!",,missing,c88c7f9ba24b,,

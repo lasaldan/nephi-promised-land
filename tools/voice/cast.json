@@ -1,0 +1,222 @@
+{
+  "_notes": [
+    "One entry per speaker in story/main.dialogue. voice_name is the LuvVoice name (from narration/narration_script_english.txt where chosen); voice_id is what the API needs. Fill voice_id in from the LuvVoice dashboard or `python3 tools/voice/generate.py --list-voices`.",
+    "voice_type is 'standard' for LuvVoice's preset voices, 'cloned' for cloned and Featured public custom voices (Holden Nash is one).",
+    "rate, pitch and volume are passed straight to the API; 0 is the voice's default.",
+    "Changing any of these marks that speaker's clips stale, so the next run regenerates them.",
+    "skip: true leaves the speaker out of generation (the animals are better as sound effects).",
+    "voice_of: \"nephi\" gives a speaker another speaker's voice settings (voice_common.load_cast). The artifacts (story/artifacts.gd) use it: they are their own speakers, so their balloons show their picture and name, but Nephi says their lines."
+  ],
+  "pronunciations": {
+    "_notes": "Whole-word replacements made only in the text sent to LuvVoice; the on-screen text is unchanged. Nephi and Lehi are the spellings the intro narration used. Add more as names come out wrong (Laman, Lemuel, Ishmael, Zoram, Laban).",
+    "Nephi": "Neefai",
+    "Lehi": "Leehai",
+    "Father": "father",
+    "Laman": "Layman",
+    "Laban": "Laybin",
+    "Lemuel": "Lem-yule",
+    "Zoram": "Zorum",
+    "Bang": "Baying",
+    "bang": "baying",
+    "WASD": "W, A, S, D",
+    "Liahona": "Leah-HOE-nuh",
+    "Nahom": "Nay-hum"
+  },
+  "variables": {
+    "_notes": "Values a {{variable}} in a line can take. Each line using one gets a clip per value, named <ID>__<value>.mp3. For example \"fruit\": [\"apples\", \"figs\"], for a line like \"These are delicious {{fruit}}.\" In Spanish the words each value puts into the line are its translation in es.po."
+  },
+  "characters": {
+    "narrator": {
+      "voice_name": "Isabel Stone",
+      "voice_id": "9cd48997-8f66-4d9a-a4c9-05549b4e4c86",
+      "voice_type": "cloned",
+      "rate": 0,
+      "pitch": 0,
+      "volume": 0,
+      "description": "Older Nephi reading the scripture scroll verses (story/scriptures.gd), as in the intro narration. Clips are named by verse key, e.g. voice/narrator/1_nephi_17_8.mp3. Your notes: Steffan, default settings."
+    },
+    "nephi": {
+      "voice_name": "Tristan Bancroft",
+      "voice_id": "69f58d15-b0e2-476e-98f9-30201825ea0a",
+      "voice_type": "cloned",
+      "rate": 0,
+      "pitch": 0,
+      "volume": 0,
+      "description": "Young Nephi, the player. Faithful, earnest, respectful to his father. Your notes: Ben, default settings (Steffan is the older Nephi narrating)."
+    },
+    "lehi": {
+      "voice_name": "Holden Nash - Deep Narrator Custom",
+      "voice_id": "915ccee1-0178-44eb-8353-5b8f418dcef2",
+      "voice_type": "cloned",
+      "rate": 0,
+      "pitch": 0,
+      "volume": 0,
+      "description": "The prophet and father. Old, warm, deep and steady."
+    },
+    "sariah": {
+      "voice_name": "Theresa",
+      "voice_id": "f28090f4-226c-4b87-82d9-d925dd08ff5d",
+      "voice_type": "cloned",
+      "rate": 0,
+      "pitch": 0,
+      "volume": 0,
+      "description": "Nephi's mother. Warm, tired from the journey, quietly faithful. Needs a mature woman's voice."
+    },
+    "laman": {
+      "voice_name": "Franklin",
+      "voice_id": "804ee251-b85d-4a86-a41e-ea3364a81530",
+      "voice_type": "cloned",
+      "rate": 0,
+      "pitch": 0,
+      "volume": 0,
+      "description": "Eldest brother. Scornful and sarcastic until humbled. Suggested: David (slightly sarcastic, casual)."
+    },
+    "lemuel": {
+      "voice_name": "Oscar",
+      "voice_id": "01b9d81a-8a91-40f6-8840-31df5262a017",
+      "voice_type": "cloned",
+      "rate": 0,
+      "pitch": 0,
+      "volume": 0,
+      "description": "Second brother, follows Laman's lead, whiny. Suggested: Roger (higher, annoying, casual). Should sound clearly different from Laman."
+    },
+    "sam": {
+      "voice_name": "John",
+      "voice_id": "voice-308",
+      "voice_type": "standard",
+      "rate": 0,
+      "pitch": 0,
+      "volume": 0,
+      "description": "Third brother, loyal to Nephi, cheerful. Suggested: Andrew (young man, clear)."
+    },
+    "jacob": {
+      "voice_name": "Andrew",
+      "voice_id": "voice-300",
+      "voice_type": "standard",
+      "rate": -15,
+      "pitch": 24,
+      "volume": 0,
+      "description": "Youngest brother, born in the wilderness; a young child. Needs a child's voice, or an adult voice with pitch raised."
+    },
+    "joseph": {
+      "voice_name": "David",
+      "voice_id": "voice-306",
+      "voice_type": "standard",
+      "rate": -15,
+      "pitch": 24,
+      "volume": 0,
+      "description": "Jacob's younger brother, also born in the wilderness; the smallest child. Should be distinguishable from Jacob."
+    },
+    "zoram": {
+      "voice_name": "Ethan",
+      "voice_id": "f713280c-0b22-4765-a92c-d040700d5e03",
+      "voice_type": "cloned",
+      "rate": 0,
+      "pitch": 0,
+      "volume": 0,
+      "description": "Laban's former servant from Jerusalem. Loyal, grateful, a bit of an outsider. Suggested: Christopher (light accent, deepish)."
+    },
+    "ishmael_wife": {
+      "voice_name": "Felicity",
+      "voice_id": "74f7ce37-b924-4e12-b74e-49efc03d7ea0",
+      "voice_type": "cloned",
+      "rate": 0,
+      "pitch": 0,
+      "volume": 0,
+      "description": "Ishmael's widow. Older woman, gentle and a little grieving; should be distinguishable from Sariah."
+    },
+    "ishmael_son_1": {
+      "voice_name": "Cole",
+      "voice_id": "gvoice-146",
+      "voice_type": "standard",
+      "rate": 0,
+      "pitch": 0,
+      "volume": 0,
+      "description": "Ishmael's elder son. Sides with Laman, skeptical and grudging. Suggested: Eric (normal, deepish)."
+    },
+    "ishmael_son_2": {
+      "voice_name": "Christopher",
+      "voice_id": "voice-005",
+      "voice_type": "standard",
+      "rate": 0,
+      "pitch": 0,
+      "volume": 0,
+      "description": "Ishmael's younger son. Friends with Laman and Lemuel, easygoing, wants to rest and party. Suggested: Guy (normal, higher)."
+    },
+    "ishmael_daughter_1": {
+      "voice_name": "Daphne",
+      "voice_id": "039d2648-ce4f-441a-af43-2a816e8e27a8",
+      "voice_type": "cloned",
+      "rate": 0,
+      "pitch": 0,
+      "volume": 0,
+      "description": "Ishmael's eldest daughter, Zoram's wife. Composed, admiring."
+    },
+    "ishmael_daughter_2": {
+      "voice_name": "Abigail",
+      "voice_id": "a711e120-d33d-460c-8395-6f57255f6b08",
+      "voice_type": "cloned",
+      "rate": 0,
+      "pitch": 0,
+      "volume": 0,
+      "description": "Laman's wife. Frank and practical, a little wry about her husband."
+    },
+    "ishmael_daughter_3": {
+      "voice_name": "Maren",
+      "voice_id": "14b0a424-93aa-4b72-b5e7-33cccaeec09a",
+      "voice_type": "cloned",
+      "rate": 0,
+      "pitch": 0,
+      "volume": 0,
+      "description": "Sam's wife. Sweet and affectionate."
+    },
+    "ishmael_daughter_4": {
+      "voice_name": "Michelle",
+      "voice_id": "voice-007",
+      "voice_type": "standard",
+      "rate": 0,
+      "pitch": 0,
+      "volume": 0,
+      "description": "Lemuel's wife. Hopeful but a little exasperated."
+    },
+    "ishmael_daughter_5": {
+      "voice_name": "Jenny",
+      "voice_id": "voice-001",
+      "voice_type": "standard",
+      "rate": 0,
+      "pitch": 0,
+      "volume": 0,
+      "description": "Nephi's wife (she calls him husband). Warm, proud of him, caring. The most prominent of the daughters."
+    },
+    "sister_1": {
+      "voice_name": "Katherine",
+      "voice_id": "f586b423-91ce-4fce-81e0-91d7a07d1496",
+      "voice_type": "cloned",
+      "rate": 0,
+      "pitch": 0,
+      "volume": 0,
+      "description": "Nephi's sister, the older of the two. Cheerful, dreamy, looking forward to the voyage. A girl or young woman."
+    },
+    "sister_2": {
+      "voice_name": "Ava",
+      "voice_id": "voice-301",
+      "voice_type": "standard",
+      "rate": 0,
+      "pitch": 0,
+      "volume": 0,
+      "description": "Nephi's younger sister. Excited about collecting shells; childlike."
+    },
+    "sheep": {
+      "skip": true,
+      "description": "Baa. Use a real sheep sound effect."
+    },
+    "goat": {
+      "skip": true,
+      "description": "Maaa. Use a real goat sound effect."
+    },
+    "chicken": {
+      "skip": true,
+      "description": "Bawk. Use a real chicken sound effect."
+    }
+  }
+}

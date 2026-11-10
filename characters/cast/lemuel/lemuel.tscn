@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://3436rhagv3nl"]
+
+[ext_resource type="PackedScene" uid="uid://cperson0base1" path="res://characters/person.tscn" id="1_person"]
+[ext_resource type="Texture2D" uid="uid://boer4skv2fnc4" path="res://characters/cast/lemuel/lemuel.png" id="2_texture"]
+
+[node name="Lemuel" instance=ExtResource("1_person")]
+walk_speed = 2.0
+pause_min = 3.0
+
+[node name="Sprite2D" parent="." index="0"]
+texture = ExtResource("2_texture")
+vframes = 54

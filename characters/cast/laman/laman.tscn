@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://do5p77oc6xmd1"]
+
+[ext_resource type="PackedScene" uid="uid://cperson0base1" path="res://characters/person.tscn" id="1_person"]
+[ext_resource type="Texture2D" uid="uid://cryvasl8ltp4s" path="res://characters/cast/laman/laman.png" id="2_texture"]
+
+[node name="Laman" instance=ExtResource("1_person")]
+walk_speed = 2.0
+
+[node name="Sprite2D" parent="." index="0"]
+texture = ExtResource("2_texture")
+vframes = 54

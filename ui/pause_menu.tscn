@@ -1,0 +1,327 @@
+[gd_scene format=3 uid="uid://5w7p5u1bgmpi"]
+
+[ext_resource type="Script" uid="uid://cward4v6ecprb" path="res://ui/pause_menu.gd" id="1_script"]
+[ext_resource type="Theme" uid="uid://ffpm75cms6pu" path="res://ui/menu_theme.tres" id="2_theme"]
+[ext_resource type="AudioStream" uid="uid://ckgkvnwexvw83" path="res://audio/sfx/seed_pickup.wav" id="3_preview"]
+[ext_resource type="Texture2D" uid="uid://dbqpdammbyxtq" path="res://ui/star.svg" id="4_star"]
+[ext_resource type="PackedScene" path="res://ui/achievement_list.tscn" id="5_achievements"]
+[ext_resource type="Theme" uid="uid://cdjimyeku7b0" path="res://ui/hud_theme.tres" id="6_hud_theme"]
+
+[node name="PauseMenu" type="CanvasLayer" unique_id=82101587]
+process_mode = 3
+layer = 110
+script = ExtResource("1_script")
+
+[node name="PauseButton" type="Button" parent="." unique_id=1381750335]
+unique_name_in_owner = true
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -14.0
+offset_top = -6.0
+offset_right = 14.0
+offset_bottom = 20.0
+grow_horizontal = 2
+tooltip_text = "Pause"
+focus_mode = 0
+theme = ExtResource("6_hud_theme")
+
+[node name="BarLeft" type="ColorRect" parent="PauseButton" unique_id=1915623178]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 9.0
+offset_right = 12.0
+offset_bottom = 19.0
+mouse_filter = 2
+color = Color(0.95, 0.9, 0.78, 1)
+
+[node name="BarRight" type="ColorRect" parent="PauseButton" unique_id=434405264]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 9.0
+offset_right = 19.0
+offset_bottom = 19.0
+mouse_filter = 2
+color = Color(0.95, 0.9, 0.78, 1)
+
+[node name="Menu" type="Control" parent="." unique_id=1648737559]
+unique_name_in_owner = true
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_theme")
+
+[node name="Dim" type="ColorRect" parent="Menu" unique_id=918936867]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.6)
+
+[node name="SettingsPanel" type="PanelContainer" parent="Menu" unique_id=163573353]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -140.0
+offset_top = -100.0
+offset_right = 140.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBox" type="VBoxContainer" parent="Menu/SettingsPanel" unique_id=1664564079]
+layout_mode = 2
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="Title" type="Label" parent="Menu/SettingsPanel/VBox" unique_id=504666569]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.86, 0.45, 1)
+theme_override_font_sizes/font_size = 18
+text = "Paused"
+horizontal_alignment = 1
+
+[node name="Rows" type="GridContainer" parent="Menu/SettingsPanel/VBox" unique_id=933801022]
+layout_mode = 2
+theme_override_constants/h_separation = 8
+theme_override_constants/v_separation = 4
+columns = 3
+
+[node name="MusicLabel" type="Label" parent="Menu/SettingsPanel/VBox/Rows" unique_id=1759202289]
+layout_mode = 2
+text = "Music"
+
+[node name="MusicToggle" type="CheckButton" parent="Menu/SettingsPanel/VBox/Rows" unique_id=1212654109]
+unique_name_in_owner = true
+layout_mode = 2
+button_pressed = true
+
+[node name="MusicSlider" type="HSlider" parent="Menu/SettingsPanel/VBox/Rows" unique_id=340595475]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+max_value = 1.0
+step = 0.05
+value = 1.0
+
+[node name="SfxLabel" type="Label" parent="Menu/SettingsPanel/VBox/Rows" unique_id=923392288]
+layout_mode = 2
+text = "Sounds"
+
+[node name="SfxToggle" type="CheckButton" parent="Menu/SettingsPanel/VBox/Rows" unique_id=967201445]
+unique_name_in_owner = true
+layout_mode = 2
+button_pressed = true
+
+[node name="SfxSlider" type="HSlider" parent="Menu/SettingsPanel/VBox/Rows" unique_id=1939081077]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+max_value = 1.0
+step = 0.05
+value = 1.0
+
+[node name="VoiceLabel" type="Label" parent="Menu/SettingsPanel/VBox/Rows" unique_id=775074065]
+layout_mode = 2
+text = "Narrator"
+
+[node name="VoiceToggle" type="CheckButton" parent="Menu/SettingsPanel/VBox/Rows" unique_id=1054263138]
+unique_name_in_owner = true
+layout_mode = 2
+button_pressed = true
+
+[node name="VoiceSlider" type="HSlider" parent="Menu/SettingsPanel/VBox/Rows" unique_id=1799416423]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+max_value = 1.0
+step = 0.05
+value = 1.0
+
+[node name="FullscreenLabel" type="Label" parent="Menu/SettingsPanel/VBox/Rows" unique_id=1281444793]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Full screen"
+
+[node name="FullscreenToggle" type="CheckButton" parent="Menu/SettingsPanel/VBox/Rows" unique_id=389837727]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="LanguageRow" type="HBoxContainer" parent="Menu/SettingsPanel/VBox" unique_id=1517204963]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="LanguageLabel" type="Label" parent="Menu/SettingsPanel/VBox/LanguageRow" unique_id=1873301146]
+layout_mode = 2
+text = "Language"
+
+[node name="LanguagePicker" type="OptionButton" parent="Menu/SettingsPanel/VBox/LanguageRow" unique_id=640512993]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+auto_translate_mode = 2
+
+[node name="ClearSaves" type="HBoxContainer" parent="Menu/SettingsPanel/VBox" unique_id=837021838]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="Buttons" type="HBoxContainer" parent="Menu/SettingsPanel/VBox" unique_id=1054233643]
+layout_mode = 2
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="AchievementsButton" type="Button" parent="Menu/SettingsPanel/VBox/Buttons" unique_id=1298198789]
+unique_name_in_owner = true
+texture_filter = 4
+layout_mode = 2
+tooltip_text = "See achievements"
+theme_override_constants/icon_max_width = 12
+text = "0/13"
+icon = ExtResource("4_star")
+
+[node name="ControlsButton" type="Button" parent="Menu/SettingsPanel/VBox/Buttons" unique_id=1351568233]
+unique_name_in_owner = true
+layout_mode = 2
+tooltip_text = "Show how the controls work"
+text = "Tutorial"
+
+[node name="MainMenuButton" type="Button" parent="Menu/SettingsPanel/VBox/Buttons" unique_id=1774130916]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+text = "Main menu"
+
+[node name="ResumeButton" type="Button" parent="Menu/SettingsPanel/VBox/Buttons" unique_id=649752165]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+text = "Resume"
+
+[node name="LeavePanel" type="PanelContainer" parent="Menu" unique_id=57009453]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -130.0
+offset_top = -55.0
+offset_right = 130.0
+offset_bottom = 55.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBox" type="VBoxContainer" parent="Menu/LeavePanel" unique_id=1936737538]
+layout_mode = 2
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="Title" type="Label" parent="Menu/LeavePanel/VBox" unique_id=276961187]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.86, 0.45, 1)
+theme_override_font_sizes/font_size = 18
+text = "Back to the main menu?"
+horizontal_alignment = 1
+
+[node name="Message" type="Label" parent="Menu/LeavePanel/VBox" unique_id=1551542592]
+layout_mode = 2
+text = "Next time you'll start from the beginning of this chapter."
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="Buttons" type="HBoxContainer" parent="Menu/LeavePanel/VBox" unique_id=953689148]
+layout_mode = 2
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="StayButton" type="Button" parent="Menu/LeavePanel/VBox/Buttons" unique_id=922132017]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(96, 0)
+layout_mode = 2
+text = "Keep playing"
+
+[node name="LeaveButton" type="Button" parent="Menu/LeavePanel/VBox/Buttons" unique_id=1418120522]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(96, 0)
+layout_mode = 2
+text = "Main menu"
+
+[node name="ClearPanel" type="PanelContainer" parent="Menu" unique_id=1491326770]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -120.0
+offset_top = -50.0
+offset_right = 120.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBox" type="VBoxContainer" parent="Menu/ClearPanel" unique_id=1284188603]
+layout_mode = 2
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="ClearTitle" type="Label" parent="Menu/ClearPanel/VBox" unique_id=1003112212]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.86, 0.45, 1)
+theme_override_font_sizes/font_size = 18
+text = "Erase save 1?"
+horizontal_alignment = 1
+
+[node name="Message" type="Label" parent="Menu/ClearPanel/VBox" unique_id=1364734461]
+layout_mode = 2
+text = "This can't be undone."
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="Buttons" type="HBoxContainer" parent="Menu/ClearPanel/VBox" unique_id=1800605831]
+layout_mode = 2
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="KeepButton" type="Button" parent="Menu/ClearPanel/VBox/Buttons" unique_id=705303187]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+text = "Keep it"
+
+[node name="EraseButton" type="Button" parent="Menu/ClearPanel/VBox/Buttons" unique_id=2080911344]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.78, 0.74, 1)
+text = "Erase"
+
+[node name="AchievementList" parent="Menu" unique_id=638916254 instance=ExtResource("5_achievements")]
+unique_name_in_owner = true
+layout_mode = 1
+
+[node name="SoundPreview" type="AudioStreamPlayer" parent="." unique_id=1448690600]
+unique_name_in_owner = true
+stream = ExtResource("3_preview")
+bus = &"SFX"

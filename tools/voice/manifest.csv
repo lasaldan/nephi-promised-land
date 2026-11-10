@@ -1,0 +1,13 @@
+clip,character,title,text,tts_text,tts_override,status,hash,generated_hash,notes
+BAA_AA_AA_I_THE_SHEEP_KEEPS_CH_495A30,sheep,talk_sheep,Baa-aa-aa!,Baa-aa-aa!,,skip,bbc7e3d25d0b,,
+BAWK_BAWK_BAWK_BAWK_I_SHE_SEEM_1B9313,chicken,talk_chicken,"Bawk! Bawk, bawk... BAWK!","Bawk! Bawk, bawk... BAWK!",,skip,37f6fbaf0c03,,
+MAAA_I_THE_GOAT_TRIES_TO_NIBBL_57AA79,goat,talk_goat,Maaa!,Maaa!,,skip,420d37212c3f,,
+tour_walk_touch,nephi,ui_tour,Drag here to help me walk around.,Drag here to help me walk around.,,done,8d7d6d910a36,8d7d6d910a36,
+tour_walk_desktop,nephi,ui_tour,Use the WASD keys to help me walk around.,"Use the W, A, S, D keys to help me walk around.",,done,3b0dcb3b0d50,3b0dcb3b0d50,
+tour_use_touch,nephi,ui_tour,"When I'm close to something, tap here to pick it up, or to talk to someone.","When I'm close to something, tap here to pick it up, or to talk to someone.",,done,ef033c8627ce,ef033c8627ce,
+tour_use_desktop,nephi,ui_tour,"When I'm close to something, press Space, or click here, to pick it up or talk to someone.","When I'm close to something, press Space, or click here, to pick it up or talk to someone.",,done,e1c45f3df59d,e1c45f3df59d,
+tour_quest_touch,nephi,ui_tour,This tells us what to do next. Tap it to hear it.,This tells us what to do next. Tap it to hear it.,,done,7b1a7c40122f,7b1a7c40122f,
+tour_quest_desktop,nephi,ui_tour,This tells us what to do next. Click it to hear it.,This tells us what to do next. Click it to hear it.,,done,329e43d15bde,329e43d15bde,
+tour_pray_touch,nephi,ui_tour,"Not sure where to go? Tap here, and I'll pray to know the way.","Not sure where to go? Tap here, and I'll pray to know the way.",,done,62fb1f7ea9d6,62fb1f7ea9d6,
+tour_pray_desktop,nephi,ui_tour,"Not sure where to go? Click here, and I'll pray to know the way.","Not sure where to go? Click here, and I'll pray to know the way.",,done,b679c25e7aee,b679c25e7aee,
+tour_backpack,nephi,ui_tour,"Things we pick up go here, in my backpack. Now, let's go!","Things we pick up go here, in my backpack. Now, let's go!",,done,5b579c79c919,5b579c79c919,

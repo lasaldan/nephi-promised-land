@@ -1,0 +1,15 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://world/wildlife/flying_bird.gd" id="1_bird"]
+
+[node name="FlyingBird" type="Node2D"]
+z_index = 100
+z_as_relative = false
+script = ExtResource("1_bird")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+
+[node name="Voice" type="AudioStreamPlayer2D" parent="Sprite"]
+max_distance = 450.0
+attenuation = 1.5
+bus = &"SFX"

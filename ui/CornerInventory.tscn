@@ -1,0 +1,274 @@
+[gd_scene format=3 uid="uid://bcccagbg1dehc"]
+
+[ext_resource type="Script" uid="uid://043wvrbavqqh" path="res://ui/corner_inventory.gd" id="1_kalhk"]
+[ext_resource type="Texture2D" uid="uid://1hpnvwsyfjdc" path="res://ui/backpack.png" id="1_vlva1"]
+[ext_resource type="Script" uid="uid://d3vcjff161xch" path="res://ui/InventorySlot.gd" id="2_y637m"]
+[ext_resource type="Theme" uid="uid://cdjimyeku7b0" path="res://ui/hud_theme.tres" id="hud_theme"]
+
+[sub_resource type="Animation" id="Animation_kalhk"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Items:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(176, 4)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Items:size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 32)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ItemAdd:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(145, 40)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("ItemAdd:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_6kdgc"]
+resource_name = "add_to_pack"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ItemAdd:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(145, 40), Vector2(185, 4)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ItemAdd:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_y637m"]
+resource_name = "open_pack"
+step = 0.033
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Items:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(176, 4), Vector2(0, 4)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Items:size")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 32), Vector2(176, 32)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3tuok"]
+_data = {
+&"RESET": SubResource("Animation_kalhk"),
+&"add_to_pack": SubResource("Animation_6kdgc"),
+&"open_pack": SubResource("Animation_y637m")
+}
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bar"]
+bg_color = Color(0, 0, 0, 0.5882353)
+corner_radius_top_left = 4
+corner_radius_bottom_left = 4
+anti_aliasing = false
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_slot"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_s6tpv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_vlva1")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Inventory" type="Control" unique_id=495470351]
+layout_mode = 3
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -221.0
+offset_bottom = 40.0
+grow_horizontal = 0
+script = ExtResource("1_kalhk")
+
+[node name="OpenAnimation" type="AnimationPlayer" parent="." unique_id=90325802]
+libraries/ = SubResource("AnimationLibrary_3tuok")
+speed_scale = 2.0
+
+[node name="AddAnimation" type="AnimationPlayer" parent="." unique_id=412115213]
+libraries/ = SubResource("AnimationLibrary_3tuok")
+speed_scale = 2.0
+
+[node name="Items" type="MarginContainer" parent="." unique_id=313242804]
+clip_contents = true
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 176.0
+offset_top = -16.0
+offset_right = 176.0
+offset_bottom = 16.0
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Bar" type="Panel" parent="Items" unique_id=717013293]
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_bar")
+
+[node name="Wrapper" type="Control" parent="Items" unique_id=1548900556]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Slots" type="HBoxContainer" parent="Items/Wrapper" unique_id=853025224]
+layout_mode = 0
+offset_right = 176.0
+offset_bottom = 32.0
+mouse_filter = 2
+theme_override_constants/separation = 0
+
+[node name="Slot4" type="Panel" parent="Items/Wrapper/Slots" unique_id=1359888983]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_slot")
+script = ExtResource("2_y637m")
+
+[node name="DisplayTexture" type="Sprite2D" parent="Items/Wrapper/Slots/Slot4" unique_id=350994351]
+position = Vector2(16, 16)
+
+[node name="Slot3" type="Panel" parent="Items/Wrapper/Slots" unique_id=1202395735]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_slot")
+script = ExtResource("2_y637m")
+
+[node name="DisplayTexture" type="Sprite2D" parent="Items/Wrapper/Slots/Slot3" unique_id=72073837]
+position = Vector2(16, 16)
+
+[node name="Slot2" type="Panel" parent="Items/Wrapper/Slots" unique_id=851076414]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_slot")
+script = ExtResource("2_y637m")
+
+[node name="DisplayTexture" type="Sprite2D" parent="Items/Wrapper/Slots/Slot2" unique_id=1811837606]
+position = Vector2(16, 16)
+
+[node name="Slot1" type="Panel" parent="Items/Wrapper/Slots" unique_id=1543213635]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_slot")
+script = ExtResource("2_y637m")
+
+[node name="DisplayTexture" type="Sprite2D" parent="Items/Wrapper/Slots/Slot1" unique_id=1701224959]
+position = Vector2(16, 16)
+
+[node name="Slot0" type="Panel" parent="Items/Wrapper/Slots" unique_id=984944116]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_slot")
+script = ExtResource("2_y637m")
+
+[node name="DisplayTexture" type="Sprite2D" parent="Items/Wrapper/Slots/Slot0" unique_id=1278107146]
+position = Vector2(16, 16)
+
+[node name="Backpack" type="Control" parent="." unique_id=1665741011]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -40.0
+offset_top = -20.0
+offset_bottom = 20.0
+grow_horizontal = 0
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="Sprite" type="AnimatedSprite2D" parent="Backpack" unique_id=394017339]
+visible = false
+position = Vector2(16, 16.4)
+scale = Vector2(1.2, 1.2)
+sprite_frames = SubResource("SpriteFrames_s6tpv")
+
+[node name="Button" type="Button" parent="Backpack" unique_id=679539537]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+focus_mode = 0
+theme = ExtResource("hud_theme")
+icon = ExtResource("1_vlva1")
+expand_icon = true
+
+[node name="ItemAdd" type="TextureRect" parent="." unique_id=1153131198]
+layout_mode = 0
+offset_left = 145.0
+offset_top = 40.0
+offset_right = 177.0
+offset_bottom = 72.0
+mouse_filter = 2
+
+[connection signal="pressed" from="Backpack/Button" to="." method="_on_inventory_toggle"]

@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="InventoryItem" format=3 uid="uid://d23mwxy2x0fkw"]
+
+[ext_resource type="Texture2D" uid="uid://dgnjccf58o4dh" path="res://world/items/logs.png" id="1_log"]
+[ext_resource type="Script" uid="uid://cghhxyk18hm7k" path="res://player/inventory/inventory_item.gd" id="2_orjmc"]
+
+[resource]
+script = ExtResource("2_orjmc")
+name = "Log"
+quantity = 1
+icon = ExtResource("1_log")
+metadata/_custom_type_script = "uid://cghhxyk18hm7k"

@@ -1,0 +1,17 @@
+# Every line in the game, by title. Chapters open a title with
+# show_dialogue("title"); talking to someone opens talk_<name>; looking at an
+# artifact opens artifact_<id>. Each line's [ID:...] names its voice clip
+# (voice/<speaker>/<ID>.mp3), made by tools/voice/generate.py. Leave the IDs
+# off new lines: tools/voice/build_manifest.py adds them.
+
+~ talk_sheep
+sheep: Baa-aa-aa! [i](The sheep keeps chewing and stares at you.)[/i] [ID:BAA_AA_AA_I_THE_SHEEP_KEEPS_CH_495A30]
+=> END
+
+~ talk_chicken
+chicken: Bawk! Bawk, bawk... BAWK! [i](She seems to have a lot to say.)[/i] [ID:BAWK_BAWK_BAWK_BAWK_I_SHE_SEEM_1B9313]
+=> END
+
+~ talk_goat
+goat: Maaa! [i](The goat tries to nibble your sleeve.)[/i] [ID:MAAA_I_THE_GOAT_TRIES_TO_NIBBL_57AA79]
+=> END

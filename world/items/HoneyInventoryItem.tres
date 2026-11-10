@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="InventoryItem" format=3 uid="uid://dspxmdl3mo7oo"]
+
+[ext_resource type="Texture2D" uid="uid://7bhabf3h8jbk" path="res://world/items/honeycomb.png" id="1_tq5nd"]
+[ext_resource type="Script" uid="uid://cghhxyk18hm7k" path="res://player/inventory/inventory_item.gd" id="2_item"]
+
+[resource]
+script = ExtResource("2_item")
+name = "Honey"
+quantity = 1
+icon = ExtResource("1_tq5nd")
+metadata/_custom_type_script = "uid://cghhxyk18hm7k"

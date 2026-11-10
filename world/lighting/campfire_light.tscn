@@ -1,0 +1,27 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://world/lighting/flicker_light.gd" id="1_flick"]
+[ext_resource type="Texture2D" path="res://world/lighting/light_falloff.tres" id="2_fall"]
+
+[node name="CampfireLight" type="Node2D"]
+
+[node name="Glow" type="PointLight2D" parent="."]
+color = Color(1, 0.6, 0.29, 1)
+energy = 0.9
+texture = ExtResource("2_fall")
+texture_scale = 6.0
+script = ExtResource("1_flick")
+base_energy = 0.9
+flicker_amount = 0.08
+flicker_speed = 4.0
+
+[node name="Core" type="PointLight2D" parent="."]
+color = Color(1, 0.82, 0.48, 1)
+energy = 1.6
+texture = ExtResource("2_fall")
+texture_scale = 1.5
+script = ExtResource("1_flick")
+base_energy = 1.6
+flicker_amount = 0.25
+flicker_speed = 9.0
+scale_wobble = 0.06

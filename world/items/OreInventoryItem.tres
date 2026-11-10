@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="InventoryItem" format=3 uid="uid://bqnm302ymhhpg"]
+
+[ext_resource type="Texture2D" uid="uid://d2ygxupua5n1" path="res://world/items/ore.png" id="1_pfitb"]
+[ext_resource type="Script" uid="uid://cghhxyk18hm7k" path="res://player/inventory/inventory_item.gd" id="2_orjmc"]
+
+[resource]
+script = ExtResource("2_orjmc")
+name = "Ore"
+quantity = 1
+icon = ExtResource("1_pfitb")
+metadata/_custom_type_script = "uid://cghhxyk18hm7k"

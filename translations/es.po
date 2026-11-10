@@ -1,0 +1,399 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: es\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. sheep in ~ talk_sheep
+#: story/main.dialogue:8
+msgctxt "BAA_AA_AA_I_THE_SHEEP_KEEPS_CH_495A30"
+msgid "Baa-aa-aa! [i](The sheep keeps chewing and stares at you.)[/i]"
+msgstr "¡Beee-ee-ee! [i](La oveja sigue masticando y se te queda mirando.)[/i]"
+
+#. chicken in ~ talk_chicken
+#: story/main.dialogue:12
+msgctxt "BAWK_BAWK_BAWK_BAWK_I_SHE_SEEM_1B9313"
+msgid "Bawk! Bawk, bawk... BAWK! [i](She seems to have a lot to say.)[/i]"
+msgstr "¡Coc! Coc, coc... ¡COCOCÓ! [i](Parece que tiene mucho que decir.)[/i]"
+
+#. goat in ~ talk_goat
+#: story/main.dialogue:16
+msgctxt "MAAA_I_THE_GOAT_TRIES_TO_NIBBL_57AA79"
+msgid "Maaa! [i](The goat tries to nibble your sleeve.)[/i]"
+msgstr "¡Meee! [i](La cabra intenta mordisquearte la manga.)[/i]"
+
+#. the name over sheep's lines
+#: characters/cast.gd
+msgctxt "dialogue"
+msgid "Sheep"
+msgstr "Oveja"
+
+#. the name over chicken's lines
+#: characters/cast.gd
+msgctxt "dialogue"
+msgid "Chicken"
+msgstr "Gallina"
+
+#. the name over goat's lines
+#: characters/cast.gd
+msgctxt "dialogue"
+msgid "Goat"
+msgstr "Cabra"
+
+#. Nephi in the controls tour
+#: story/text/tour_lines.gd:10
+msgctxt "tour_walk_touch"
+msgid "Drag here to help me walk around. "
+msgstr "Arrastra aquí para ayudarme a caminar."
+
+#. Nephi in the controls tour
+#: story/text/tour_lines.gd:11
+msgctxt "tour_walk_desktop"
+msgid "Use the WASD keys to help me walk around."
+msgstr "Usa las teclas WASD para ayudarme a caminar."
+
+#. Nephi in the controls tour
+#: story/text/tour_lines.gd:12
+msgctxt "tour_use_touch"
+msgid "When I'm close to something, tap here to pick it up, or to talk to someone."
+msgstr "Cuando esté cerca de algo, toca aquí para recogerlo o para hablar con alguien."
+
+#. Nephi in the controls tour
+#: story/text/tour_lines.gd:13
+msgctxt "tour_use_desktop"
+msgid "When I'm close to something, press Space, or click here, to pick it up or talk to someone."
+msgstr "Cuando esté cerca de algo, presiona Espacio, o haz clic aquí, para recogerlo o hablar con alguien."
+
+#. Nephi in the controls tour
+#: story/text/tour_lines.gd:14
+msgctxt "tour_quest_touch"
+msgid "This tells us what to do next. Tap it to hear it."
+msgstr "Esto nos dice qué hacer después. Tócalo para escucharlo."
+
+#. Nephi in the controls tour
+#: story/text/tour_lines.gd:15
+msgctxt "tour_quest_desktop"
+msgid "This tells us what to do next. Click it to hear it."
+msgstr "Esto nos dice qué hacer después. Haz clic para escucharlo."
+
+#. Nephi in the controls tour
+#: story/text/tour_lines.gd:16
+msgctxt "tour_pray_touch"
+msgid "Not sure where to go? Tap here, and I'll pray to know the way."
+msgstr "¿No sabes adónde ir? Toca aquí y oraré para saber el camino."
+
+#. Nephi in the controls tour
+#: story/text/tour_lines.gd:17
+msgctxt "tour_pray_desktop"
+msgid "Not sure where to go? Click here, and I'll pray to know the way."
+msgstr "¿No sabes adónde ir? Haz clic aquí y oraré para saber el camino."
+
+#. Nephi in the controls tour
+#: story/text/tour_lines.gd:18
+msgctxt "tour_backpack"
+msgid "Things we pick up go here, in my backpack. Now, let's go!"
+msgstr "Lo que recogemos va aquí, en mi mochila. ¡Ahora, vamos!"
+
+#. name of pray_oft
+#: story/achievements.gd:29
+msgctxt "achievement"
+msgid "Pray Oft"
+msgstr "Ora a menudo"
+
+#. description of pray_oft
+#: story/achievements.gd:29
+msgctxt "achievement"
+msgid "Pray ten times."
+msgstr "Ora diez veces."
+
+#. name of dolittle
+#: story/achievements.gd:30
+msgctxt "achievement"
+msgid "Dolittle"
+msgstr "Doctor Dolittle"
+
+#. description of dolittle
+#: story/achievements.gd:30
+msgctxt "achievement"
+msgid "Talk with a sheep, a chicken, and a goat."
+msgstr "Habla con una oveja, una gallina y una cabra."
+
+#. name of small_talk
+#: story/achievements.gd:32
+msgctxt "achievement"
+msgid "Small Talk"
+msgstr "De charla"
+
+#. description of small_talk
+#: story/achievements.gd:32
+msgctxt "achievement"
+msgid "Talk with everyone."
+msgstr "Habla con todos."
+
+#. name of lepidopterist
+#: story/achievements.gd:33
+msgctxt "achievement"
+msgid "Lepidopterist"
+msgstr "Lepidopterólogo"
+
+#. description of lepidopterist
+#: story/achievements.gd:33
+msgctxt "achievement"
+msgid "Reach out to a butterfly."
+msgstr "Acércate a una mariposa."
+
+#. name of snuggle_bunny
+#: story/achievements.gd:35
+msgctxt "achievement"
+msgid "Snuggle Bunny"
+msgstr "Conejito mimoso"
+
+#. description of snuggle_bunny
+#: story/achievements.gd:35
+msgctxt "achievement"
+msgid "Reach out to a wild bunny."
+msgstr "Acércate a un conejo silvestre."
+
+#: menus/credits.gd
+msgctxt "credits"
+msgid "[font_size=22]Character Sprites[/font_size]\nUniversal LPC Spritesheet Character Generator\nby many Liberated Pixel Cup artists.\nEvery one is named under Credits\non the main menu."
+msgstr "[font_size=22]Personajes[/font_size]\nUniversal LPC Spritesheet Character Generator\nde muchos artistas del Liberated Pixel Cup.\nTodos aparecen en los Créditos\ndel menú principal."
+
+#: menus/credits.gd
+msgctxt "credits"
+msgid "[font_size=22]Character Sprites[/font_size]\nUniversal LPC Spritesheet Character Generator\nliberatedpixelcup.github.io/Universal-LPC-Spritesheet-Character-Generator"
+msgstr "[font_size=22]Personajes[/font_size]\nUniversal LPC Spritesheet Character Generator\nliberatedpixelcup.github.io/Universal-LPC-Spritesheet-Character-Generator"
+
+#: menus/credits.gd
+msgid "This game tells only a small part of the account of Lehi and his family.\n\nThe full story, in Nephi's own words, is found in the Book of Mormon: Another Testament of Jesus Christ."
+msgstr "Este juego cuenta solo una pequeña parte de la historia de Lehi y su familia.\n\nLa historia completa, en las propias palabras de Nefi, se encuentra en el Libro de Mormón: Otro Testamento de Jesucristo."
+
+#: menus/credits.gd
+msgctxt "credits"
+msgid "To be continued..."
+msgstr "Continuará..."
+
+#: menus/credits.gd
+msgctxt "credits"
+msgid "[font_size=30]The Promised Land[/font_size]\n\nAn interactive story by Danimate\nDaniel Fuller"
+msgstr "[font_size=30]La Tierra Prometida[/font_size]\n\nUna historia interactiva de Danimate\nDaniel Fuller"
+
+#: menus/credits.gd
+msgctxt "credits"
+msgid "[font_size=22]Story[/font_size]\nScripture from 1 Nephi in\nThe Book of Mormon:\nAnother Testament of Jesus Christ\n\nDialogue by Daniel Fuller"
+msgstr "[font_size=22]Historia[/font_size]\nEscrituras de 1 Nefi en\nEl Libro de Mormón:\nOtro Testamento de Jesucristo\n\nDiálogo de Daniel Fuller"
+
+#: menus/credits.gd
+msgctxt "credits"
+msgid "[font_size=22]Art[/font_size]\nDaniel Fuller\nIcon art made with PixelLab\nIllustrations made with Gemini"
+msgstr "[font_size=22]Arte[/font_size]\nDaniel Fuller\nArte del ícono hecho con PixelLab\nIlustraciones hechas con Gemini"
+
+#: menus/credits.gd
+msgctxt "credits"
+msgid "[font_size=22]Environment Art[/font_size]\n[i][lb]LPC] Food[/i], [i][lb]LPC] Goat[/i],\n[i][lb]LPC] Birds[/i]\nby bluecarrot16\nCC-BY-SA 4.0 / CC-BY-SA 3.0 / GPL 3.0\nopengameart.org/users/bluecarrot16\n"
+msgstr "[font_size=22]Arte del entorno[/font_size]\n[i][lb]LPC] Food[/i], [i][lb]LPC] Goat[/i],\n[i][lb]LPC] Birds[/i]\nde bluecarrot16\nCC-BY-SA 4.0 / CC-BY-SA 3.0 / GPL 3.0\nopengameart.org/users/bluecarrot16\n"
+
+#: menus/credits.gd
+msgctxt "credits"
+msgid "[font_size=22]Music[/font_size]\nComposed with Suno"
+msgstr "[font_size=22]Música[/font_size]\nCompuesta con Suno"
+
+#: menus/credits.gd
+msgctxt "credits"
+msgid "[font_size=22]Sounds[/font_size]\nDaniel Fuller\nand freesound.org (CC0)"
+msgstr "[font_size=22]Sonidos[/font_size]\nDaniel Fuller\ny freesound.org (CC0)"
+
+#: menus/credits.gd
+msgctxt "credits"
+msgid "[font_size=22]Narration[/font_size]\nWritten by Daniel Fuller\nGenerated with LuvVoice"
+msgstr "[font_size=22]Narración[/font_size]\nEscrita por Daniel Fuller\nGenerada con LuvVoice"
+
+#: menus/credits.gd
+msgctxt "credits"
+msgid "[font_size=22]Fonts[/font_size]\nOverlock by Dario Manuel Muhafara\nLilita One by Juan Montoreano\nSIL Open Font License"
+msgstr "[font_size=22]Fuentes[/font_size]\nOverlock de Dario Manuel Muhafara\nLilita One de Juan Montoreano\nSIL Open Font License"
+
+#: menus/credits.gd
+msgctxt "credits"
+msgid "[font_size=22]Software[/font_size]\nMade with the Godot Engine\ngodotengine.org/license\n\nDialogue Manager by Nathan Hoad\nMIT License\n\nCode written by Daniel Fuller \nwith input from Claude by Anthropic"
+msgstr "[font_size=22]Software[/font_size]\nHecho con el motor Godot\ngodotengine.org/license\n\nDialogue Manager de Nathan Hoad\nLicencia MIT\n\nCódigo escrito por Daniel Fuller \ncon aportes de Claude, de Anthropic"
+
+#: menus/credits.gd
+msgctxt "credits"
+msgid "This game is an independent, fan-made work. It is not created, sponsored, endorsed, or approved by The Church of Jesus Christ of Latter-day Saints or any of its affiliates. The views and gameplay interpretations expressed are those of the developer alone. Scripture text is taken from the 1920 edition of the Book of Mormon, which is in the public domain."
+msgstr "Este juego es una obra independiente hecha por un aficionado. No ha sido creado, patrocinado, respaldado ni aprobado por La Iglesia de Jesucristo de los Santos de los Últimos Días ni por ninguna de sus organizaciones afiliadas. Los puntos de vista y las interpretaciones del juego son solo del desarrollador. El texto de las Escrituras en inglés proviene de la edición de 1920 del Libro de Mormón, que es de dominio público."
+
+#: menus/credits.gd
+msgctxt "credits"
+msgid "Thank you for playing."
+msgstr "Gracias por jugar."
+
+#: menus/main_menu.gd:165 ui/pause_menu.gd:137
+msgid "Save %d"
+msgstr "Partida %d"
+
+#: ui/achievement_list.gd:27
+msgid "%s: %d/%d"
+msgstr "%s: %d/%d"
+
+#: ui/pause_menu.gd:68 ui/pause_menu.gd:95
+msgid "Clear %d"
+msgstr "Borrar %d"
+
+#: ui/pause_menu.gd:97 ui/pause_menu.gd:167
+msgid "Erase save %d?"
+msgstr "¿Borrar la partida %d?"
+
+#: ui/save_slot.gd:32
+msgid "%d%% complete"
+msgstr "%d%% completado"
+
+#: ui/ui_tour.gd:156
+msgid "Tap to start"
+msgstr "Toca para empezar"
+
+#: ui/ui_tour.gd:156
+msgid "Tap to continue"
+msgstr "Toca para continuar"
+
+#: ui/ui_tour.gd:158
+msgid "Click to start"
+msgstr "Haz clic para empezar"
+
+#: ui/ui_tour.gd:158
+msgid "Click to continue"
+msgstr "Haz clic para continuar"
+
+#: menus/main_menu.tscn:102
+msgid "An Interactive Story"
+msgstr "Una historia interactiva"
+
+#: menus/main_menu.tscn:153
+msgid "Quit"
+msgstr "Salir"
+
+#: menus/main_menu.tscn:170 ui/pause_menu.gd
+msgid "Settings"
+msgstr "Ajustes"
+
+#: menus/main_menu.tscn:187
+msgid "Credits"
+msgstr "Créditos"
+
+#: menus/splash.tscn:41
+msgid "An interactive story by"
+msgstr "Una historia interactiva de"
+
+#: ui/achievement_list.tscn:47
+msgid "Achievements"
+msgstr "Logros"
+
+#: ui/achievement_list.tscn:67 ui/pause_menu.gd
+msgid "Done"
+msgstr "Listo"
+
+#: ui/pause_menu.tscn:25
+msgid "Pause"
+msgstr "Pausa"
+
+#: ui/pause_menu.tscn:92 ui/pause_menu.gd
+msgid "Paused"
+msgstr "En pausa"
+
+#: ui/pause_menu.tscn:103
+msgid "Music"
+msgstr "Música"
+
+#: ui/pause_menu.tscn:121
+msgid "Sounds"
+msgstr "Sonidos"
+
+#: ui/pause_menu.tscn:139
+msgid "Narrator"
+msgstr "Narrador"
+
+#: ui/pause_menu.tscn:158
+msgid "Full screen"
+msgstr "Pantalla completa"
+
+#: ui/pause_menu.tscn:170
+msgid "Language"
+msgstr "Idioma"
+
+#: ui/pause_menu.tscn:193 ui/save_slot.tscn:66
+msgid "See achievements"
+msgstr "Ver logros"
+
+#: ui/pause_menu.tscn:201
+msgid "Show how the controls work"
+msgstr "Muestra cómo funcionan los controles"
+
+#: ui/pause_menu.tscn:202
+msgid "Tutorial"
+msgstr "Tutorial"
+
+#: ui/pause_menu.tscn:208 ui/pause_menu.tscn:265
+msgid "Main menu"
+msgstr "Menú principal"
+
+#: ui/pause_menu.tscn:214 ui/pause_menu.gd
+msgid "Resume"
+msgstr "Continuar"
+
+#: ui/pause_menu.tscn:241
+msgid "Back to the main menu?"
+msgstr "¿Volver al menú principal?"
+
+#: ui/pause_menu.tscn:246
+msgid "Next time you'll start from the beginning of this chapter."
+msgstr "La próxima vez empezarás desde el principio de este capítulo."
+
+#: ui/pause_menu.tscn:259
+msgid "Keep playing"
+msgstr "Seguir jugando"
+
+#: ui/pause_menu.tscn:298
+msgid "This can't be undone."
+msgstr "No se puede deshacer."
+
+#: ui/pause_menu.tscn:311
+msgid "Keep it"
+msgstr "Conservarla"
+
+#: ui/pause_menu.tscn:318
+msgid "Erase"
+msgstr "Borrar"
+
+#: ui/save_slot.tscn:38 ui/save_slot.gd
+msgid "New Game"
+msgstr "Juego nuevo"
+
+#: ui/achievement_toast.gd
+msgid "Achievement"
+msgstr "Logro"
+
+#: ui/achievement_list.gd
+msgid "Keep playing to discover this one."
+msgstr "Sigue jugando para descubrir este logro."
+
+#: ui/ui_tour.gd
+msgid "Skip"
+msgstr "Saltar"
+
+#. joining a list: "hammer, saw, and nails"
+#: scripts/language.gd
+msgctxt "list"
+msgid "%s and %s"
+msgstr "%s y %s"
+
+#. joining a list: "hammer, saw, and nails"
+#: scripts/language.gd
+msgctxt "list"
+msgid "%s, and %s"
+msgstr "%s y %s"
+
+#. joining a list: "hammer, saw, and nails"
+#: scripts/language.gd
+msgctxt "list"
+msgid ", "
+msgstr ", "

@@ -1,0 +1,11 @@
+# Godot 4+ specific ignores
+.godot/
+/android/
+/ios/
+.DS_Store
+*.apk
+*.aab
+*.keystore
+**/*~lock~
+# Headless test copies (tools/headless_tests/run.sh in the parent folder)
+/_tmp_*

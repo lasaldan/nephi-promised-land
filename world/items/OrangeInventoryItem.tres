@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="InventoryItem" load_steps=3 format=3 uid="uid://duxdewjxlp7q8"]
+
+[ext_resource type="Texture2D" uid="uid://bhbpsriwb64ot" path="res://world/items/oranges.png" id="1_s6aki"]
+[ext_resource type="Script" uid="uid://cghhxyk18hm7k" path="res://player/inventory/inventory_item.gd" id="2_lfl2d"]
+
+[resource]
+script = ExtResource("2_lfl2d")
+name = "Orange"
+quantity = 1
+icon = ExtResource("1_s6aki")
+metadata/_custom_type_script = "uid://cghhxyk18hm7k"

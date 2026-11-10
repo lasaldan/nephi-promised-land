@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="InventoryItem" format=3 uid="uid://sakekebxlgj6"]
+
+[ext_resource type="Texture2D" uid="uid://c1hdenigpk6v1" path="res://world/items/coconuts.png" id="1_arm6a"]
+[ext_resource type="Script" uid="uid://cghhxyk18hm7k" path="res://player/inventory/inventory_item.gd" id="2_11o8o"]
+
+[resource]
+script = ExtResource("2_11o8o")
+name = "Coconut"
+quantity = 1
+icon = ExtResource("1_arm6a")
+metadata/_custom_type_script = "uid://cghhxyk18hm7k"

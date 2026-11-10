@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="InventoryItem" format=3 uid="uid://dkdob3p6io46r"]
+
+[ext_resource type="Texture2D" uid="uid://btwpxprd10daq" path="res://world/items/lemons.png" id="1_yiyy3"]
+[ext_resource type="Script" uid="uid://cghhxyk18hm7k" path="res://player/inventory/inventory_item.gd" id="2_typfx"]
+
+[resource]
+script = ExtResource("2_typfx")
+name = "Lemon"
+quantity = 1
+icon = ExtResource("1_yiyy3")
+metadata/_custom_type_script = "uid://cghhxyk18hm7k"

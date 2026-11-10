@@ -1,0 +1,213 @@
+[gd_scene format=3 uid="uid://d2jyms0i13i7m"]
+
+[ext_resource type="Script" uid="uid://bcvo0d0k58kkn" path="res://world/world.gd" id="1_world"]
+[ext_resource type="Script" path="res://world/navigation/world_navigation.gd" id="2_nav"]
+[ext_resource type="PackedScene" uid="uid://bqqijecq86ptg" path="res://player/player.tscn" id="3_player"]
+[ext_resource type="PackedScene" uid="uid://dk7chapscenex" path="res://story/chapters.tscn" id="4_chapters"]
+[ext_resource type="PackedScene" path="res://world/wildlife/flying_bird.tscn" id="5_bird"]
+[ext_resource type="PackedScene" path="res://world/wildlife/butterfly.tscn" id="6_butterfly"]
+[ext_resource type="PackedScene" uid="uid://d4dwbqrpe8sp5" path="res://characters/animals/bunny/bunny.tscn" id="7_bunny"]
+[ext_resource type="Script" uid="uid://b6ef8aqrrip7t" path="res://audio/music_playlist.gd" id="8_playlist"]
+[ext_resource type="AudioStream" uid="uid://bpl54jrnlu1yo" path="res://audio/music/gentle_historical_journey.mp3" id="9_track1"]
+[ext_resource type="AudioStream" uid="uid://daqrkvni727w6" path="res://audio/music/delicate_hymn.mp3" id="10_track2"]
+[ext_resource type="AudioStream" uid="uid://blujk7oowgkg8" path="res://audio/music/background_1.mp3" id="11_track3"]
+[ext_resource type="AudioStream" uid="uid://moyof031pn2m" path="res://audio/music/background_2.mp3" id="12_track4"]
+[ext_resource type="Script" uid="uid://bcahqnpacgxt5" path="res://world/lighting/day_night.gd" id="13_daynight"]
+[ext_resource type="PackedScene" uid="uid://dmr0fcamx7t56" path="res://addons/virtual_joystick/virtual_joystick_scene.tscn" id="14_joystick"]
+[ext_resource type="PackedScene" uid="uid://bcccagbg1dehc" path="res://ui/CornerInventory.tscn" id="15_inventory"]
+[ext_resource type="Theme" uid="uid://cdjimyeku7b0" path="res://ui/hud_theme.tres" id="16_theme"]
+[ext_resource type="Texture2D" uid="uid://prukbinmxe64" path="res://ui/hand.png" id="17_hand"]
+[ext_resource type="SpriteFrames" uid="uid://cm3mtfmwjsrl4" path="res://ui/icon.tres" id="18_quest_icon"]
+[ext_resource type="Texture2D" uid="uid://dc7t5q5fpqxm" path="res://ui/pray.png" id="19_pray"]
+[ext_resource type="PackedScene" uid="uid://dgcys38w5yyuf" path="res://ui/scripture_scroll.tscn" id="20_scripture"]
+[ext_resource type="PackedScene" path="res://ui/activity_scroll.tscn" id="21_activity"]
+
+[node name="World" type="Node2D"]
+y_sort_enabled = true
+script = ExtResource("1_world")
+
+[node name="GroundLayer" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="PlaceholderGround" type="Polygon2D" parent="GroundLayer"]
+z_index = -10
+color = Color(0.42, 0.56, 0.3, 1)
+polygon = PackedVector2Array(-2048, -2048, 2048, -2048, 2048, 2048, -2048, 2048)
+
+[node name="Navigation" type="NavigationRegion2D" parent="." node_paths=PackedStringArray("ground")]
+script = ExtResource("2_nav")
+ground = NodePath("../GroundLayer")
+
+[node name="Player" parent="." instance=ExtResource("3_player")]
+y_sort_enabled = true
+
+[node name="Cutscene" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="Camera" type="Camera2D" parent="Cutscene"]
+enabled = false
+
+[node name="Chapters" parent="." instance=ExtResource("4_chapters")]
+
+[node name="Wildlife" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="Hawk" parent="Wildlife" instance=ExtResource("5_bird")]
+radius = Vector2(900, 600)
+
+[node name="Bluebird" parent="Wildlife" instance=ExtResource("5_bird")]
+position = Vector2(-300, 200)
+type = 9
+radius = Vector2(700, 450)
+speed = 60.0
+clockwise = false
+start_angle = 120.0
+
+[node name="Cardinal" parent="Wildlife" instance=ExtResource("5_bird")]
+position = Vector2(300, -200)
+type = 6
+radius = Vector2(600, 500)
+speed = 65.0
+start_angle = 240.0
+
+[node name="Butterfly" parent="Wildlife" instance=ExtResource("6_butterfly")]
+position = Vector2(160, 96)
+
+[node name="Bunny" parent="Wildlife" instance=ExtResource("7_bunny")]
+position = Vector2(-192, 128)
+
+[node name="Ambience" type="Node" parent="."]
+
+[node name="Music" type="AudioStreamPlayer" parent="Ambience"]
+bus = &"Music"
+script = ExtResource("8_playlist")
+tracks = Array[AudioStream]([ExtResource("9_track1"), ExtResource("10_track2"), ExtResource("11_track3"), ExtResource("12_track4")])
+
+[node name="Narration" type="AudioStreamPlayer" parent="Ambience"]
+bus = &"Voice"
+
+[node name="DayNight" type="CanvasModulate" parent="."]
+script = ExtResource("13_daynight")
+
+[node name="UI" type="CanvasLayer" parent="."]
+layer = 2
+
+[node name="Virtual Joystick" parent="UI" instance=ExtResource("14_joystick")]
+offset_left = 24.0
+offset_top = -104.0
+offset_right = 324.0
+offset_bottom = 196.0
+scale = Vector2(0.26812473, 0.26812473)
+pressed_color = Color(1, 0.83137256, 0.3882353, 1)
+deadzone_size = 0.0
+clampzone_size = 36.0
+joystick_mode = 1
+visibility_mode = 1
+action_left = "move_left"
+action_right = "move_right"
+action_up = "move_up"
+action_down = "move_down"
+
+[node name="Inventory" parent="UI" instance=ExtResource("15_inventory")]
+custom_minimum_size = Vector2(221, 40)
+offset_left = -228.0
+offset_top = 6.0
+offset_right = -7.0
+offset_bottom = 46.0
+
+[node name="UseButtonHolder" type="Control" parent="UI"]
+layout_mode = 3
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -47.0
+offset_top = -46.0
+offset_right = -7.0
+offset_bottom = -6.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="UseButton" type="Button" parent="UI/UseButtonHolder"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+focus_mode = 0
+theme = ExtResource("16_theme")
+icon = ExtResource("17_hand")
+expand_icon = true
+
+[node name="Quest" type="Control" parent="UI"]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 0
+offset_left = 7.0
+offset_top = 6.0
+offset_right = 220.0
+offset_bottom = 46.0
+size_flags_horizontal = 0
+size_flags_vertical = 4
+theme = ExtResource("16_theme")
+
+[node name="QuestPanel" type="Panel" parent="UI/Quest"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/Quest/QuestPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = -9
+
+[node name="IconMargin" type="MarginContainer" parent="UI/Quest/QuestPanel/HBoxContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="QuestIcon" type="AnimatedSprite2D" parent="UI/Quest/QuestPanel/HBoxContainer/IconMargin"]
+unique_name_in_owner = true
+position = Vector2(16, 21)
+sprite_frames = ExtResource("18_quest_icon")
+animation = &"quest"
+
+[node name="TextMargin" type="MarginContainer" parent="UI/Quest/QuestPanel/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 5
+
+[node name="QuestText" type="RichTextLabel" parent="UI/Quest/QuestPanel/HBoxContainer/TextMargin"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/normal_font_size = 12
+fit_content = true
+vertical_alignment = 1
+
+[node name="PrayButton" type="Button" parent="UI/Quest"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_top = 46.0
+offset_right = 40.0
+offset_bottom = 86.0
+focus_mode = 0
+icon = ExtResource("19_pray")
+expand_icon = true
+
+[node name="ScriptureScroll" parent="." instance=ExtResource("20_scripture")]
+visible = false
+
+[node name="ActivityScroll" parent="." instance=ExtResource("21_activity")]

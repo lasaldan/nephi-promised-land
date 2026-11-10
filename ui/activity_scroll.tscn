@@ -1,0 +1,14 @@
+[gd_scene format=4]
+
+[ext_resource type="Script" path="res://ui/activity_scroll.gd" id="1_script"]
+[ext_resource type="TileSet" uid="uid://bhhlrgw3vueua" path="res://ui/scripture_scroll_tile_set.tres" id="2_tiles"]
+
+[node name="ActivityScroll" type="CanvasLayer"]
+layer = 40
+script = ExtResource("1_script")
+
+[node name="Paper" type="TileMapLayer" parent="."]
+tile_set = ExtResource("2_tiles")
+occlusion_enabled = false
+collision_enabled = false
+navigation_enabled = false
