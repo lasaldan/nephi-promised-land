@@ -53,6 +53,7 @@ signal dialogue_ended
 @onready var day_night: DayNight = $DayNight
 @onready var fog: Fog = $Fog
 @onready var rain: Rain = $Rain
+@onready var ship: ShipSway = $Chapters/ShipAtSea/Ship
 @onready var music: MusicPlaylist = $Ambience/Music
 @onready var navigation: WorldNavigation = $Navigation
 @onready var player: CharacterBody2D = $Player
@@ -66,6 +67,8 @@ const FOG_FLAG := "fog_density"
 const RAIN_FLAG := "rain_intensity"
 # And how often lightning strikes in it.
 const LIGHTNING_FLAG := "lightning_every"
+# And how rough the sea is under the ship.
+const SEA_FLAG := "sea_state"
 
 func _ready() -> void:
 	GameSettings.ensure_loaded()
@@ -97,6 +100,7 @@ func _ready() -> void:
 	fog.density = StoryState.get_flag(FOG_FLAG, fog.density)
 	rain.intensity = StoryState.get_flag(RAIN_FLAG, rain.intensity)
 	rain.lightning_every = StoryState.get_flag(LIGHTNING_FLAG, rain.lightning_every)
+	ship.sea = StoryState.get_flag(SEA_FLAG, ship.sea)
 	continueStoryline()
 
 func _physics_process(_delta: float) -> void:
@@ -172,6 +176,7 @@ func continueStoryline() -> void:
 		StoryState.set_flag(FOG_FLAG, fog.density)
 		StoryState.set_flag(RAIN_FLAG, rain.intensity)
 		StoryState.set_flag(LIGHTNING_FLAG, rain.lightning_every)
+		StoryState.set_flag(SEA_FLAG, ship.sea)
 		if not _debug_started:
 			StoryState.save_game()
 		print("Checkpoint: %s complete%s" % [chapter.id, " (debug start, not saved)" if _debug_started else ", saved"])

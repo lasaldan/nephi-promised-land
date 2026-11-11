@@ -26,6 +26,7 @@
 [ext_resource type="Script" uid="uid://dneu00bntfa6t" path="res://world/weather/fog.gd" id="22_fog"]
 [ext_resource type="Script" uid="uid://jyw0k6ill6jn" path="res://world/weather/rain.gd" id="23_rain"]
 [ext_resource type="AudioStream" uid="uid://c5lswhkmvnm4d" path="res://audio/ambience/thunder.ogg" id="24_thunder"]
+[ext_resource type="Script" uid="uid://dok1tbyng1ej4" path="res://world/weather/ship_sway.gd" id="25_sway"]
 
 [node name="World" type="Node2D" unique_id=431482446]
 y_sort_enabled = true
@@ -67,6 +68,7 @@ tile_map_data = PackedByteArray("AAAAAAAAAAAYAB4AAAAAAAEAAAAYAB4AAAAAAAIAAAAYAB4
 tile_set = ExtResource("5_o1net")
 
 [node name="Ship" type="Node2D" parent="Chapters/ShipAtSea" unique_id=1422457109]
+script = ExtResource("25_sway")
 
 [node name="LowerDeck" type="TileMapLayer" parent="Chapters/ShipAtSea/Ship" unique_id=512848147]
 tile_set = ExtResource("6_3ljsx")
@@ -128,7 +130,6 @@ tracks = Array[AudioStream]([ExtResource("9_track1"), ExtResource("10_track2"), 
 bus = &"Voice"
 
 [node name="DayNight" type="CanvasModulate" parent="." unique_id=1438125560]
-color = Color(0.987862, 0.989018, 0.99133, 1)
 script = ExtResource("13_daynight")
 
 [node name="Fog" type="Node2D" parent="." unique_id=1846203917]
@@ -141,14 +142,13 @@ patchiness = 0.25
 [node name="Rain" type="Node2D" parent="." unique_id=1927364051 node_paths=PackedStringArray("splash_surfaces")]
 z_index = 91
 script = ExtResource("23_rain")
-intensity = 0.17
 wind = 117.0
 darken = 1.0
-splashes = 0.0
+splashes = 0.25
 splash_surfaces = [NodePath("../Chapters/ShipAtSea/Ship/Upper/Deck"), NodePath("../Chapters/ShipAtSea/ParallaxSea/Sea")]
-lightning_every = 4.5
+lightning_every = 25.5
 thunder = ExtResource("24_thunder")
-thunder_volume_db = 2.485
+thunder_volume_db = 3.995
 
 [node name="UI" type="CanvasLayer" parent="." unique_id=1601964450]
 layer = 2

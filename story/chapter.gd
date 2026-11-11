@@ -677,6 +677,21 @@ func stopLightning() -> void:
 func lightningStrikes(strength: float = 1.0) -> void:
 	await world.rain.strike(strength)
 
+# The sea under the ship (world/weather/ship_sway.gd): 0 is a calm swell, 1 a
+# storm, with the ship heaving higher and slower and tipping harder. Like the
+# rain it outlasts the chapter.
+#   await seaRoughens()               # into the storm over 8 seconds
+#   await setSea(0.5, 4.0)            # halfway
+#   await seaCalms(10.0)
+func seaRoughens(seconds: float = 8.0) -> void:
+	await world.ship.set_sea(1.0, seconds)
+
+func seaCalms(seconds: float = 8.0) -> void:
+	await world.ship.set_sea(0.0, seconds)
+
+func setSea(roughness: float, seconds: float = 5.0) -> void:
+	await world.ship.set_sea(roughness, seconds)
+
 # Which items the player may pick up, by InventoryItem name. Once one is
 # in the pack, only that same item can be added until emptyBackpack().
 # Call with no names to allow nothing. Clears any setPickupLimit().
