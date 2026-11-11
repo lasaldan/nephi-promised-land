@@ -8,6 +8,7 @@ class_name World
 # but these are the world's own controls:
 #
 #   day_night        the time of day (world/lighting/day_night.gd)
+#   fog              drifting fog over the world (world/weather/fog.gd)
 #   music            background music (audio/music_playlist.gd)
 #   fade             the screen fade (ui/screen_fade.gd)
 #   setQuest()       the quest plaque, top left
@@ -49,6 +50,7 @@ signal item_added(item: InventoryItem)
 signal dialogue_ended
 
 @onready var day_night: DayNight = $DayNight
+@onready var fog: Fog = $Fog
 @onready var music: MusicPlaylist = $Ambience/Music
 @onready var navigation: WorldNavigation = $Navigation
 @onready var player: CharacterBody2D = $Player
@@ -56,6 +58,8 @@ var fade: ScreenFade
 
 # The flag the hour is saved under with each chapter.
 const TIME_OF_DAY_FLAG := "time_of_day"
+# And how thick the fog is.
+const FOG_FLAG := "fog_density"
 
 func _ready() -> void:
 	GameSettings.ensure_loaded()
@@ -84,6 +88,7 @@ func _ready() -> void:
 	if not _apply_debug_start() and (StoryState.slot_chosen or resume_from_save):
 		StoryState.load_game()
 	day_night.hour = StoryState.get_flag(TIME_OF_DAY_FLAG, day_night.hour)
+	fog.density = StoryState.get_flag(FOG_FLAG, fog.density)
 	continueStoryline()
 
 func _physics_process(_delta: float) -> void:
@@ -156,6 +161,7 @@ func continueStoryline() -> void:
 		StoryState.complete_chapter(chapter.id)
 		Collectable.remember_collected(get_tree())
 		StoryState.set_flag(TIME_OF_DAY_FLAG, day_night.hour)
+		StoryState.set_flag(FOG_FLAG, fog.density)
 		if not _debug_started:
 			StoryState.save_game()
 		print("Checkpoint: %s complete%s" % [chapter.id, " (debug start, not saved)" if _debug_started else ", saved"])

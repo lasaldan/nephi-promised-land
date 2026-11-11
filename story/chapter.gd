@@ -621,6 +621,26 @@ func startDayCycle(minutes_per_day: float) -> void:
 func stopDayCycle() -> void:
 	world.day_night.stop_cycle()
 
+# Fog (world/weather/fog.gd): lumpy banks that sit with the ground and drift
+# on the wind. DayNight tints it, so night fog is blue-grey. Like the time of
+# day it outlasts the chapter. density runs 0 (clear) to 1 (thick).
+#   await fogRollsIn()
+#   await setFog(0.3, 2.0)            # a light haze
+#   setFogWind(Vector2(40, 0))        # at sea, sailing west through it
+#   await fogLifts(8.0)
+func fogRollsIn(density: float = 0.7, seconds: float = 6.0) -> void:
+	await world.fog.fade_to(density, seconds)
+
+func fogLifts(seconds: float = 6.0) -> void:
+	await world.fog.fade_to(0.0, seconds)
+
+func setFog(density: float, seconds: float = 3.0) -> void:
+	await world.fog.fade_to(density, seconds)
+
+# World pixels per second.
+func setFogWind(wind: Vector2) -> void:
+	world.fog.wind = wind
+
 # Which items the player may pick up, by InventoryItem name. Once one is
 # in the pack, only that same item can be added until emptyBackpack().
 # Call with no names to allow nothing. Clears any setPickupLimit().
