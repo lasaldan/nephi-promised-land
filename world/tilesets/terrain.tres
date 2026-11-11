@@ -1,0 +1,38 @@
+[gd_resource type="TileSet" format=3 uid="uid://vl612ww4e212"]
+
+[ext_resource type="Texture2D" uid="uid://qnjpc4bgu3rv" path="res://world/tilesets/terrain.png" id="1_8ibjt"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_k5ppx"]
+texture = ExtResource("1_8ibjt")
+texture_region_size = Vector2i(32, 32)
+24:29/next_alternative_id = 2
+24:29/animation_columns = 4
+24:29/animation_speed = 4.0
+24:29/animation_mode = 1
+24:29/animation_frame_0/duration = 1.0
+24:29/animation_frame_1/duration = 1.0
+24:29/animation_frame_2/duration = 1.0
+24:29/animation_frame_3/duration = 1.0
+24:29/0 = 0
+24:29/0/probability = 0.25
+24:29/1 = 1
+24:29/1/flip_h = true
+24:29/1/transpose = true
+24:29/1/probability = 0.25
+24:30/next_alternative_id = 2
+24:30/animation_columns = 4
+24:30/animation_mode = 1
+24:30/animation_frame_0/duration = 1.0
+24:30/animation_frame_1/duration = 1.0
+24:30/animation_frame_2/duration = 1.0
+24:30/animation_frame_3/duration = 1.0
+24:30/0 = 0
+24:30/1 = 1
+24:30/1/flip_h = true
+24:30/1/transpose = true
+28:29/0 = 0
+28:30/0 = 0
+
+[resource]
+tile_size = Vector2i(32, 32)
+sources/0 = SubResource("TileSetAtlasSource_k5ppx")

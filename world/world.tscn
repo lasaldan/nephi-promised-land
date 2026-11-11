@@ -1,10 +1,12 @@
-[gd_scene format=3 uid="uid://d2jyms0i13i7m"]
+[gd_scene format=4 uid="uid://d2jyms0i13i7m"]
 
 [ext_resource type="Script" uid="uid://bcvo0d0k58kkn" path="res://world/world.gd" id="1_world"]
-[ext_resource type="Script" path="res://world/navigation/world_navigation.gd" id="2_nav"]
+[ext_resource type="Script" uid="uid://bkvrvsi276433" path="res://world/navigation/world_navigation.gd" id="2_nav"]
 [ext_resource type="PackedScene" uid="uid://bqqijecq86ptg" path="res://player/player.tscn" id="3_player"]
 [ext_resource type="PackedScene" uid="uid://dk7chapscenex" path="res://story/chapters.tscn" id="4_chapters"]
 [ext_resource type="PackedScene" path="res://world/wildlife/flying_bird.tscn" id="5_bird"]
+[ext_resource type="TileSet" uid="uid://vl612ww4e212" path="res://world/tilesets/terrain.tres" id="5_o1net"]
+[ext_resource type="TileSet" uid="uid://de5tv4733kve2" path="res://world/tilesets/ship.tres" id="6_3ljsx"]
 [ext_resource type="PackedScene" path="res://world/wildlife/butterfly.tscn" id="6_butterfly"]
 [ext_resource type="PackedScene" uid="uid://d4dwbqrpe8sp5" path="res://characters/animals/bunny/bunny.tscn" id="7_bunny"]
 [ext_resource type="Script" uid="uid://b6ef8aqrrip7t" path="res://audio/music_playlist.gd" id="8_playlist"]
@@ -22,40 +24,75 @@
 [ext_resource type="PackedScene" uid="uid://dgcys38w5yyuf" path="res://ui/scripture_scroll.tscn" id="20_scripture"]
 [ext_resource type="PackedScene" path="res://ui/activity_scroll.tscn" id="21_activity"]
 
-[node name="World" type="Node2D"]
+[node name="World" type="Node2D" unique_id=431482446]
 y_sort_enabled = true
 script = ExtResource("1_world")
 
-[node name="GroundLayer" type="Node2D" parent="."]
+[node name="GroundLayer" type="Node2D" parent="." unique_id=2141995684]
+visible = false
 y_sort_enabled = true
 
-[node name="PlaceholderGround" type="Polygon2D" parent="GroundLayer"]
+[node name="PlaceholderGround" type="Polygon2D" parent="GroundLayer" unique_id=1288523278]
 z_index = -10
 color = Color(0.42, 0.56, 0.3, 1)
 polygon = PackedVector2Array(-2048, -2048, 2048, -2048, 2048, 2048, -2048, 2048)
 
-[node name="Navigation" type="NavigationRegion2D" parent="." node_paths=PackedStringArray("ground")]
+[node name="Navigation" type="NavigationRegion2D" parent="." unique_id=737058990 node_paths=PackedStringArray("ground")]
 script = ExtResource("2_nav")
 ground = NodePath("../GroundLayer")
 
-[node name="Player" parent="." instance=ExtResource("3_player")]
+[node name="Player" parent="." unique_id=682661342 instance=ExtResource("3_player")]
 y_sort_enabled = true
 
-[node name="Cutscene" type="Node2D" parent="."]
+[node name="Cutscene" type="Node2D" parent="." unique_id=1667156841]
 y_sort_enabled = true
 
-[node name="Camera" type="Camera2D" parent="Cutscene"]
+[node name="Camera" type="Camera2D" parent="Cutscene" unique_id=1036728568]
 enabled = false
 
-[node name="Chapters" parent="." instance=ExtResource("4_chapters")]
+[node name="Chapters" parent="." unique_id=965286986 instance=ExtResource("4_chapters")]
 
-[node name="Wildlife" type="Node2D" parent="."]
+[node name="ShipAtSea" type="Node2D" parent="Chapters" unique_id=1708612770]
+
+[node name="ParallaxSea" type="Parallax2D" parent="Chapters/ShipAtSea" unique_id=1075929717]
+repeat_size = Vector2(320, 320)
+autoscroll = Vector2(40, 0)
+repeat_times = 3
+
+[node name="Sea" type="TileMapLayer" parent="Chapters/ShipAtSea/ParallaxSea" unique_id=1659675658]
+tile_map_data = PackedByteArray("AAAAAAAAAAAYAB4AAAAAAAEAAAAYAB4AAAAAAAIAAAAYAB4AAAAAAAMAAAAYAB4AAAAAAAQAAAAYAB4AAAAAAAUAAAAYAB4AAAAAAAYAAAAYAB4AAAAAAAcAAAAYAB4AAAAAAAgAAAAYAB4AAAAAAAkAAAAYAB4AAAABAAAAAAAYAB0AAQABAAEAAAAYAB0AAQABAAIAAAAYAB0AAQABAAMAAAAYAB0AAQABAAQAAAAYAB0AAQABAAUAAAAYAB0AAQABAAYAAAAYAB0AAQABAAcAAAAYAB0AAQABAAgAAAAYAB0AAQABAAkAAAAYAB0AAQACAAAAAAAYAB4AAQACAAEAAAAYAB4AAQACAAIAAAAYAB4AAQACAAMAAAAYAB4AAQACAAQAAAAYAB4AAQACAAUAAAAYAB4AAQACAAYAAAAYAB4AAQACAAcAAAAYAB4AAQACAAgAAAAYAB4AAQACAAkAAAAYAB4AAQADAAAAAAAYAB4AAAADAAEAAAAYAB4AAAADAAIAAAAYAB4AAAADAAMAAAAYAB4AAAADAAQAAAAYAB4AAAADAAUAAAAYAB4AAAADAAYAAAAYAB4AAAADAAcAAAAYAB4AAAADAAgAAAAYAB4AAAADAAkAAAAYAB4AAAAEAAAAAAAYAB0AAQAEAAEAAAAYAB0AAQAEAAIAAAAYAB0AAQAEAAMAAAAYAB0AAQAEAAQAAAAYAB0AAQAEAAUAAAAYAB0AAQAEAAYAAAAYAB0AAQAEAAcAAAAYAB0AAQAEAAgAAAAYAB0AAQAEAAkAAAAYAB0AAQAFAAAAAAAYAB4AAQAFAAEAAAAYAB4AAQAFAAIAAAAYAB4AAQAFAAMAAAAYAB4AAQAFAAQAAAAYAB4AAQAFAAUAAAAYAB4AAQAFAAYAAAAYAB4AAQAFAAcAAAAYAB4AAQAFAAgAAAAYAB4AAQAFAAkAAAAYAB4AAQAGAAAAAAAYAB4AAAAGAAEAAAAYAB4AAAAGAAIAAAAYAB4AAAAGAAMAAAAYAB4AAAAGAAQAAAAYAB4AAAAGAAUAAAAYAB4AAAAGAAYAAAAYAB4AAAAGAAcAAAAYAB4AAAAGAAgAAAAYAB4AAAAGAAkAAAAYAB4AAAAHAAAAAAAYAB0AAQAHAAEAAAAYAB0AAQAHAAIAAAAYAB0AAQAHAAMAAAAYAB0AAQAHAAQAAAAYAB0AAQAHAAUAAAAYAB0AAQAHAAYAAAAYAB0AAQAHAAcAAAAYAB0AAQAHAAgAAAAYAB0AAQAHAAkAAAAYAB0AAQAIAAAAAAAYAB4AAQAIAAEAAAAYAB4AAQAIAAIAAAAYAB4AAQAIAAMAAAAYAB4AAQAIAAQAAAAYAB4AAQAIAAUAAAAYAB4AAQAIAAYAAAAYAB4AAQAIAAcAAAAYAB4AAQAIAAgAAAAYAB4AAQAIAAkAAAAYAB4AAQAJAAAAAAAYAB4AAAAJAAEAAAAYAB4AAAAJAAIAAAAYAB4AAAAJAAMAAAAYAB4AAAAJAAQAAAAYAB4AAAAJAAUAAAAYAB4AAAAJAAYAAAAYAB4AAAAJAAcAAAAYAB4AAAAJAAgAAAAYAB4AAAAJAAkAAAAYAB4AAAA=")
+tile_set = ExtResource("5_o1net")
+
+[node name="Ship" type="Node2D" parent="Chapters/ShipAtSea" unique_id=1422457109]
+
+[node name="LowerDeck" type="TileMapLayer" parent="Chapters/ShipAtSea/Ship" unique_id=512848147]
+tile_set = ExtResource("6_3ljsx")
+
+[node name="Upper" type="Node2D" parent="Chapters/ShipAtSea/Ship" unique_id=1758937695]
+
+[node name="Hull" type="TileMapLayer" parent="Chapters/ShipAtSea/Ship/Upper" unique_id=804395608]
+tile_map_data = PackedByteArray("AAD+/wUAAAABAA0AAAD9/wYAAAAAABEAAAD+/wYAAAABABEAAAD//wcAAAACABIAAAAAAAcAAAADABIAAAAAAAYAAAADAA4AAAD//wYAAAACAA4AAAD//wUAAAACAA0AAAD9/wUAAAAAAAoAAAABAAgAAAAJABIAAAACAAgAAAAKABIAAAADAAgAAAALABIAAAAEAAgAAAAMABIAAAAFAAgAAAANABIAAAABAAcAAAAJABEAAAACAAcAAAAFAA8AAAAAAAUAAAADAA0AAAABAAYAAAAEAA4AAAACAAYAAAAFAA4AAAADAAYAAAAGAA4AAAADAAcAAAAGAA8AAAAEAAYAAAAHAA4AAAAEAAcAAAAHAA8AAAAFAAYAAAAHAA4AAAAFAAcAAAAIAA8AAAD+/wcAAAABABQAAAAAAAgAAAADABUAAAAGAAYAAAAHAA4AAAAGAAcAAAAIAA8AAAAGAAgAAAANABIAAAAHAAYAAAAHAA4AAAAHAAcAAAAIAA8AAAAHAAgAAAANABIAAAAIAAYAAAAHAA4AAAAIAAcAAAAIAA8AAAAIAAgAAAANABIAAAAJAAYAAAAHAA4AAAAJAAcAAAAIAA8AAAAJAAgAAAANABIAAAAKAAYAAAAHAA4AAAAKAAcAAAAIAA8AAAAKAAgAAAANABIAAAALAAYAAAAHAA4AAAALAAcAAAAIAA8AAAALAAgAAAANABIAAAAMAAYAAAAHAA4AAAAMAAcAAAAIAA8AAAAMAAgAAAANABIAAAAOAAYAAAAQAA4AAAAOAAcAAAAIAA8AAAAOAAgAAAANABIAAAAPAAUAAAAIAA4AAAAPAAYAAAAIAA8AAAAPAAcAAAAIAA8AAAAPAAgAAAANABIAAAAQAAUAAAAIAA4AAAAQAAYAAAAIAA8AAAAQAAcAAAAIAA8AAAAQAAgAAAASABIAAAARAAUAAAAXAA4AAAARAAYAAAAXAA8AAAARAAcAAAAXABAAAAARAAgAAAATABIAAAANAAYAAAAHAA4AAAANAAcAAAAIAA8AAAANAAgAAAANABIAAAAOAAUAAAAQAA0AAAAOAAQAAAAQAAoAAAAOAAMAAAAQAAoAAAAOAAIAAAAQAAoAAAAOAAEAAAAQAAkAAAAOAAAAAAAGAAwAAAAJAAAAAAANAAsAAAAJAAEAAAANAAwAAAAKAAAAAAANAAsAAAAKAAEAAAANAAwAAAALAAAAAAANAAsAAAALAAEAAAANAAwAAAAIAAAAAAAMAAsAAAAIAAEAAAAMAAwAAAAMAAAAAAAOAAsAAAAMAAEAAAAOAAwAAAANAAEAAAAIAAkAAAARAAQAAAATAAsAAAARAAMAAAATAAsAAAARAAIAAAATAAsAAAARAAEAAAATAAsAAAARAAAAAAAWAAkAAAAQAAAAAAAIAAkAAAAPAAAAAAAIAAkAAAA=")
+tile_set = ExtResource("6_3ljsx")
+
+[node name="Deck" type="TileMapLayer" parent="Chapters/ShipAtSea/Ship/Upper" unique_id=615076428]
+tile_map_data = PackedByteArray("AAAAAAAAAAADAAAAAAD+/wMAAAABAAsAAAD+/wQAAAABAAwAAAD9/wMAAAAAAAsAAAD9/wQAAAAAAAwAAAD//wIAAAACAAoAAAD//wMAAAACAAsAAAD//wQAAAACAAwAAAD//wUAAAACAA0AAAD+/wUAAAABAA0AAAAAAAUAAAADAA0AAAAAAAYAAAADAA4AAAABAAUAAAAEAA0AAAABAAYAAAAEAA4AAAD//wYAAAACAA4AAAAAAAIAAAAIAAwAAAAAAAMAAAAIAAwAAAABAAMAAAAIAAsAAAACAAMAAAAIAAwAAAADAAMAAAAIAAsAAAAEAAMAAAAIAAsAAAAFAAQAAAAFABkAAAAGAAQAAAAGABkAAAAHAAQAAAAHABkAAAAHAAMAAAAHABYAAAAGAAMAAAAGABYAAAAFAAMAAAAFABYAAAAFAAIAAAAIAAwAAAAGAAIAAAAHAAsAAAAHAAIAAAAIAAwAAAAEAAIAAAAHAAwAAAADAAIAAAAIAAsAAAACAAIAAAAHAAsAAAABAAIAAAAIAAsAAAAEAAEAAAAIAAwAAAAFAAEAAAAIAAkAAAAGAAEAAAAIAAkAAAAHAAEAAAAIAAkAAAAAAAQAAAAIAAwAAAABAAQAAAAHAAwAAAACAAQAAAAIAAsAAAADAAQAAAAIAAwAAAAEAAQAAAAHAAsAAAAEAAUAAAAIAAwAAAADAAUAAAAHAAwAAAACAAUAAAAHAAwAAAADAAYAAAAGAA4AAAACAAYAAAAFAA4AAAAEAAYAAAAIAAsAAAAGAAYAAAAIAA4AAAAGAAUAAAAIAAwAAAAHAAUAAAAHAAwAAAAHAAYAAAAIAA4AAAAFAAUAAAAIAAwAAAAFAAYAAAAIAA4AAAADAAEAAAAGAAkAAAACAAEAAAAFAAkAAAAIAAIAAAAIAAoAAAAJAAIAAAAIAAoAAAAKAAIAAAAIAAoAAAALAAIAAAAIAAoAAAAMAAIAAAAIAAoAAAANAAIAAAAIAAoAAAANAAMAAAAIAAoAAAANAAQAAAAIAAoAAAANAAUAAAAIAAoAAAAMAAUAAAAIAAoAAAALAAUAAAAIAAoAAAAKAAUAAAAIAAoAAAAJAAUAAAAIAAoAAAAIAAUAAAAIAAoAAAAIAAQAAAAIAAoAAAAIAAMAAAAIAAoAAAAJAAMAAAAIAAoAAAAKAAMAAAAIAAoAAAALAAMAAAALABYAAAAMAAMAAAANABYAAAAMAAQAAAANABgAAAALAAQAAAALABgAAAAKAAQAAAAIAAoAAAAJAAQAAAAIAAoAAAAPAAEAAAAIAAsAAAAQAAEAAAAIAAsAAAAQAAIAAAAIAAsAAAAQAAMAAAAIAAsAAAAQAAQAAAAIAAsAAAAPAAQAAAAIAAsAAAAPAAMAAAAIAAsAAAAPAAIAAAAIAAsAAAA=")
+tile_set = ExtResource("6_3ljsx")
+
+[node name="Railing" type="TileMapLayer" parent="Chapters/ShipAtSea/Ship/Upper" unique_id=1298481329]
+tile_map_data = PackedByteArray("AAD+/wEAAAABAAEAAAD+/wIAAAABAAIAAAD+/wMAAAABAAQAAAD+/wQAAAABAAUAAAD+/wUAAAABAAYAAAD//wEAAAACAAEAAAD//wIAAAACAAIAAAD//wMAAAACAAMAAAD//wUAAAACAAYAAAAAAAAAAAADAAAAAAAAAAEAAAADAAEAAAAAAAIAAAADAAIAAAAAAAUAAAADAAYAAAAAAAYAAAADAAcAAAABAAAAAAAEAAAAAAABAAEAAAAEAAEAAAABAAIAAAAEAAIAAAABAAYAAAAEAAcAAAACAAAAAAAFAAAAAAACAAEAAAAFAAEAAAACAAIAAAAFAAIAAAACAAYAAAAFAAcAAAADAAAAAAAGAAAAAAADAAEAAAAGAAEAAAADAAYAAAAGAAcAAAADAAcAAAAGAAgAAAAEAAAAAAAHAAAAAAAEAAEAAAAHAAEAAAAEAAYAAAAHAAcAAAAEAAcAAAAHAAgAAAD4/wMAAAAMAAQAAAD5/wMAAAANAAQAAAD6/wMAAAAOAAQAAAD7/wMAAAAPAAQAAAD7/wQAAAAPAAUAAAD8/wMAAAAQAAQAAAD8/wQAAAAQAAUAAAD9/wIAAAARAAMAAAD9/wMAAAARAAQAAAD9/wQAAAARAAUAAAD//wQAAAACAAUAAAAAAAQAAAADAAUAAAABAAUAAAAEAAYAAAACAAUAAAAFAAYAAAADAAUAAAAGAAYAAAAEAAUAAAAHAAYAAAD//wYAAAACAAcAAAAFAAUAAAAJAAYAAAAFAAYAAAAJAAcAAAAFAAAAAAAJAAAAAAAIAAYAAAAFAAsAAAAJAAYAAAAMAAkAAAAKAAYAAAAMAAkAAAALAAYAAAAMAAkAAAAMAAYAAAAJAAwAAAAPAAQAAAAIAAQAAAAPAAUAAAAIAAUAAAAQAAQAAAAIAAQAAAAQAAUAAAAIAAUAAAARAAQAAAAJAAQAAAARAAUAAAAJAAUAAAAPAP//AAAIAAIAAAAPAAAAAAAIAAMAAAAQAP//AAAIAAIAAAAQAAAAAAAIAAMAAAARAP//AAAJAAIAAAARAAAAAAAJAAMAAAARAAEAAAAKAAMAAAARAAIAAAAKAAMAAAARAAMAAAAKAAMAAAA=")
+tile_set = ExtResource("6_3ljsx")
+
+[node name="Camp" type="Node2D" parent="Chapters" unique_id=1501275458]
+
+[node name="Temple" type="Node2D" parent="Chapters" unique_id=886017061]
+
+[node name="Wildlife" type="Node2D" parent="." unique_id=858757846]
 y_sort_enabled = true
 
-[node name="Hawk" parent="Wildlife" instance=ExtResource("5_bird")]
+[node name="Hawk" parent="Wildlife" unique_id=2136541399 instance=ExtResource("5_bird")]
 radius = Vector2(900, 600)
 
-[node name="Bluebird" parent="Wildlife" instance=ExtResource("5_bird")]
+[node name="Bluebird" parent="Wildlife" unique_id=1951772406 instance=ExtResource("5_bird")]
 position = Vector2(-300, 200)
 type = 9
 radius = Vector2(700, 450)
@@ -63,36 +100,37 @@ speed = 60.0
 clockwise = false
 start_angle = 120.0
 
-[node name="Cardinal" parent="Wildlife" instance=ExtResource("5_bird")]
+[node name="Cardinal" parent="Wildlife" unique_id=20065503 instance=ExtResource("5_bird")]
 position = Vector2(300, -200)
 type = 6
 radius = Vector2(600, 500)
 speed = 65.0
 start_angle = 240.0
 
-[node name="Butterfly" parent="Wildlife" instance=ExtResource("6_butterfly")]
+[node name="Butterfly" parent="Wildlife" unique_id=907162350 instance=ExtResource("6_butterfly")]
 position = Vector2(160, 96)
 
-[node name="Bunny" parent="Wildlife" instance=ExtResource("7_bunny")]
+[node name="Bunny" parent="Wildlife" unique_id=1774465085 instance=ExtResource("7_bunny")]
 position = Vector2(-192, 128)
 
-[node name="Ambience" type="Node" parent="."]
+[node name="Ambience" type="Node" parent="." unique_id=1888702541]
 
-[node name="Music" type="AudioStreamPlayer" parent="Ambience"]
+[node name="Music" type="AudioStreamPlayer" parent="Ambience" unique_id=1491527010]
 bus = &"Music"
 script = ExtResource("8_playlist")
 tracks = Array[AudioStream]([ExtResource("9_track1"), ExtResource("10_track2"), ExtResource("11_track3"), ExtResource("12_track4")])
 
-[node name="Narration" type="AudioStreamPlayer" parent="Ambience"]
+[node name="Narration" type="AudioStreamPlayer" parent="Ambience" unique_id=1027158595]
 bus = &"Voice"
 
-[node name="DayNight" type="CanvasModulate" parent="."]
+[node name="DayNight" type="CanvasModulate" parent="." unique_id=1438125560]
 script = ExtResource("13_daynight")
 
-[node name="UI" type="CanvasLayer" parent="."]
+[node name="UI" type="CanvasLayer" parent="." unique_id=1601964450]
 layer = 2
+visible = false
 
-[node name="Virtual Joystick" parent="UI" instance=ExtResource("14_joystick")]
+[node name="Virtual Joystick" parent="UI" unique_id=696528866 instance=ExtResource("14_joystick")]
 offset_left = 24.0
 offset_top = -104.0
 offset_right = 324.0
@@ -108,14 +146,14 @@ action_right = "move_right"
 action_up = "move_up"
 action_down = "move_down"
 
-[node name="Inventory" parent="UI" instance=ExtResource("15_inventory")]
+[node name="Inventory" parent="UI" unique_id=1495488815 instance=ExtResource("15_inventory")]
 custom_minimum_size = Vector2(221, 40)
 offset_left = -228.0
 offset_top = 6.0
 offset_right = -7.0
 offset_bottom = 46.0
 
-[node name="UseButtonHolder" type="Control" parent="UI"]
+[node name="UseButtonHolder" type="Control" parent="UI" unique_id=260017480]
 layout_mode = 3
 anchors_preset = 3
 anchor_left = 1.0
@@ -129,7 +167,7 @@ offset_bottom = -6.0
 grow_horizontal = 0
 grow_vertical = 0
 
-[node name="UseButton" type="Button" parent="UI/UseButtonHolder"]
+[node name="UseButton" type="Button" parent="UI/UseButtonHolder" unique_id=994830667]
 unique_name_in_owner = true
 layout_mode = 0
 offset_right = 40.0
@@ -139,7 +177,7 @@ theme = ExtResource("16_theme")
 icon = ExtResource("17_hand")
 expand_icon = true
 
-[node name="Quest" type="Control" parent="UI"]
+[node name="Quest" type="Control" parent="UI" unique_id=1714111116]
 unique_name_in_owner = true
 layout_mode = 3
 anchors_preset = 0
@@ -151,7 +189,7 @@ size_flags_horizontal = 0
 size_flags_vertical = 4
 theme = ExtResource("16_theme")
 
-[node name="QuestPanel" type="Panel" parent="UI/Quest"]
+[node name="QuestPanel" type="Panel" parent="UI/Quest" unique_id=1578153564]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
@@ -161,7 +199,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="UI/Quest/QuestPanel"]
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/Quest/QuestPanel" unique_id=1968084785]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -170,18 +208,18 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = -9
 
-[node name="IconMargin" type="MarginContainer" parent="UI/Quest/QuestPanel/HBoxContainer"]
+[node name="IconMargin" type="MarginContainer" parent="UI/Quest/QuestPanel/HBoxContainer" unique_id=1848610921]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 size_flags_horizontal = 0
 
-[node name="QuestIcon" type="AnimatedSprite2D" parent="UI/Quest/QuestPanel/HBoxContainer/IconMargin"]
+[node name="QuestIcon" type="AnimatedSprite2D" parent="UI/Quest/QuestPanel/HBoxContainer/IconMargin" unique_id=260290678]
 unique_name_in_owner = true
 position = Vector2(16, 21)
 sprite_frames = ExtResource("18_quest_icon")
 animation = &"quest"
 
-[node name="TextMargin" type="MarginContainer" parent="UI/Quest/QuestPanel/HBoxContainer"]
+[node name="TextMargin" type="MarginContainer" parent="UI/Quest/QuestPanel/HBoxContainer" unique_id=773024136]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/margin_left = 10
@@ -189,7 +227,7 @@ theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 5
 
-[node name="QuestText" type="RichTextLabel" parent="UI/Quest/QuestPanel/HBoxContainer/TextMargin"]
+[node name="QuestText" type="RichTextLabel" parent="UI/Quest/QuestPanel/HBoxContainer/TextMargin" unique_id=905203037]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -197,7 +235,7 @@ theme_override_font_sizes/normal_font_size = 12
 fit_content = true
 vertical_alignment = 1
 
-[node name="PrayButton" type="Button" parent="UI/Quest"]
+[node name="PrayButton" type="Button" parent="UI/Quest" unique_id=1512865187]
 unique_name_in_owner = true
 layout_mode = 0
 offset_top = 46.0
@@ -207,7 +245,7 @@ focus_mode = 0
 icon = ExtResource("19_pray")
 expand_icon = true
 
-[node name="ScriptureScroll" parent="." instance=ExtResource("20_scripture")]
+[node name="ScriptureScroll" parent="." unique_id=824684266 instance=ExtResource("20_scripture")]
 visible = false
 
-[node name="ActivityScroll" parent="." instance=ExtResource("21_activity")]
+[node name="ActivityScroll" parent="." unique_id=865247321 instance=ExtResource("21_activity")]
