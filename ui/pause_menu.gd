@@ -3,7 +3,8 @@ extends CanvasLayer
 class_name PauseMenu
 
 # The pause tab poking down from the top centre of the screen, and the menu it opens: on/off and
-# loudness for music, sounds and the narrator, full screen on desktop, the
+# loudness for music, sounds and the narrator, full screen on desktop, reduced
+# flashing (soft lightning), the
 # language (English or Spanish, GameSettings.language()), the
 # slot's achievements (the star), a replay of the controls tour, and the way back to the main menu. Escape,
 # P or a gamepad's Start opens and closes it too. The tree is paused while it is open. Chapter.delay() and
@@ -53,6 +54,11 @@ func _ready() -> void:
 	%FullscreenToggle.visible = GameSettings.can_fullscreen()
 	%FullscreenToggle.button_pressed = GameSettings.is_fullscreen()
 	%FullscreenToggle.toggled.connect(func(on: bool) -> void: GameSettings.set_fullscreen(on))
+	# Fills the slider column of the full screen row, so the next row starts
+	# at the left. Hidden with that row, as hidden cells take no room.
+	%FullscreenSpacer.visible = GameSettings.can_fullscreen()
+	%ReduceFlashingToggle.button_pressed = GameSettings.is_reducing_flashing()
+	%ReduceFlashingToggle.toggled.connect(func(on: bool) -> void: GameSettings.set_reduce_flashing(on))
 	%PauseButton.pressed.connect(open)
 	%ResumeButton.pressed.connect(close)
 	%MainMenuButton.pressed.connect(_ask_leave)

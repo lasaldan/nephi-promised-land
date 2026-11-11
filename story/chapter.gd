@@ -641,6 +641,42 @@ func setFog(density: float, seconds: float = 3.0) -> void:
 func setFogWind(wind: Vector2) -> void:
 	world.fog.wind = wind
 
+# Rain (world/weather/rain.gd): pixel streaks falling on the wind, with rings
+# on the ground. DayNight tints it, and a downpour dims the light. Like the
+# fog it outlasts the chapter. intensity runs 0 (dry) to 1 (a downpour).
+#   await rainStarts()
+#   await setRain(0.25, 2.0)          # easing to a drizzle
+#   setRainWind(-80.0)                # a gale from the east
+#   await rainStops(8.0)
+func rainStarts(intensity: float = 0.6, seconds: float = 5.0) -> void:
+	await world.rain.fade_to(intensity, seconds)
+
+func rainStops(seconds: float = 5.0) -> void:
+	await world.rain.fade_to(0.0, seconds)
+
+func setRain(intensity: float, seconds: float = 3.0) -> void:
+	await world.rain.fade_to(intensity, seconds)
+
+# World pixels per second sideways. Negative blows west.
+func setRainWind(wind: float) -> void:
+	world.rain.wind = wind
+
+# Lightning (Rain.strike()): the world flashes white and thunder follows,
+# sooner and louder the closer the strike (strength 0 to 1). Random strikes
+# come only while it rains, and keep coming across chapters until stopped.
+#   startLightning(8.0)               # about every eight seconds
+#   await lightningStrikes()          # one, right overhead, on cue
+#   await lightningStrikes(0.4)       # one far off
+#   stopLightning()
+func startLightning(every_seconds: float = 8.0) -> void:
+	world.rain.lightning_every = every_seconds
+
+func stopLightning() -> void:
+	world.rain.lightning_every = 0.0
+
+func lightningStrikes(strength: float = 1.0) -> void:
+	await world.rain.strike(strength)
+
 # Which items the player may pick up, by InventoryItem name. Once one is
 # in the pack, only that same item can be added until emptyBackpack().
 # Call with no names to allow nothing. Clears any setPickupLimit().

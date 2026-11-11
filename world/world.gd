@@ -9,6 +9,7 @@ class_name World
 #
 #   day_night        the time of day (world/lighting/day_night.gd)
 #   fog              drifting fog over the world (world/weather/fog.gd)
+#   rain             rain over the world (world/weather/rain.gd)
 #   music            background music (audio/music_playlist.gd)
 #   fade             the screen fade (ui/screen_fade.gd)
 #   setQuest()       the quest plaque, top left
@@ -51,6 +52,7 @@ signal dialogue_ended
 
 @onready var day_night: DayNight = $DayNight
 @onready var fog: Fog = $Fog
+@onready var rain: Rain = $Rain
 @onready var music: MusicPlaylist = $Ambience/Music
 @onready var navigation: WorldNavigation = $Navigation
 @onready var player: CharacterBody2D = $Player
@@ -60,6 +62,10 @@ var fade: ScreenFade
 const TIME_OF_DAY_FLAG := "time_of_day"
 # And how thick the fog is.
 const FOG_FLAG := "fog_density"
+# And how hard it is raining.
+const RAIN_FLAG := "rain_intensity"
+# And how often lightning strikes in it.
+const LIGHTNING_FLAG := "lightning_every"
 
 func _ready() -> void:
 	GameSettings.ensure_loaded()
@@ -89,6 +95,8 @@ func _ready() -> void:
 		StoryState.load_game()
 	day_night.hour = StoryState.get_flag(TIME_OF_DAY_FLAG, day_night.hour)
 	fog.density = StoryState.get_flag(FOG_FLAG, fog.density)
+	rain.intensity = StoryState.get_flag(RAIN_FLAG, rain.intensity)
+	rain.lightning_every = StoryState.get_flag(LIGHTNING_FLAG, rain.lightning_every)
 	continueStoryline()
 
 func _physics_process(_delta: float) -> void:
@@ -162,6 +170,8 @@ func continueStoryline() -> void:
 		Collectable.remember_collected(get_tree())
 		StoryState.set_flag(TIME_OF_DAY_FLAG, day_night.hour)
 		StoryState.set_flag(FOG_FLAG, fog.density)
+		StoryState.set_flag(RAIN_FLAG, rain.intensity)
+		StoryState.set_flag(LIGHTNING_FLAG, rain.lightning_every)
 		if not _debug_started:
 			StoryState.save_game()
 		print("Checkpoint: %s complete%s" % [chapter.id, " (debug start, not saved)" if _debug_started else ", saved"])

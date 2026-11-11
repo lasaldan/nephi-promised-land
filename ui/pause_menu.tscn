@@ -161,6 +161,18 @@ text = "Full screen"
 unique_name_in_owner = true
 layout_mode = 2
 
+[node name="FullscreenSpacer" type="Control" parent="Menu/SettingsPanel/VBox/Rows" unique_id=1734920561]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="ReduceFlashingLabel" type="Label" parent="Menu/SettingsPanel/VBox/Rows" unique_id=1734920562]
+layout_mode = 2
+text = "Reduce flashing"
+
+[node name="ReduceFlashingToggle" type="CheckButton" parent="Menu/SettingsPanel/VBox/Rows" unique_id=1734920563]
+unique_name_in_owner = true
+layout_mode = 2
+
 [node name="LanguageRow" type="HBoxContainer" parent="Menu/SettingsPanel/VBox" unique_id=1517204963]
 layout_mode = 2
 theme_override_constants/separation = 8

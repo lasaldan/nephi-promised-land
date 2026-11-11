@@ -15,6 +15,13 @@ extends CanvasModulate
 #   - AmbientZones set to day or night only (world/ambience/ambient_zone.gd)
 #   - night_amount_changed, for anything else
 #
+# overcast (0 to 1) dims whatever the hour's color is toward overcast_color,
+# for heavy weather. The Rain sets it (world/weather/rain.gd). It only changes
+# the light: campfires and crickets still follow the hour.
+#
+# flash (0 to 1) lifts the light past white toward flash_color, for lightning
+# (Rain.strike()). It washes out day and night alike.
+#
 # Time stands still unless a cycle is running. Chapters use the StoryChapter
 # helpers (nightfall(), daybreak(), setTimeOfDay(), startDayCycle()); the
 # world keeps the hour across chapters and saves it with each chapter.
@@ -44,6 +51,10 @@ const NIGHT := 21.5
 @export var dawn_color := Color(0.85, 0.72, 0.78)
 @export var day_color := Color.WHITE
 @export var dusk_color := Color(0.95, 0.70, 0.52)
+## What the light is multiplied by at full overcast: a cool grey.
+@export var overcast_color := Color(0.58, 0.62, 0.70)
+## The light at the height of a lightning flash. Above 1 brightens past day.
+@export var flash_color := Color(1.6, 1.65, 1.85)
 @export_group("Sound")
 ## How loud the crickets are at full night.
 @export var crickets_volume_db := -6.0
@@ -53,6 +64,19 @@ var _keys: Array = []
 
 # 0 is full day, 1 is full night.
 var night_amount := 0.0
+
+# 0 is the hour's own light, 1 is that light under heavy cloud. Not saved with
+# the scene; the weather sets it as it runs.
+var overcast := 0.0:
+	set(value):
+		overcast = clampf(value, 0.0, 1.0)
+		_apply()
+
+# 0 is no lightning, 1 the height of a flash. Set by the Rain as it strikes.
+var flash := 0.0:
+	set(value):
+		flash = clampf(value, 0.0, 1.0)
+		_apply()
 
 var _tween: Tween
 var _crickets: AudioStreamPlayer
@@ -139,7 +163,9 @@ func _apply() -> void:
 			var a: Array = _keys[i - 1]
 			var b: Array = _keys[i]
 			var t: float = inverse_lerp(a[0], b[0], hour)
-			color = (a[1] as Color).lerp(b[1], t)
+			var light := (a[1] as Color).lerp(b[1], t)
+			light = light.lerp(light * overcast_color, overcast)
+			color = light.lerp(flash_color, flash)
 			_set_night_amount(lerpf(a[2], b[2], t))
 			return
 

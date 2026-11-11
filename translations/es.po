@@ -316,6 +316,10 @@ msgstr "Narrador"
 msgid "Full screen"
 msgstr "Pantalla completa"
 
+#: ui/pause_menu.tscn
+msgid "Reduce flashing"
+msgstr "Reducir destellos"
+
 #: ui/pause_menu.tscn:170
 msgid "Language"
 msgstr "Idioma"

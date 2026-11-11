@@ -2,7 +2,8 @@ class_name GameSettings
 extends RefCounted
 
 # Player settings shared by every save slot: whether each kind of sound plays
-# and how loud, fullscreen on desktop, and the language (scripts/language.gd).
+# and how loud, fullscreen on desktop, the language (scripts/language.gd),
+# and reduced flashing (lightning, world/weather/rain.gd).
 # Kept in their own file, so erasing a save slot leaves them alone. The volumes drive the buses in
 # default_bus_layout.tres. Every AudioStreamPlayer should name one of them;
 # a player left on Master ignores these settings.
@@ -36,6 +37,8 @@ static var _enabled := {MUSIC: true, SFX: true, VOICE: true}
 static var _fullscreen := false
 # "" until the player picks one in Settings, so the game follows the device.
 static var _language := ""
+# For players bothered by flashing light: lightning only glows softly.
+static var _reduce_flashing := false
 static var _loaded := false
 
 static func ensure_loaded() -> void:
@@ -49,6 +52,7 @@ static func ensure_loaded() -> void:
 			_enabled[bus] = file.get_value("enabled", bus, true)
 		_fullscreen = file.get_value("display", "fullscreen", false)
 		_language = file.get_value("display", "language", "")
+		_reduce_flashing = file.get_value("display", "reduce_flashing", false)
 	Language.apply(language())
 	for bus in BUSES:
 		_apply_bus(bus)
@@ -61,6 +65,7 @@ static func save() -> void:
 		file.set_value("volume", bus, _volume[bus])
 		file.set_value("enabled", bus, _enabled[bus])
 	file.set_value("display", "fullscreen", _fullscreen)
+	file.set_value("display", "reduce_flashing", _reduce_flashing)
 	if not _language.is_empty():
 		file.set_value("display", "language", _language)
 	var err := file.save(PATH)
@@ -91,6 +96,13 @@ static func is_fullscreen() -> bool:
 static func set_fullscreen(on: bool) -> void:
 	_fullscreen = on
 	_apply_fullscreen()
+
+static func is_reducing_flashing() -> bool:
+	return _reduce_flashing
+
+# Saved with the rest at save(). Read at each flash, so it applies at once.
+static func set_reduce_flashing(on: bool) -> void:
+	_reduce_flashing = on
 
 # The language picked in Settings, or the device's until one is picked.
 static func language() -> String:
