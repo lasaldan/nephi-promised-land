@@ -155,7 +155,6 @@ func walkPlayerTo(tile: Vector2, face: String = "", stuck_seconds: float = 1.0) 
 	var player = getPlayer()
 	var target := tile * 32.0
 	var waypoints := WorldNavigation.path(player, target)
-	var mask: int = player.collision_mask
 	var best := INF
 	var since_progress := 0.0
 	player.facing = ""
@@ -174,11 +173,13 @@ func walkPlayerTo(tile: Vector2, face: String = "", stuck_seconds: float = 1.0) 
 		else:
 			since_progress += delta
 			if since_progress >= stuck_seconds:
-				player.collision_mask = 0
+				# Not collision_mask: walking him down the stairs changes
+				# which deck he collides with on the way.
+				player.passing_through = true
 		player.scripted_input = to_target / distance
 		await nextFrame()
 	player.scripted_input = Vector2.ZERO
-	player.collision_mask = mask
+	player.passing_through = false
 	player.global_position = target
 	if face != "":
 		player.facing = face

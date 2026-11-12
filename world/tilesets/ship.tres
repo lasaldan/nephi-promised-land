@@ -114,11 +114,17 @@ texture_region_size = Vector2i(32, 32)
 7:12/0 = 0
 7:13/0 = 0
 7:25/0 = 0
+7:25/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, 4, -4, 8, 0, 16, -16, 16)
 6:25/0 = 0
+6:25/0/physics_layer_0/polygon_0/points = PackedVector2Array(12, -16, -16, -4, -16, -16)
+6:25/0/physics_layer_0/polygon_1/points = PackedVector2Array(-16, 16, -16, 12, 16, 4, 16, 16)
 5:25/0 = 0
 7:22/0 = 0
+7:22/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 0, -16, 0, -16, -4, 0, -16, 16)
 6:22/0 = 0
+6:22/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, 12, 16, -16, 16)
 5:22/0 = 0
+5:22/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 20:14/0 = 0
 5:17/0 = 0
 0:17/animation_columns = 1
@@ -319,11 +325,18 @@ texture_region_size = Vector2i(32, 32)
 8:19/0 = 0
 7:19/0 = 0
 7:20/0 = 0
+7:20/0/physics_layer_1/polygon_0/points = PackedVector2Array(16, 16, -12, 16, 16, 0)
+7:20/0/physics_layer_1/polygon_1/points = PackedVector2Array(-16, -16, -16, -4, 4, -12, 16, -12, 16, -16)
 6:20/0 = 0
+6:20/0/physics_layer_1/polygon_0/points = PackedVector2Array(0, 0, 16, -16, 16, -4, 0, 4)
 6:21/0 = 0
+6:21/0/physics_layer_1/polygon_0/points = PackedVector2Array(16, 16, 16, -12, 0, 12, 0, 16)
 7:21/0 = 0
+7:21/0/physics_layer_1/polygon_0/points = PackedVector2Array(-16, 16, -16, -12, -12, -16, 16, -16, 16, 16)
 8:21/0 = 0
+8:21/0/physics_layer_1/polygon_0/points = PackedVector2Array(-16, -16, 8, -16, 8, 16, -16, 16)
 8:20/0 = 0
+8:20/0/physics_layer_1/polygon_0/points = PackedVector2Array(-16, -12, -16, -16, 8, -16, 8, 16, -16, 16)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_27oow"]
 texture = ExtResource("2_64sky")
@@ -393,6 +406,9 @@ texture_region_size = Vector2i(32, 32)
 
 [resource]
 tile_size = Vector2i(32, 32)
-physics_layer_0/collision_layer = 1
+physics_layer_0/collision_layer = 2
+physics_layer_0/collision_mask = 0
+physics_layer_1/collision_layer = 4
+physics_layer_1/collision_mask = 0
 sources/0 = SubResource("TileSetAtlasSource_64sky")
 sources/1 = SubResource("TileSetAtlasSource_27oow")

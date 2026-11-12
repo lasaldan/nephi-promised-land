@@ -38,7 +38,35 @@ const COLLECT_VOLUME_DB := -20.0
 var _collect_sound: AudioStreamPlayer
 var _obstacle: NavigationObstacle2D
 
+# Which of the ship's decks he is on (world/props/ship_stairs.gd). He only
+# collides with that deck's physics layer, on top of the world's. Off the
+# ship it makes no difference.
+signal deck_changed(deck: ShipStairs.Deck)
+const WORLD_MASK := 1
+const DECK_MASKS := {ShipStairs.Deck.UPPER: 2, ShipStairs.Deck.LOWER: 4}
+var deck := ShipStairs.Deck.UPPER
+# True lets him walk through everything, as a cutscene walk does when he is
+# stuck (StoryChapter.walkPlayerTo). The deck still changes underneath, so
+# turning it off puts back the right deck's collisions.
+var passing_through := false:
+	set(value):
+		passing_through = value
+		_apply_collision_mask()
+
+## Puts him on a deck: the stairs call this, and so can a chapter that
+## places him below decks.
+func set_deck(value: ShipStairs.Deck) -> void:
+	if value == deck:
+		return
+	deck = value
+	_apply_collision_mask()
+	deck_changed.emit(deck)
+
+func _apply_collision_mask() -> void:
+	collision_mask = 0 if passing_through else WORLD_MASK | DECK_MASKS[deck]
+
 func _ready() -> void:
+	_apply_collision_mask()
 	# StoryTrigger ignores every body that is not in this group. NPCs use the
 	# same collision layer, so the layer mask alone cannot tell Nephi apart.
 	add_to_group("player")
