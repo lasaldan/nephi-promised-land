@@ -45,6 +45,15 @@ const SHADER := preload("res://world/weather/fog.gdshader")
 	set(value):
 		patchiness = value
 		_apply()
+## How far under cover he is, 0 to 1 (below a ship's deck; world/props/
+## ship_stairs.gd fades it with the upper deck). The fog fades out as it
+## rises and is not drawn at 1, though it keeps its density for when he
+## comes out.
+var shelter := 0.0:
+	set(value):
+		shelter = clampf(value, 0.0, 1.0)
+		_apply()
+
 @export_group("Depth")
 ## How the far layer moves with the camera. 1 stays with the ground.
 @export var far_scroll := 1.0:
@@ -147,7 +156,8 @@ func _apply() -> void:
 		var spec: Dictionary = LAYERS[i]
 		var layer := _layers[i]
 		# Clear air costs nothing to draw.
-		layer.visible = density > 0.0
+		layer.visible = density > 0.0 and shelter < 1.0
+		layer.modulate.a = 1.0 - shelter
 		layer.autoscroll = wind * float(spec.wind)
 		layer.scroll_scale = Vector2.ONE * (far_scroll if i == 0 else near_scroll)
 		var material := _materials[i]

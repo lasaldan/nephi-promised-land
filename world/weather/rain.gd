@@ -115,6 +115,26 @@ const SPLASH_SHADER := preload("res://world/weather/rain_splash.gdshader")
 	set(value):
 		sound_volume_db = value
 		_apply()
+## How much quieter the rain and thunder are while fully sheltered.
+@export var sheltered_volume_db := -6.0:
+	set(value):
+		sheltered_volume_db = value
+		_apply()
+
+## How far under cover he is, 0 to 1 (below a ship's deck; world/props/
+## ship_stairs.gd fades it with the upper deck). The streaks and splashes fade
+## out as it rises and the sound drops toward sheltered_volume_db; at 1 none
+## is drawn, and no lightning flashes. The rain itself carries on, so coming
+## out finds it as it was. Overcast still dims the light.
+var shelter := 0.0:
+	set(value):
+		shelter = clampf(value, 0.0, 1.0)
+		# A flash already going would light the hold.
+		if shelter > 0.0 and _flash_tween:
+			_flash_tween.kill()
+			if is_instance_valid(_day_night):
+				_day_night.flash = 0.0
+		_apply()
 
 # The layers of streaks, far first. size: texture px (drawn at 1:1, as pixel
 # art). count: streaks in the texture, all shown at intensity 1. length: px,
@@ -217,7 +237,8 @@ func strike(strength := 1.0) -> void:
 	strength = clampf(strength, 0.0, 1.0)
 	if thunder and not Engine.is_editor_hint():
 		_thunder_after(lerpf(2.5, 0.25, strength), strength)
-	if _day_night == null:
+	# Below decks there is no sky to light up, only the thunder.
+	if _day_night == null or shelter > 0.0:
 		return
 	if _flash_tween:
 		_flash_tween.kill()
@@ -249,7 +270,8 @@ func _thunder_after(seconds: float, strength: float) -> void:
 	var player := AudioStreamPlayer.new()
 	player.stream = thunder
 	player.bus = GameSettings.SFX
-	player.volume_db = thunder_volume_db + linear_to_db(lerpf(0.35, 1.0, strength))
+	player.volume_db = thunder_volume_db + linear_to_db(lerpf(0.35, 1.0, strength)) \
+			+ sheltered_volume_db * shelter
 	player.finished.connect(player.queue_free)
 	add_child(player, false, Node.INTERNAL_MODE_FRONT)
 	player.play()
@@ -442,17 +464,20 @@ func _apply() -> void:
 		var amount := pow(clampf((intensity - from) / (1.0 - from), 0.0, 1.0), STORM_CURVE)
 		material.set_shader_parameter("amount", amount)
 		# Dry air, or a layer the rain isn't heavy enough for yet, costs
-		# nothing to draw.
-		layer.visible = amount > 0.0
+		# nothing to draw. Nor does rain falling on the deck overhead.
+		layer.visible = amount > 0.0 and shelter < 1.0
+		layer.modulate.a = 1.0 - shelter
 	var splash_amount := intensity * splashes
 	if _splash_layer:
-		_splash_layer.visible = _splashing() and splash_surfaces.is_empty()
+		_splash_layer.visible = _splashing() and splash_surfaces.is_empty() and shelter < 1.0
+		_splash_layer.modulate.a = 1.0 - shelter
 		_splash_material.set_shader_parameter("splash_color", splash_color)
 		_splash_material.set_shader_parameter("amount", splash_amount)
 	for entry in _surface_splashes.values():
 		if not is_instance_valid(entry.sprite):
 			continue
-		entry.sprite.visible = _splashing() and entry.area
+		entry.sprite.visible = _splashing() and entry.area and shelter < 1.0
+		entry.sprite.modulate.a = 1.0 - shelter
 		entry.material.set_shader_parameter("splash_color", splash_color)
 		entry.material.set_shader_parameter("amount", splash_amount)
 	# Squared, so drizzle hardly dims and a downpour does.
@@ -471,7 +496,8 @@ func _set_layer(player: AudioStreamPlayer, gain: float) -> void:
 	if gain <= 0.0:
 		player.stop()
 		return
-	player.volume_db = sound_volume_db + linear_to_db(gain)
+	player.volume_db = sound_volume_db + linear_to_db(gain) \
+			+ sheltered_volume_db * shelter
 	if not player.playing:
 		player.play()
 

@@ -19,6 +19,11 @@ extends Area2D
 # belongs to the deck he is on.
 #
 # The Upper node fades out while he is below and back in when he comes up.
+# Below, everything in outside (the sea) fades to black too, so all that
+# shows is the hold he is in, and the weather (world/weather/rain.gd, fog.gd)
+# shelters over the same fade: no rain or fog drawn, the rain heard quieter. While the ship
+# is hidden (another chapter) nothing is sheltered or darkened, whatever deck
+# he was last on.
 # Put this under the Ship, so it rocks with it.
 
 enum Deck { UPPER, LOWER }
@@ -28,6 +33,8 @@ enum Deck { UPPER, LOWER }
 @export var threshold_x := 208.0
 ## The upper deck's art, which fades while he is below.
 @export var upper: CanvasItem
+## What goes black while he is below: the sea around the ship.
+@export var outside: Array[CanvasItem] = []
 ## How long the upper deck takes to fade out or in.
 @export var fade_seconds := 0.25
 ## Draws the trigger box and the threshold over the ship, in the editor and
@@ -50,7 +57,18 @@ func _ready() -> void:
 		push_warning("ShipStairs: no player")
 		return
 	_player.deck_changed.connect(_show_deck)
+	# Hiding the ship's chapter hides this too, and must not leave the world
+	# sheltered.
+	visibility_changed.connect(func() -> void: _show_deck(_player.deck, false))
 	_show_deck(_player.deck, false)
+
+func _exit_tree() -> void:
+	if Engine.is_editor_hint():
+		return
+	if _fade:
+		_fade.kill()
+	for weather in _weather():
+		weather.shelter = 0.0
 
 func _physics_process(_delta: float) -> void:
 	if debug_draw:
@@ -63,20 +81,39 @@ func _physics_process(_delta: float) -> void:
 	_player.set_deck(Deck.LOWER if below else Deck.UPPER)
 
 func _show_deck(deck: Deck, animate: bool = true) -> void:
-	if upper == null:
-		return
+	var below := deck == Deck.LOWER and is_visible_in_tree()
 	if _fade:
 		_fade.kill()
-	var shown := deck == Deck.UPPER
+	var shown := not below
+	var dark := Color.BLACK if below else Color.WHITE
 	if not animate:
-		upper.modulate.a = 1.0 if shown else 0.0
-		upper.visible = shown
+		if upper:
+			upper.modulate.a = 1.0 if shown else 0.0
+			upper.visible = shown
+		for item in outside:
+			if is_instance_valid(item):
+				item.modulate = dark
+		for weather in _weather():
+			weather.shelter = 1.0 if below else 0.0
 		return
-	upper.visible = true
-	_fade = create_tween()
-	_fade.tween_property(upper, "modulate:a", 1.0 if shown else 0.0, fade_seconds)
-	if not shown:
-		_fade.tween_callback(upper.hide)
+	_fade = create_tween().set_parallel()
+	if upper:
+		upper.visible = true
+		_fade.tween_property(upper, "modulate:a", 1.0 if shown else 0.0, fade_seconds)
+	for item in outside:
+		if is_instance_valid(item):
+			_fade.tween_property(item, "modulate", dark, fade_seconds)
+	for weather in _weather():
+		_fade.tween_property(weather, "shelter", 1.0 if below else 0.0, fade_seconds)
+	if upper and not shown:
+		_fade.chain().tween_callback(upper.hide)
+
+# The world's rain and fog, which shelter while he is below.
+func _weather() -> Array[Node]:
+	var found: Array[Node] = []
+	for group in [Rain.GROUP, Fog.GROUP]:
+		found.append_array(get_tree().get_nodes_in_group(group))
+	return found
 
 func _draw() -> void:
 	if not debug_draw or not OS.is_debug_build():
