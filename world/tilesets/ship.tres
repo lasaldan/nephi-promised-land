@@ -1,6 +1,7 @@
 [gd_resource type="TileSet" format=3 uid="uid://de5tv4733kve2"]
 
 [ext_resource type="Texture2D" uid="uid://cbc53plmv735n" path="res://world/tilesets/ship.png" id="1_acmb7"]
+[ext_resource type="Texture2D" uid="uid://c0ui7e0y2vh0p" path="res://world/tilesets/ship_lower_deck.png" id="2_64sky"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_64sky"]
 texture = ExtResource("1_acmb7")
@@ -229,7 +230,84 @@ texture_region_size = Vector2i(32, 32)
 4:31/0 = 0
 4:30/0 = 0
 4:29/0 = 0
+13:9/0 = 0
+20:11/next_alternative_id = 3
+20:11/0 = 0
+20:11/1 = 1
+20:11/1/flip_v = true
+20:11/1/transpose = true
+20:11/2 = 2
+20:11/2/flip_h = true
+17:16/0 = 0
+18:16/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_27oow"]
+texture = ExtResource("2_64sky")
+texture_region_size = Vector2i(32, 32)
+25:1/0 = 0
+25:2/0 = 0
+25:3/0 = 0
+24:3/0 = 0
+24:2/0 = 0
+24:1/0 = 0
+23:1/0 = 0
+23:2/0 = 0
+23:3/0 = 0
+22:3/0 = 0
+22:2/0 = 0
+22:1/0 = 0
+21:2/0 = 0
+21:3/0 = 0
+20:3/0 = 0
+20:2/0 = 0
+20:1/0 = 0
+19:1/0 = 0
+19:2/0 = 0
+19:3/0 = 0
+18:3/0 = 0
+18:2/0 = 0
+18:1/0 = 0
+17:1/0 = 0
+17:2/0 = 0
+17:3/0 = 0
+16:3/0 = 0
+16:2/0 = 0
+16:1/0 = 0
+15:2/0 = 0
+15:3/0 = 0
+14:3/0 = 0
+14:2/0 = 0
+13:2/0 = 0
+13:3/0 = 0
+12:3/0 = 0
+12:2/0 = 0
+11:2/0 = 0
+11:3/0 = 0
+11:4/0 = 0
+10:4/0 = 0
+10:3/0 = 0
+10:2/0 = 0
+9:2/0 = 0
+9:3/0 = 0
+9:4/0 = 0
+9:5/0 = 0
+8:5/0 = 0
+8:4/0 = 0
+8:3/0 = 0
+7:3/0 = 0
+7:4/0 = 0
+7:5/0 = 0
+7:6/0 = 0
+6:6/0 = 0
+6:5/0 = 0
+6:4/0 = 0
+5:4/0 = 0
+5:5/0 = 0
+5:6/0 = 0
+8:2/0 = 0
+6:3/0 = 0
 
 [resource]
 tile_size = Vector2i(32, 32)
 sources/0 = SubResource("TileSetAtlasSource_64sky")
+sources/1 = SubResource("TileSetAtlasSource_27oow")
