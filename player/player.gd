@@ -60,6 +60,8 @@ func set_deck(value: ShipStairs.Deck) -> void:
 		return
 	deck = value
 	_apply_collision_mask()
+	# His z_index follows the deck too, but ShipStairs sets it, so going down
+	# it can wait for the upper deck to finish fading (ship_stairs.gd).
 	deck_changed.emit(deck)
 
 func _apply_collision_mask() -> void:

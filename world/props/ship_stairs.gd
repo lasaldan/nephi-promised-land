@@ -18,7 +18,20 @@ extends Area2D
 # open to the west, so he can only come onto the stairs from the end that
 # belongs to the deck he is on.
 #
+# The decks are kept apart by z_index, not y-sort: nested y-sorted nodes all
+# sort together by Y, so a hold tile low on screen would draw over the upper
+# deck. Lower sits at z -1, Upper at 0, and player.gd set_deck gives him the z
+# of his deck so he still y-sorts with its tiles. Anyone else standing below
+# decks needs z -1 too. _show_deck sets his z: going up it rises at once, so
+# the upper deck fading in is never drawn over him, but going down it drops
+# only once the upper deck has faded out. Dropped any sooner, the half-faded
+# stairs and rails would draw over him and he would look see-through.
+# Off the ship (or with it hidden) he is at z 0, as on the upper deck.
+#
 # The Upper node fades out while he is below and back in when he comes up.
+# The Lower node is hidden while he is above (nothing shows down through the
+# deck), shown as soon as he starts down, and hidden once the upper deck has
+# faded back in.
 # Below, everything in outside (the sea) fades to black too, so all that
 # shows is the hold he is in, and the weather (world/weather/rain.gd, fog.gd)
 # shelters over the same fade: no rain or fog drawn, the rain heard quieter. While the ship
@@ -33,6 +46,8 @@ enum Deck { UPPER, LOWER }
 @export var threshold_x := 208.0
 ## The upper deck's art, which fades while he is below.
 @export var upper: CanvasItem
+## The lower deck's art, hidden while he is above.
+@export var lower: CanvasItem
 ## What goes black while he is below: the sea around the ship.
 @export var outside: Array[CanvasItem] = []
 ## How long the upper deck takes to fade out or in.
@@ -69,6 +84,7 @@ func _exit_tree() -> void:
 		_fade.kill()
 	for weather in _weather():
 		weather.shelter = 0.0
+	_set_player_z(false)
 
 func _physics_process(_delta: float) -> void:
 	if debug_draw:
@@ -86,7 +102,14 @@ func _show_deck(deck: Deck, animate: bool = true) -> void:
 		_fade.kill()
 	var shown := not below
 	var dark := Color.BLACK if below else Color.WHITE
+	if lower and below:
+		lower.visible = true
+	if not below:
+		_set_player_z(false)
 	if not animate:
+		_set_player_z(below)
+		if lower:
+			lower.visible = below
 		if upper:
 			upper.modulate.a = 1.0 if shown else 0.0
 			upper.visible = shown
@@ -105,8 +128,18 @@ func _show_deck(deck: Deck, animate: bool = true) -> void:
 			_fade.tween_property(item, "modulate", dark, fade_seconds)
 	for weather in _weather():
 		_fade.tween_property(weather, "shelter", 1.0 if below else 0.0, fade_seconds)
+	if below:
+		_fade.chain().tween_callback(_set_player_z.bind(true))
 	if upper and not shown:
 		_fade.chain().tween_callback(upper.hide)
+	if lower and shown:
+		_fade.chain().tween_callback(lower.hide)
+
+# The hold draws at z -1 under the upper deck (world.tscn), and he y-sorts
+# only with what shares his z, so below decks he goes down with it.
+func _set_player_z(below: bool) -> void:
+	if is_instance_valid(_player):
+		_player.z_index = -1 if below else 0
 
 # The world's rain and fog, which shelter while he is below.
 func _weather() -> Array[Node]:
