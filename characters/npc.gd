@@ -77,6 +77,9 @@ var _agent: NavigationAgent2D
 #          stop at row 20 and cannot sit.
 #   kneel  the start of the hurt row, which only faces south.
 #   pray   the start of the cast rows: hands folding.
+#   sleep  lying on their back: the south-facing stand frame turned on its
+#          side, eyes closed (characters/sleeping_face.gd). "left" or "right"
+#          is the way their head points.
 const SIT_ROWS := {"up": 30, "left": 31, "down": 32, "right": 33}
 const POSES := {
 	"sit": {"rows": SIT_ROWS, "frames": [2]},
@@ -84,12 +87,27 @@ const POSES := {
 	"sit_ground": {"rows": SIT_ROWS, "frames": [0]},
 	"kneel": {"rows": {"down": 20}, "frames": [0, 1, 2], "seconds": 0.45},
 	"pray": {"rows": {"up": 0, "left": 1, "down": 2, "right": 3}, "frames": [0, 1, 2], "seconds": 0.3},
+	"sleep": {"rows": {"left": 10, "right": 10}, "frames": [0], "lying": true},
 }
+# Lying, the figure's middle sits this far above their tile point. The
+# standing frame's figure is centred about this far below the frame centre.
+const LYING_LIFT := 8.0
+const FIGURE_DROP := 7.0
 var _pose := ""
 var _pose_frame := 0
 # Bumped by every pose change, so frames still stepping stop when another
 # order cuts in.
 var _pose_token := 0
+# The sprite as it was before lying down, to put back on getting up. Empty
+# while not lying.
+var _standing_sprite := {}
+
+## A pose from POSES (sit, sit_lean, sit_ground, kneel, pray, sleep) to take
+## when they appear, held, as if a chapter had called pose(). For placing
+## someone in a scene by hand: a sleeper below decks. start_facing picks its
+## direction ("" for the pose's first).
+@export var start_pose := ""
+@export var start_facing := ""
 
 
 func _ready() -> void:
@@ -108,6 +126,8 @@ func _ready() -> void:
 	_agent.avoidance_enabled = avoidance
 	_agent.velocity_computed.connect(_on_velocity_computed)
 	add_child(_agent)
+	if start_pose != "":
+		pose(start_pose, start_facing)
 
 
 # A sheet's row count from its height, so a cast scene only has to name the
@@ -385,6 +405,7 @@ func clear_pose() -> void:
 		return
 	_pose_token += 1
 	_pose = ""
+	_stand_up()
 	if animation_tree:
 		animation_tree.active = true
 
@@ -393,6 +414,9 @@ func is_posed(pose_name := "") -> bool:
 
 func is_sitting() -> bool:
 	return _pose.begins_with("sit")
+
+func is_sleeping() -> bool:
+	return _pose == "sleep"
 
 func can_pose(pose_name: String) -> bool:
 	var sheet := sprite as Sprite2D
@@ -405,8 +429,50 @@ func _show_pose_frame() -> void:
 	var rows: Dictionary = POSES[_pose].rows
 	var row: int = rows.get(facing, rows.values()[0])
 	var sheet := sprite as Sprite2D
-	if sheet and sheet.frame_coords != Vector2i(_pose_frame, row):
+	if sheet == null:
+		return
+	if POSES[_pose].get("lying", false):
+		_lie_down(sheet, Vector2i(_pose_frame, row))
+		return
+	_stand_up()
+	if sheet.frame_coords != Vector2i(_pose_frame, row):
 		sheet.frame_coords = Vector2i(_pose_frame, row)
+
+# Swap the sheet for one frame of it with the eyes closed, turned on its side.
+# The sheet itself is untouched; _stand_up() puts it back.
+func _lie_down(sheet: Sprite2D, coords: Vector2i) -> void:
+	var turn := -PI / 2.0 if facing == "left" else PI / 2.0
+	if not _standing_sprite.is_empty():
+		if sheet.rotation != turn:
+			sheet.rotation = turn
+		return
+	var face := SleepingFace.frame(sheet.texture, coords)
+	if face == null:
+		return
+	_standing_sprite = {"texture": sheet.texture, "hframes": sheet.hframes, "vframes": sheet.vframes,
+			"frame": sheet.frame, "offset": sheet.offset, "position": sheet.position, "rotation": sheet.rotation}
+	sheet.texture = face
+	sheet.hframes = 1
+	sheet.vframes = 1
+	sheet.frame = 0
+	# Turn about the figure's middle rather than the frame's, then lift it so
+	# they lie across their tile.
+	sheet.offset = Vector2(0, -FIGURE_DROP)
+	sheet.position = Vector2(0, -LYING_LIFT)
+	sheet.rotation = turn
+
+func _stand_up() -> void:
+	if _standing_sprite.is_empty():
+		return
+	var sheet := sprite as Sprite2D
+	sheet.texture = _standing_sprite.texture
+	sheet.hframes = _standing_sprite.hframes
+	sheet.vframes = _standing_sprite.vframes
+	sheet.frame = _standing_sprite.frame
+	sheet.offset = _standing_sprite.offset
+	sheet.position = _standing_sprite.position
+	sheet.rotation = _standing_sprite.rotation
+	_standing_sprite = {}
 
 # The familiar names, for chapter scripts.
 func sit(direction := "", pose_name := "sit") -> bool:
@@ -414,6 +480,14 @@ func sit(direction := "", pose_name := "sit") -> bool:
 
 func kneel() -> void:
 	await pose("kneel")
+
+# On their back, eyes closed. direction is the way their head points.
+#   lemuel.sleep("left")
+func sleep(direction := "left") -> void:
+	await pose("sleep", direction)
+
+func wake() -> void:
+	clear_pose()
 
 func rise() -> void:
 	await end_pose(true)
