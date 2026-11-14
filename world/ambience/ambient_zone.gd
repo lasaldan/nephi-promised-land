@@ -34,6 +34,10 @@ func _ready() -> void:
 	if Engine.is_editor_hint():
 		return
 	add_to_group("ambient_zones")
+	# The loops are cut to repeat seamlessly; make sure they do repeat,
+	# whatever their import settings say.
+	if stream and "loop" in stream:
+		stream.loop = true
 	_player = AudioStreamPlayer.new()
 	_player.stream = stream
 	_player.bus = GameSettings.SFX

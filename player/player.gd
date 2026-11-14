@@ -140,7 +140,9 @@ func _physics_process(delta: float) -> void:
 	else:
 		velocity = input_vector * SPEED
 		_snap_to_pose()
-		
+
+	# On steps across the deck, walking east climbs north and west goes back down.
+	velocity = DeckSlope.adjust(self, velocity)
 	move_and_slide()
 	
 func update_blend_positions(direction_vector: Vector2) -> void:

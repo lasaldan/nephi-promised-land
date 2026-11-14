@@ -30,6 +30,9 @@
 [ext_resource type="AudioStream" uid="uid://c5lswhkmvnm4d" path="res://audio/ambience/thunder.ogg" id="24_thunder"]
 [ext_resource type="Script" uid="uid://dok1tbyng1ej4" path="res://world/weather/ship_sway.gd" id="25_sway"]
 [ext_resource type="Script" uid="uid://cc8ylpcix8g15" path="res://world/props/ship_stairs.gd" id="26_stairs"]
+[ext_resource type="Script" uid="uid://chs4u3jstyiia" path="res://world/ambience/ambient_zone.gd" id="27_zone"]
+[ext_resource type="AudioStream" uid="uid://d0iag02djlfgl" path="res://audio/ambience/ship_creak_loop.ogg" id="28_creak"]
+[ext_resource type="Script" uid="uid://b2c5ulb4llxfd" path="res://world/props/deck_slope.gd" id="29_slope"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_stairs"]
 size = Vector2(44, 18)
@@ -125,7 +128,7 @@ tile_set = ExtResource("6_3ljsx")
 
 [node name="Mast" type="TileMapLayer" parent="Chapters/ShipAtSea/Ship/Upper" unique_id=804395608]
 y_sort_enabled = true
-tile_map_data = PackedByteArray("AAD9/wMAAAAQAAAAAAA=")
+tile_map_data = PackedByteArray("AAD9/wMAAAAQAAAAAAAJAAMAAAAcAA0AAAAKAP//AAAUABMAAAAJAPv/AAAbABMAAAAKAPj/AAAXABoAAAAJAPf/AAAcAAEAAAAJAP7/AAAeAAQAAAAJAP3/AAAYAA8AAAAKAPf/AAAXABwAAAAKAPn/AAAXAB4AAAAKAAUAAAAWAAcAAAA=")
 tile_set = ExtResource("6_3ljsx")
 
 [node name="Stairs" type="Area2D" parent="Chapters/ShipAtSea/Ship" unique_id=1938274651 node_paths=PackedStringArray("upper", "lower", "outside")]
@@ -141,6 +144,16 @@ outside = [NodePath("../../ParallaxSea")]
 visible = false
 position = Vector2(212, 140.975)
 shape = SubResource("RectangleShape2D_stairs")
+
+[node name="SternSteps" type="Node2D" parent="Chapters/ShipAtSea/Ship" unique_id=460337653]
+script = ExtResource("29_slope")
+
+[node name="Creaking" type="Node2D" parent="Chapters/ShipAtSea/Ship" unique_id=1360188099]
+visible = false
+position = Vector2(160, 128)
+script = ExtResource("27_zone")
+stream = ExtResource("28_creak")
+size = Vector2(896, 384)
 
 [node name="Camp" type="Node2D" parent="Chapters" unique_id=1501275458]
 
@@ -191,7 +204,6 @@ hour = 9.0
 [node name="Fog" type="Node2D" parent="." unique_id=1846203917]
 z_index = 90
 script = ExtResource("22_fog")
-density = 0.07
 wind = Vector2(60, 0)
 patchiness = 0.25
 
@@ -202,7 +214,7 @@ wind = 117.0
 darken = 1.0
 splashes = 0.25
 splash_surfaces = [NodePath("../Chapters/ShipAtSea/Ship/Upper/Deck"), NodePath("../Chapters/ShipAtSea/ParallaxSea/Sea")]
-lightning_every = 33.0
+lightning_every = 7.5
 thunder = ExtResource("24_thunder")
 thunder_volume_db = 3.995
 light_sound = ExtResource("21_inp7a")
