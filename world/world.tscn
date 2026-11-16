@@ -34,9 +34,20 @@
 [ext_resource type="AudioStream" uid="uid://d0iag02djlfgl" path="res://audio/ambience/ship_creak_loop.ogg" id="28_creak"]
 [ext_resource type="Script" uid="uid://b2c5ulb4llxfd" path="res://world/props/deck_slope.gd" id="29_slope"]
 [ext_resource type="PackedScene" uid="uid://by5w07s6mi1ol" path="res://characters/cast/sam/sam.tscn" id="30_sam"]
+[ext_resource type="PackedScene" uid="uid://bwp8cm3hqgw5e" path="res://characters/cast/lehi/lehi.tscn" id="31_lehi"]
+[ext_resource type="PackedScene" uid="uid://crxqpuwxq1ap6" path="res://characters/cast/sariah/sariah.tscn" id="32_sariah"]
+[ext_resource type="PackedScene" uid="uid://do5p77oc6xmd1" path="res://characters/cast/laman/laman.tscn" id="33_laman"]
+[ext_resource type="PackedScene" uid="uid://3436rhagv3nl" path="res://characters/cast/lemuel/lemuel.tscn" id="34_lemuel"]
+[ext_resource type="PackedScene" uid="uid://b55cru8w0lvnk" path="res://characters/cast/zoram/zoram.tscn" id="35_zoram"]
+[ext_resource type="PackedScene" uid="uid://c02pk14lwejcl" path="res://characters/cast/ishmael_wife/ishmael_wife.tscn" id="36_wife"]
+[ext_resource type="PackedScene" uid="uid://csvutywkv18to" path="res://characters/cast/ishmael_son_1/ishmael_son_1.tscn" id="37_son1"]
+[ext_resource type="PackedScene" uid="uid://ckuknbic46u2a" path="res://characters/cast/ishmael_son_2/ishmael_son_2.tscn" id="38_son2"]
+[ext_resource type="PackedScene" uid="uid://dlicgavpqo1wy" path="res://characters/cast/sister_1/sister_1.tscn" id="39_sister1"]
+[ext_resource type="PackedScene" uid="uid://d0ue62wgxp87f" path="res://characters/cast/sister_2/sister_2.tscn" id="40_sister2"]
+[ext_resource type="PackedScene" uid="uid://bqykjqs72hd3x" path="res://characters/cast/jacob/jacob.tscn" id="41_jacob"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_stairs"]
-size = Vector2(44, 18)
+size = Vector2(44, 15.024994)
 
 [node name="World" type="Node2D" unique_id=431482446]
 y_sort_enabled = true
@@ -101,28 +112,110 @@ tile_map_data = PackedByteArray("AAD9/wMAAAAMAAYAAAD9/wQAAAAMAAcAAAD+/wMAAAANAAY
 tile_set = ExtResource("6_3ljsx")
 
 [node name="BackDecoration" type="TileMapLayer" parent="Chapters/ShipAtSea/Ship/Lower" unique_id=432438878]
-tile_map_data = PackedByteArray("AAAPAAIAAAAJAB0AAQAPAAMAAAAKAB8AAAAOAAMAAAAJAB4AAAADAAMAAAAKAB8AAAAQAAEAAAAGABoAAAAPAAEAAAAKAB4AAAA=")
+tile_map_data = PackedByteArray("AAADAAMAAAAKAB8AAAAQAAEAAAAGABoAAAARAAIAAAAJAB0AAQARAAEAAAAKAB4AAAARAAMAAAAJAB4AAAAQAAMAAAAKAB8AAAA=")
 tile_set = ExtResource("6_3ljsx")
 
 [node name="Deck" type="TileMapLayer" parent="Chapters/ShipAtSea/Ship/Lower" unique_id=743082872]
 y_sort_enabled = true
-tile_map_data = PackedByteArray("AAAFAAQAAAAGABQAAAAFAAUAAAAGABUAAAAGAAMAAAAHABMAAAAGAAQAAAAHABQAAAAGAAUAAAAHABUAAAAHAAMAAAAIABMAAAAHAAQAAAAIABQAAAAHAAUAAAAIABUAAAAMAAQAAAANAAAAAAAJAAMAAAANAAIAAAALAAMAAAANAAIAAAAJAAUAAAANAAIAAAALAAUAAAANAAIAAAANAAMAAAANAAIAAAAPAAMAAAANAAIAAAACAAMAAAANAAIAAAACAAYAAAANAAIAAAALAAQAAAANAAIAAAA=")
+tile_map_data = PackedByteArray("AAAFAAQAAAAGABQAAAAFAAUAAAAGABUAAAAGAAQAAAAHABQAAAAGAAUAAAAHABUAAAAHAAMAAAAIABMAAAAHAAQAAAAIABQAAAAHAAUAAAAIABUAAAAJAAIAAAATAAIAAAALAAIAAAATAAIAAAANAAIAAAATAAIAAAAPAAIAAAATAAIAAAAHAAIAAAATAAIAAAAFAAIAAAATAAIAAAAMAAMAAAANAAAAAQAKAAMAAAANAAAAAQAOAAMAAAANAAAAAQAMAAIAAAANAAAAAgAKAAIAAAANAAAAAgAIAAIAAAANAAAAAgAIAAMAAAANAAAAAQAEAAMAAAANAAAAAQAOAAIAAAANAAAAAgAGAAIAAAANAAAAAgAEAAIAAAANAAAAAgAGAAMAAAAHABMAAAAFAAcAAAATAAIAAAAHAAcAAAATAAIAAAAJAAcAAAATAAIAAAALAAcAAAATAAIAAAANAAcAAAATAAIAAAAMAAcAAAANAAAAAgAKAAcAAAANAAAAAgAIAAcAAAANAAAAAgAGAAcAAAANAAAAAgAEAAcAAAANAAAAAgA=")
 tile_set = ExtResource("6_3ljsx")
 
 [node name="Front" type="TileMapLayer" parent="Chapters/ShipAtSea/Ship/Lower" unique_id=482508712]
 y_sort_enabled = true
-tile_map_data = PackedByteArray("AAD9/wQAAAATAAYAAAD9/wUAAAAAAA0AAAD9/wYAAAAAAA4AAAD+/wQAAAAUAAYAAAD+/wYAAAABAA4AAAD+/wcAAAABAA8AAAD//wUAAAAQAAcAAAD//wYAAAAQAAgAAAD//wcAAAACAA8AAAAAAAUAAAARAAcAAAAAAAYAAAARAAgAAAAAAAcAAAADAA8AAAABAAUAAAASAAcAAAABAAYAAAASAAgAAAABAAcAAAAEAA8AAAAAAAgAAAADABAAAAABAAgAAAAEABAAAAACAAYAAAATAAgAAAACAAcAAAAFAA8AAAACAAgAAAAFABAAAAADAAYAAAAUAAgAAAADAAcAAAAGAA8AAAADAAgAAAAGABAAAAAEAAYAAAAUAAsAAQAEAAcAAAAHAA8AAAAEAAgAAAAHABAAAAAFAAYAAAAUAAsAAQAFAAcAAAAIAA8AAAAFAAgAAAAIABAAAAAGAAcAAAAIAA8AAAAGAAgAAAAIABAAAAAHAAcAAAAIAA8AAAAHAAgAAAAIABAAAAAIAAcAAAAIAA8AAAAIAAgAAAAIABAAAAAJAAcAAAAIAA8AAAAJAAgAAAAIABAAAAAKAAcAAAAIAA8AAAAKAAgAAAAIABAAAAALAAcAAAAIAA8AAAALAAgAAAAIABAAAAAMAAcAAAAIAA8AAAAMAAgAAAAIABAAAAANAAcAAAAIAA8AAAANAAgAAAAIABAAAAAOAAYAAAAKAAgAAAAOAAcAAAAIAA8AAAAOAAgAAAAIABAAAAAPAAcAAAAIAA8AAAAPAAgAAAAIABAAAAAQAAcAAAAIAA8AAAAQAAgAAAARABAAAAAGAAYAAAAUAAsAAQAHAAYAAAAUAAsAAQAIAAYAAAAUAAsAAQAJAAYAAAAUAAsAAQAKAAYAAAAUAAsAAQALAAYAAAAUAAsAAQAMAAYAAAAUAAsAAQANAAYAAAAUAAsAAQARAAgAAAASABAAAAARAAcAAAAXABAAAAARAAYAAAAXAA8AAAARAAQAAAAUAAsAAgARAAMAAAAUAAsAAgARAAIAAAAUAAsAAgARAAEAAAAUAAsAAgAPAAYAAAAIAA8AAAAQAAYAAAAIAA8AAAAPAAUAAAAOAA4AAAAQAAUAAAAOAA4AAAAOAAUAAAAKAAcAAAAKAAAAAAANAAMAAAALAAAAAAANAAMAAAALAAEAAAANAAQAAAAMAAAAAAAOAAMAAAAMAAEAAAAOAAQAAAAJAAAAAAANAAMAAAAJAAEAAAANAAQAAAAIAAAAAAAMAAMAAAAIAAEAAAAMAAQAAAAOAAAAAAAFAAwAAAAOAAEAAAAPAAgAAAARAAAAAAAVAAcAAAARAAUAAAAVAAgAAAAKAAEAAAANAAQAAAD+/wUAAAAUAAcAAAA=")
+tile_map_data = PackedByteArray("AAD9/wQAAAATAAYAAAD9/wUAAAAAAA0AAAD9/wYAAAAAAA4AAAD+/wQAAAAUAAYAAAD+/wYAAAABAA4AAAD+/wcAAAABAA8AAAD//wUAAAAQAAcAAAD//wYAAAAQAAgAAAD//wcAAAACAA8AAAAAAAUAAAARAAcAAAAAAAYAAAARAAgAAAAAAAcAAAADAA8AAAABAAUAAAASAAcAAAABAAYAAAASAAgAAAABAAcAAAAEAA8AAAAAAAgAAAADABAAAAABAAgAAAAEABAAAAACAAYAAAATAAgAAAACAAcAAAAFAA8AAAACAAgAAAAFABAAAAADAAYAAAAUAAgAAAADAAcAAAAGAA8AAAADAAgAAAAGABAAAAAEAAYAAAAUAAsAAQAEAAcAAAAHAA8AAAAEAAgAAAAHABAAAAAFAAYAAAAUAAsAAQAFAAcAAAAIAA8AAAAFAAgAAAAIABAAAAAGAAcAAAAIAA8AAAAGAAgAAAAIABAAAAAHAAcAAAAIAA8AAAAHAAgAAAAIABAAAAAIAAcAAAAIAA8AAAAIAAgAAAAIABAAAAAJAAcAAAAIAA8AAAAJAAgAAAAIABAAAAAKAAcAAAAIAA8AAAAKAAgAAAAIABAAAAALAAcAAAAIAA8AAAALAAgAAAAIABAAAAAMAAcAAAAIAA8AAAAMAAgAAAAIABAAAAANAAcAAAAIAA8AAAANAAgAAAAIABAAAAAOAAYAAAAKAAgAAAAOAAcAAAAIAA8AAAAOAAgAAAAIABAAAAAPAAcAAAAIAA8AAAAPAAgAAAAIABAAAAAQAAcAAAAIAA8AAAAQAAgAAAARABAAAAAGAAYAAAAUAAsAAQAHAAYAAAAUAAsAAQAIAAYAAAAUAAsAAQAJAAYAAAAUAAsAAQAKAAYAAAAUAAsAAQALAAYAAAAUAAsAAQAMAAYAAAAUAAsAAQANAAYAAAAUAAsAAQARAAgAAAASABAAAAARAAcAAAAXABAAAAARAAYAAAAXAA8AAAARAAQAAAAUAAsAAgARAAMAAAAUAAsAAgARAAIAAAAUAAsAAgARAAEAAAAUAAsAAgAPAAYAAAAIAA8AAAAQAAYAAAAIAA8AAAAPAAUAAAAOAA4AAAAQAAUAAAAOAA4AAAAOAAUAAAAKAAcAAAAKAAAAAAANAAMAAAALAAAAAAANAAMAAAALAAEAAAANAAQAAAAMAAAAAAAOAAMAAAAMAAEAAAAOAAQAAAAJAAAAAAANAAMAAAAJAAEAAAANAAQAAAAIAAAAAAAMAAMAAAAIAAEAAAAMAAQAAAAOAAAAAAAFAAwAAAAOAAEAAAAPAAgAAAARAAAAAAAVAAcAAAARAAUAAAAVAAgAAAAKAAEAAAANAAQAAAD+/wUAAAAUAAcAAAAKAAIAAAATAAAAAAAMAAIAAAATAAAAAAAOAAIAAAATAAAAAAAIAAIAAAATAAAAAAAGAAIAAAATAAAAAAAEAAIAAAATAAAAAAA=")
 tile_set = ExtResource("6_3ljsx")
 
 [node name="SleepingSam" parent="Chapters/ShipAtSea/Ship/Lower" unique_id=1203577914 instance=ExtResource("30_sam")]
-position = Vector2(378, 154)
+position = Vector2(348, 107)
 collision_layer = 4
 collision_mask = 5
 start_pose = "sleep"
 start_facing = "left"
 
+[node name="SleepingLehi" parent="Chapters/ShipAtSea/Ship/Lower" unique_id=795425564 instance=ExtResource("31_lehi")]
+position = Vector2(156, 107)
+collision_layer = 4
+collision_mask = 5
+start_pose = "sleep"
+start_facing = "left"
+
+[node name="SleepingSariah" parent="Chapters/ShipAtSea/Ship/Lower" unique_id=423946139 instance=ExtResource("32_sariah")]
+position = Vector2(220, 107)
+collision_layer = 4
+collision_mask = 5
+start_pose = "sleep"
+start_facing = "left"
+
+[node name="SleepingLaman" parent="Chapters/ShipAtSea/Ship/Lower" unique_id=947876999 instance=ExtResource("33_laman")]
+position = Vector2(284, 107)
+collision_layer = 4
+collision_mask = 5
+start_pose = "sleep"
+start_facing = "left"
+
+[node name="SleepingLemuel" parent="Chapters/ShipAtSea/Ship/Lower" unique_id=1497871144 instance=ExtResource("34_lemuel")]
+position = Vector2(412, 107)
+collision_layer = 4
+collision_mask = 5
+start_pose = "sleep"
+start_facing = "left"
+
+[node name="SleepingZoram" parent="Chapters/ShipAtSea/Ship/Lower" unique_id=203694312 instance=ExtResource("35_zoram")]
+position = Vector2(476, 107)
+collision_layer = 4
+collision_mask = 5
+start_pose = "sleep"
+start_facing = "left"
+
+[node name="SleepingIshmaelWife" parent="Chapters/ShipAtSea/Ship/Lower" unique_id=255555737 instance=ExtResource("36_wife")]
+position = Vector2(156, 85)
+collision_layer = 4
+collision_mask = 5
+start_pose = "sleep"
+start_facing = "left"
+lying_lift = 18.0
+
+[node name="SleepingIshmaelSon1" parent="Chapters/ShipAtSea/Ship/Lower" unique_id=1863673106 instance=ExtResource("37_son1")]
+position = Vector2(220, 85)
+collision_layer = 4
+collision_mask = 5
+start_pose = "sleep"
+start_facing = "left"
+lying_lift = 18.0
+
+[node name="SleepingIshmaelSon2" parent="Chapters/ShipAtSea/Ship/Lower" unique_id=1250797845 instance=ExtResource("38_son2")]
+position = Vector2(284, 85)
+collision_layer = 4
+collision_mask = 5
+start_pose = "sleep"
+start_facing = "left"
+lying_lift = 18.0
+
+[node name="SleepingSister1" parent="Chapters/ShipAtSea/Ship/Lower" unique_id=302142728 instance=ExtResource("39_sister1")]
+position = Vector2(348, 85)
+collision_layer = 4
+collision_mask = 5
+start_pose = "sleep"
+start_facing = "left"
+lying_lift = 18.0
+
+[node name="SleepingSister2" parent="Chapters/ShipAtSea/Ship/Lower" unique_id=885310972 instance=ExtResource("40_sister2")]
+position = Vector2(412, 85)
+collision_layer = 4
+collision_mask = 5
+start_pose = "sleep"
+start_facing = "left"
+lying_lift = 18.0
+
+[node name="SleepingJacob" parent="Chapters/ShipAtSea/Ship/Lower" unique_id=1351527726 instance=ExtResource("41_jacob")]
+position = Vector2(476, 85)
+collision_layer = 4
+collision_mask = 5
+start_pose = "sleep"
+start_facing = "left"
+lying_lift = 18.0
+
 [node name="Upper" type="Node2D" parent="Chapters/ShipAtSea/Ship" unique_id=1758937695]
-visible = false
 y_sort_enabled = true
 
 [node name="Deck" type="TileMapLayer" parent="Chapters/ShipAtSea/Ship/Upper" unique_id=615076428]
@@ -151,7 +244,7 @@ outside = [NodePath("../../ParallaxSea")]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Chapters/ShipAtSea/Ship/Stairs" unique_id=274619385]
 visible = false
-position = Vector2(212, 140.975)
+position = Vector2(212, 145.4875)
 shape = SubResource("RectangleShape2D_stairs")
 
 [node name="SternSteps" type="Node2D" parent="Chapters/ShipAtSea/Ship" unique_id=460337653]

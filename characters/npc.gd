@@ -89,9 +89,7 @@ const POSES := {
 	"pray": {"rows": {"up": 0, "left": 1, "down": 2, "right": 3}, "frames": [0, 1, 2], "seconds": 0.3},
 	"sleep": {"rows": {"left": 10, "right": 10}, "frames": [0], "lying": true},
 }
-# Lying, the figure's middle sits this far above their tile point. The
-# standing frame's figure is centred about this far below the frame centre.
-const LYING_LIFT := 8.0
+# The standing frame's figure is centred about this far below the frame centre.
 const FIGURE_DROP := 7.0
 var _pose := ""
 var _pose_frame := 0
@@ -108,6 +106,11 @@ var _standing_sprite := {}
 ## direction ("" for the pose's first).
 @export var start_pose := ""
 @export var start_facing := ""
+## Lying down (sleep), how far above their position the middle of the figure
+## is drawn. They still sort by their position, so raise this to put someone
+## on a top bunk while their position stays low enough to sort in front of
+## the bunk and behind a blanket.
+@export var lying_lift := 8.0
 
 
 func _ready() -> void:
@@ -444,7 +447,7 @@ func _lie_down(sheet: Sprite2D, coords: Vector2i) -> void:
 	var turn := -PI / 2.0 if facing == "left" else PI / 2.0
 	if not _standing_sprite.is_empty():
 		if sheet.rotation != turn:
-			sheet.rotation = turn
+			_turn_lying(sheet, turn)
 		return
 	var face := SleepingFace.frame(sheet.texture, coords)
 	if face == null:
@@ -455,11 +458,16 @@ func _lie_down(sheet: Sprite2D, coords: Vector2i) -> void:
 	sheet.hframes = 1
 	sheet.vframes = 1
 	sheet.frame = 0
-	# Turn about the figure's middle rather than the frame's, then lift it so
-	# they lie across their tile.
-	sheet.offset = Vector2(0, -FIGURE_DROP)
-	sheet.position = Vector2(0, -LYING_LIFT)
+	sheet.position = Vector2.ZERO
+	_turn_lying(sheet, turn)
+
+# The figure turns about its own middle, lifted lying_lift above their
+# position. The lift goes in the offset, which turns with the sprite, so it is
+# turned back first. Not in the sprite's position: person.tscn y-sorts its
+# children, so the sprite would sort by that and slip behind a bunk.
+func _turn_lying(sheet: Sprite2D, turn: float) -> void:
 	sheet.rotation = turn
+	sheet.offset = Vector2(0, -FIGURE_DROP) + Vector2(0, -lying_lift).rotated(-turn)
 
 func _stand_up() -> void:
 	if _standing_sprite.is_empty():
