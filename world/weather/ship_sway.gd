@@ -74,6 +74,19 @@ func _ready() -> void:
 	_bounds = _tile_bounds()
 	_pivot = pivot if pivot != Vector2.ZERO else _bounds.get_center()
 	_last = global_transform
+	# No crickets at sea: while the ship is shown, the DayNight keeps them quiet.
+	visibility_changed.connect(_tell_sky_at_sea)
+	_tell_sky_at_sea.call_deferred()
+
+func _exit_tree() -> void:
+	for sky in get_tree().get_nodes_in_group(DayNight.GROUP):
+		sky.at_sea = false
+
+func _tell_sky_at_sea() -> void:
+	if not is_inside_tree():
+		return
+	for sky in get_tree().get_nodes_in_group(DayNight.GROUP):
+		sky.at_sea = is_visible_in_tree()
 
 # Ease the sea from calm (0) to storm (1) over seconds. 0 seconds switches at
 # once.

@@ -11,7 +11,7 @@ extends CanvasModulate
 # the white of day, an orange dusk, and back to night. night_amount (0 day, 1
 # night) follows it, and everything that cares listens to that:
 #   - FlickerLights with night_only fade up (campfires, lamps)
-#   - the crickets fade in
+#   - the crickets fade in (not at sea: ShipSway sets at_sea)
 #   - AmbientZones set to day or night only (world/ambience/ambient_zone.gd)
 #   - night_amount_changed, for anything else
 #
@@ -21,6 +21,11 @@ extends CanvasModulate
 #
 # flash (0 to 1) lifts the light past white toward flash_color, for lightning
 # (Rain.strike()). It washes out day and night alike.
+#
+# indoors (0 to 1) dims everything by indoor_color, for below decks: the
+# ShipStairs fades it in as he goes down. Lamps (world/props/oil_lamp.tscn)
+# are lights, so they still shine at full strength in the gloom. A lightning
+# flash shows faintly through the deck.
 #
 # Time stands still unless a cycle is running. Chapters use the StoryChapter
 # helpers (nightfall(), daybreak(), setTimeOfDay(), startDayCycle()); the
@@ -55,6 +60,8 @@ const NIGHT := 21.5
 @export var overcast_color := Color(0.58, 0.62, 0.70)
 ## The light at the height of a lightning flash. Above 1 brightens past day.
 @export var flash_color := Color(1.6, 1.65, 1.85)
+## What the light is multiplied by when fully indoors (below decks).
+@export var indoor_color := Color(0.42, 0.40, 0.44)
 @export_group("Sound")
 ## How loud the crickets are at full night.
 @export var crickets_volume_db := -6.0
@@ -76,6 +83,22 @@ var overcast := 0.0:
 var flash := 0.0:
 	set(value):
 		flash = clampf(value, 0.0, 1.0)
+		_apply()
+
+# True while the ship at sea is shown (ShipSway sets it): no crickets out
+# there. Not saved.
+var at_sea := false:
+	set(value):
+		if value == at_sea:
+			return
+		at_sea = value
+		if is_inside_tree() and not Engine.is_editor_hint():
+			_update_crickets()
+
+# 0 is out in the open, 1 below decks. Set by the ShipStairs; not saved.
+var indoors := 0.0:
+	set(value):
+		indoors = clampf(value, 0.0, 1.0)
 		_apply()
 
 var _tween: Tween
@@ -165,7 +188,8 @@ func _apply() -> void:
 			var t: float = inverse_lerp(a[0], b[0], hour)
 			var light := (a[1] as Color).lerp(b[1], t)
 			light = light.lerp(light * overcast_color, overcast)
-			color = light.lerp(flash_color, flash)
+			light = light.lerp(flash_color, flash)
+			color = light.lerp(light * indoor_color, indoors)
 			_set_night_amount(lerpf(a[2], b[2], t))
 			return
 
@@ -177,11 +201,15 @@ func _set_night_amount(amount: float) -> void:
 		return
 	get_tree().call_group(FlickerLight.GROUP, "set_night_amount", amount)
 	night_amount_changed.emit(amount)
-	# Louder as the night deepens, silent and stopped by day.
-	if _crickets:
-		if amount <= 0.0:
-			_crickets.stop()
-		else:
-			_crickets.volume_db = crickets_volume_db + linear_to_db(amount)
-			if not _crickets.playing:
-				_crickets.play()
+	_update_crickets()
+
+# Louder as the night deepens, silent and stopped by day and at sea.
+func _update_crickets() -> void:
+	if _crickets == null:
+		return
+	if night_amount <= 0.0 or at_sea:
+		_crickets.stop()
+	else:
+		_crickets.volume_db = crickets_volume_db + linear_to_db(night_amount)
+		if not _crickets.playing:
+			_crickets.play()

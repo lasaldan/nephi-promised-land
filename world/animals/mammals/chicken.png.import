@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c0ui7e0y2vh0p"
-path="res://.godot/imported/ship_lower_deck.png-2495a567e15624dc7b323f1fd8f80330.ctex"
+uid="uid://bmy5nygh6ecey"
+path="res://.godot/imported/chicken.png-fd4d616b6ee5a8f4e6b3fa186ceb7788.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://world/tilesets/ship_lower_deck.png"
-dest_files=["res://.godot/imported/ship_lower_deck.png-2495a567e15624dc7b323f1fd8f80330.ctex"]
+source_file="res://world/animals/mammals/chicken.png"
+dest_files=["res://.godot/imported/chicken.png-fd4d616b6ee5a8f4e6b3fa186ceb7788.ctex"]
 
 [params]
 

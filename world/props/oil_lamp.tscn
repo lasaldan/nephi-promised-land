@@ -1,0 +1,43 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://world/props/oil_lamp.gd" id="1_lamp"]
+[ext_resource type="Texture2D" path="res://world/props/oil_lamp.png" id="2_tex"]
+[ext_resource type="Script" path="res://world/lighting/flicker_light.gd" id="3_flick"]
+[ext_resource type="Texture2D" path="res://world/lighting/light_falloff.tres" id="4_fall"]
+
+[node name="OilLamp" type="Node2D"]
+script = ExtResource("1_lamp")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_tex")
+centered = false
+position = Vector2(0, -48)
+offset = Vector2(-8, -22)
+hframes = 3
+
+[node name="Glow" type="PointLight2D" parent="."]
+range_item_cull_mask = 2
+position = Vector2(6, -64)
+color = Color(1, 0.62, 0.32, 1)
+energy = 1.0
+texture = ExtResource("4_fall")
+texture_scale = 3.5
+script = ExtResource("3_flick")
+base_energy = 1.0
+flicker_amount = 0.12
+flicker_speed = 5.0
+night_only = false
+
+[node name="Core" type="PointLight2D" parent="."]
+range_item_cull_mask = 2
+position = Vector2(6, -64)
+color = Color(1, 0.84, 0.52, 1)
+energy = 1.2
+texture = ExtResource("4_fall")
+texture_scale = 0.6
+script = ExtResource("3_flick")
+base_energy = 1.2
+flicker_amount = 0.25
+flicker_speed = 9.0
+scale_wobble = 0.06
+night_only = false

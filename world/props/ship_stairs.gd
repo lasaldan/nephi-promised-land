@@ -34,12 +34,20 @@ extends Area2D
 # faded back in.
 # Below, everything in outside (the sea) fades to black too, so all that
 # shows is the hold he is in, and the weather (world/weather/rain.gd, fog.gd)
-# shelters over the same fade: no rain or fog drawn, the rain heard quieter. While the ship
+# shelters over the same fade: no rain or fog drawn, the rain heard quieter.
+# The DayNight dims to its indoor_color over that fade too, so the hold is
+# gloomy and its oil lamps (world/props/oil_lamp.tscn) light it. While the ship
 # is hidden (another chapter) nothing is sheltered or darkened, whatever deck
 # he was last on.
 # Put this under the Ship, so it rocks with it.
 
 enum Deck { UPPER, LOWER }
+
+## The light layer the hold's lamps shine on (Layer Names > 2D Render,
+## "below_decks"). Everything under lower, and the player, is put on it as
+## well as the default layer, so the lamps light the hold and him but never
+## the upper deck fading out over them.
+const BELOW_DECKS_LIGHT := 1 << 1
 
 ## Where on the stairs the decks change over, in this node's coordinates (the
 ## Ship's, when it sits at the Ship's origin). West of it is below decks.
@@ -72,6 +80,13 @@ func _ready() -> void:
 		push_warning("ShipStairs: no player")
 		return
 	_player.deck_changed.connect(_show_deck)
+	# Anyone brought into the hold later (a chapter's NPCs) gets the layer too.
+	_add_below_light(_player)
+	if lower:
+		_add_below_light(lower)
+		get_tree().node_added.connect(func(node: Node) -> void:
+			if lower.is_ancestor_of(node):
+				_add_below_light(node))
 	# Hiding the ship's chapter hides this too, and must not leave the world
 	# sheltered.
 	visibility_changed.connect(func() -> void: _show_deck(_player.deck, false))
@@ -84,6 +99,8 @@ func _exit_tree() -> void:
 		_fade.kill()
 	for weather in _weather():
 		weather.shelter = 0.0
+	for sky in _sky():
+		sky.indoors = 0.0
 	_set_player_z(false)
 
 func _physics_process(_delta: float) -> void:
@@ -118,6 +135,8 @@ func _show_deck(deck: Deck, animate: bool = true) -> void:
 				item.modulate = dark
 		for weather in _weather():
 			weather.shelter = 1.0 if below else 0.0
+		for sky in _sky():
+			sky.indoors = 1.0 if below else 0.0
 		return
 	_fade = create_tween().set_parallel()
 	if upper:
@@ -128,6 +147,8 @@ func _show_deck(deck: Deck, animate: bool = true) -> void:
 			_fade.tween_property(item, "modulate", dark, fade_seconds)
 	for weather in _weather():
 		_fade.tween_property(weather, "shelter", 1.0 if below else 0.0, fade_seconds)
+	for sky in _sky():
+		_fade.tween_property(sky, "indoors", 1.0 if below else 0.0, fade_seconds)
 	if below:
 		_fade.chain().tween_callback(_set_player_z.bind(true))
 	if upper and not shown:
@@ -147,6 +168,17 @@ func _weather() -> Array[Node]:
 	for group in [Rain.GROUP, Fog.GROUP]:
 		found.append_array(get_tree().get_nodes_in_group(group))
 	return found
+
+func _add_below_light(node: Node) -> void:
+	var item := node as CanvasItem
+	if item:
+		item.light_mask |= BELOW_DECKS_LIGHT
+	for child in node.get_children():
+		_add_below_light(child)
+
+# The world's DayNight, which dims while he is below.
+func _sky() -> Array[Node]:
+	return get_tree().get_nodes_in_group(DayNight.GROUP)
 
 func _draw() -> void:
 	if not debug_draw or not OS.is_debug_build():
