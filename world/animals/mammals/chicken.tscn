@@ -24,7 +24,7 @@ centered = false
 offset = Vector2(-16, -26)
 hframes = 4
 vframes = 8
-frame = 8
+frame = 24
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 polygon = PackedVector2Array(-6, 0, 0, -3, 6, 0, 0, 3)

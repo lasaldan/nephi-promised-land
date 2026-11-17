@@ -624,7 +624,7 @@ func can_reach(tile_position: Vector2) -> bool:
 	if not _has_navigation():
 		return not test_move(global_transform, target - position)
 	var map := get_world_2d().navigation_map
-	var global_target := global_position + (target - position)
+	var global_target := spot_to_global(target)
 	var snapped := NavigationServer2D.map_get_closest_point(map, global_target)
 	if snapped.distance_to(global_target) > 4.0:
 		return false
@@ -718,7 +718,7 @@ func _start_walk(target: Vector2, speed: float, stuck_seconds: float, order: boo
 			"last_distance": INF, "navigating": _has_navigation()}
 	if _walk.navigating:
 		_agent.max_speed = speed * SPEED
-		_agent.target_position = global_position + (target - position)
+		_agent.target_position = spot_to_global(target)
 
 func _update_walk(delta: float) -> void:
 	if not is_walking():
@@ -734,6 +734,7 @@ func _update_walk(delta: float) -> void:
 		return
 	# Progress is measured along the path: walking around a wall takes them
 	# further from the spot for a while, and that is not being stuck.
+	_follow_moving_target()
 	var left := _distance_left(distance)
 	_check_caught(left, step, delta)
 	if left < _walk.best - 0.5:
@@ -753,6 +754,23 @@ func _update_walk(delta: float) -> void:
 			heading = next.normalized()
 	input_vector = heading * _walk.speed
 
+# A spot in the parent's space (as position is) in world pixels. The parent
+# can move and turn: the ship rocks, carrying everyone on deck with it.
+func spot_to_global(spot: Vector2) -> Vector2:
+	var parent := get_parent() as Node2D
+	return parent.to_global(spot) if parent else spot
+
+# The agent's target is in world pixels, set when the walk starts. If the
+# parent has moved since (the rocking ship), the spot has moved with it but
+# the target has not, and they would chase a point a few pixels off the spot
+# until they gave up as stuck, walking in place. Re-aim when it drifts.
+func _follow_moving_target() -> void:
+	if not _walk.navigating:
+		return
+	var spot := spot_to_global(_walk.target)
+	if _agent.target_position.distance_to(spot) > 0.5:
+		_agent.target_position = spot
+
 # How far is left to walk: along the navigation path while there is one,
 # otherwise straight to the spot.
 func _distance_left(straight: float) -> float:
@@ -766,7 +784,7 @@ func _distance_left(straight: float) -> float:
 	for i in range(index, path.size() - 1):
 		left += path[i].distance_to(path[i + 1])
 	# The path ends at the nearest walkable point; the rest is straight.
-	return left + path[path.size() - 1].distance_to(global_position + (_walk.target - position))
+	return left + path[path.size() - 1].distance_to(spot_to_global(_walk.target))
 
 # Pressed against someone and closing on the spot slower than this share of
 # their pace counts as caught. Sliding around them still gains a little.

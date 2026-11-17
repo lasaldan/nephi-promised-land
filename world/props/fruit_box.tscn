@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://world/props/fruit_box.gd" id="1_box"]
+[ext_resource type="Texture2D" path="res://world/tilesets/fruits-veggies-box.png" id="2_sheet"]
+
+[node name="FruitBox" type="StaticBody2D"]
+script = ExtResource("1_box")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_sheet")
+centered = false
+offset = Vector2(-16, -64)
+region_enabled = true
+region_rect = Rect2(0, 1056, 32, 64)
+
+[node name="Collision" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-16, -14, 16, -14, 16, 0, -16, 0)

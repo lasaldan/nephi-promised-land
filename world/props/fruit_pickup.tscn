@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://world/props/fruit_pickup.gd" id="1_pick"]
+[ext_resource type="Texture2D" path="res://world/tilesets/fruits-veggies-box.png" id="2_sheet"]
+
+[node name="FruitPickup" type="Node2D"]
+script = ExtResource("1_pick")
+interact_offset = Vector2(0, 0)
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_sheet")
+centered = false
+offset = Vector2(-16, -32)
+region_enabled = true
+region_rect = Rect2(0, 992, 32, 32)
+
+[node name="Body" type="StaticBody2D" parent="."]
+
+[node name="Collision" type="CollisionPolygon2D" parent="Body"]
+disabled = true
+polygon = PackedVector2Array(-16, -14, 16, -14, 16, 0, -16, 0)

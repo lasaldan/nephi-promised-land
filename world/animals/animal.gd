@@ -10,7 +10,8 @@ extends Npc
 # The sheet is the usual 4 x 8 animal layout, one cell per frame:
 #   rows 0-3  walk, facing up, left, down, right
 #   rows 4-7  eat (head lowering over the four frames), same facings
-# Standing is the first walk frame. The Sprite2D's hframes/vframes and
+# Standing is the first eat frame: head up, legs together. Every walk frame
+# is mid-stride. The Sprite2D's hframes/vframes and
 # offset are set in each scene; the offset puts the animal's feet on the
 # node's position, so it y-sorts like everyone else.
 #
@@ -102,6 +103,24 @@ func _ready() -> void:
 	add_child(_voice)
 	# Spread out, so a flock doesn't all call at once.
 	_call_timer = randf_range(0.0, call_interval_max)
+
+
+# Before choosing a spot, check it can really walk there. Npc's check asks the
+# world's navigation map, which only knows the ground and props, not walls on
+# other physics layers (the ship's decks). So also: the spot must be clear
+# for its body, and its body must be able to slide along every leg of the
+# path to it without hitting anything on its own collision mask. A spot
+# across a fence or hold wall is skipped rather than walked at.
+func can_reach(tile_position: Vector2) -> bool:
+	if not super(tile_position) or overlaps_at(tile_position):
+		return false
+	var body := global_transform
+	var target := spot_to_global(tile_position * TILE)
+	for point in WorldNavigation.path(self, target):
+		if test_move(body, point - body.origin):
+			return false
+		body.origin = point
+	return true
 
 
 # Animal sheets have no sit, kneel or pray rows.
@@ -237,13 +256,13 @@ func _animate(delta: float) -> void:
 		# Turned mid-meal (by the story, or to stare): keep eating that way.
 		_clip_row = EAT_ROWS + ROWS[_current_facing()]
 	else:
-		_play([0], ROWS[_current_facing()], 1.0, false)
+		_play([0], EAT_ROWS + ROWS[_current_facing()], 1.0, false)
 
 	_clip_time += delta
 	if not _clip_loop and _clip_time * _clip_fps >= _clip.size():
 		if _eating:
 			_eating = false
-			_play([0], ROWS[_current_facing()], 1.0, false)
+			_play([0], EAT_ROWS + ROWS[_current_facing()], 1.0, false)
 	sheet.frame_coords = Vector2i(_clip[_clip_frame_index()], _clip_row)
 
 
