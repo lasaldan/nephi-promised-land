@@ -1,0 +1,30 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://world/animals/animal.gd" id="1_animal"]
+[ext_resource type="Texture2D" path="res://world/animals/mammals/chicken.png" id="2_sheet"]
+[ext_resource type="AudioStream" path="res://audio/animals/chicken.ogg" id="3_snd"]
+
+[node name="Chicken" type="CharacterBody2D"]
+y_sort_enabled = true
+motion_mode = 1
+script = ExtResource("1_animal")
+walk_speed = 1.6
+walk_fps = 8.0
+wander_radius = 3.0
+talk_reach = 40.0
+body_radius = 6.0
+call_interval_min = 5.0
+call_interval_max = 14.0
+eat_chance = 0.45
+sounds = Array[AudioStream]([ExtResource("3_snd")])
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_sheet")
+centered = false
+offset = Vector2(-16, -26)
+hframes = 4
+vframes = 8
+frame = 8
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-6, 0, 0, -3, 6, 0, 0, 3)

@@ -47,6 +47,12 @@ func rest(seconds: float = -1.0) -> void:
 	_rest_left = seconds
 	_fidget_in = randf_range(0.2, 0.8) * seconds
 
+# Make the current rest last at least this many more seconds. For a fidget
+# that takes a while (an animal staring at Nephi), so the habit doesn't walk
+# off in the middle of it.
+func extend_rest(seconds: float) -> void:
+	_rest_left = maxf(_rest_left, seconds)
+
 # True while a rest() is still running. Call it at the top of tick().
 func resting(delta: float) -> bool:
 	if _rest_left <= 0.0:

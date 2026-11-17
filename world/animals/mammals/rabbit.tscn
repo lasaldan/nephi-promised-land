@@ -1,0 +1,28 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://world/animals/animal.gd" id="1_animal"]
+[ext_resource type="Texture2D" path="res://world/animals/mammals/rabbit.png" id="2_sheet"]
+
+[node name="Rabbit" type="CharacterBody2D"]
+y_sort_enabled = true
+motion_mode = 1
+script = ExtResource("1_animal")
+walk_speed = 2.5
+walk_fps = 8.0
+wander_radius = 6.0
+talk_reach = 40.0
+body_radius = 6.0
+hops = true
+stare_chance = 0.8
+turn_chance = 0.4
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_sheet")
+centered = false
+offset = Vector2(-36, -49)
+hframes = 4
+vframes = 8
+frame = 8
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-6, 0, 0, -3, 6, 0, 0, 3)

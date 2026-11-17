@@ -5,10 +5,9 @@ extends Node2D
 ## and calls out now and then. Place the node at the center of the loop; the
 ## loop is drawn in the editor so it's easy to tweak.
 ##
-## type picks the bird. Every bird in flying_animals.png that shares the same
-## layout is here: a 3x4 block of 32-pixel cells (three wing positions, one row
-## per direction), with the same bird perched in the block just below it. The
-## bats and butterflies on the sheet are laid out differently and are not.
+## type picks the bird. Every bird in birds.png is here: each is a 3x4 block
+## of 32-pixel cells (three wing positions, one row per direction), with the
+## same bird perched in the block just below it.
 ## Names are best guesses from the pictures; rename freely, but the order is
 ## saved in scenes, so add new ones at the end.
 
@@ -17,7 +16,7 @@ enum Type {
 	BLUEBIRD, BLACKBIRD, GULL, DOVE, RED_KITE, ORIOLE,
 }
 
-const SHEET := preload("res://world/wildlife/flying_animals.png")
+const SHEET := preload("res://world/animals/birds/birds.png")
 const FRAME := 32
 # Top-left cell (column, row) of each type's flying block. Its perched block
 # is PERCHED_OFFSET below.

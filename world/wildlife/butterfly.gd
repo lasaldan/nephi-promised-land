@@ -8,12 +8,12 @@ extends Node2D
 
 enum Species { WHITE, BLUE }
 
-const SHEET := preload("res://world/wildlife/flying_animals.png")
+const SHEET := preload("res://world/animals/insects/butterflies.png")
 const FRAME := 32
-# Top-left cell (column, row) of each species' 4-frame row in the sheet.
+# First cell (column, row) of each species' 4-frame row in the sheet.
 const SHEET_ORIGIN := {
-	Species.WHITE: Vector2i(22, 8),
-	Species.BLUE: Vector2i(22, 9),
+	Species.WHITE: Vector2i(0, 0),
+	Species.BLUE: Vector2i(0, 1),
 }
 
 @export var species: Species = Species.BLUE:
