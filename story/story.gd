@@ -6,7 +6,8 @@ class_name Story
 # this list is only the order the director considers them in.
 # Add a new chapter script here. Filename numbers are not consulted.
 const CHAPTER_SCRIPTS: Array[Script] = [
-	# preload("res://story/chapters/arrival.gd"),
+	preload("res://story/chapters/intro.gd"),
+	preload("res://story/chapters/ship_at_sea.gd"),
 ]
 
 # Where a finished save opens, free to explore: a chapter that is not part

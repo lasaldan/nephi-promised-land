@@ -58,6 +58,11 @@ var working := false
 @export var avoidance := true
 ## Half their width, for avoidance. Their collision diamond is about 16 wide.
 @export var body_radius := 8.0
+## Habit walks (Meander, Patrol, ...) follow the navigation path. Off, as for
+## animals: a habit only picks spots it can reach in a clear straight line and
+## walks straight at them, so it potters about instead of taking the long way
+## round a fence. Story go_to() walks still navigate.
+@export var habit_walks_navigate := true
 
 @export_group("Talking")
 ## How far Nephi can stand from them and still talk, in pixels. More for
@@ -616,13 +621,13 @@ func stop_walking() -> void:
 	if is_walking():
 		_stop_walk(true)
 
-# True when they could walk to the tile. With navigation, the tile has to be
-# on the walkable area and joined to where they stand; without, the straight
-# line has to be clear.
+# True when they could walk to the tile. With navigation (and
+# habit_walks_navigate), the tile has to be on the walkable area and joined to
+# where they stand; otherwise the straight line has to be clear.
 func can_reach(tile_position: Vector2) -> bool:
 	var target := tile_position * TILE
-	if not _has_navigation():
-		return not test_move(global_transform, target - position)
+	if not habit_walks_navigate or not _has_navigation():
+		return can_walk_straight_to(tile_position)
 	var map := get_world_2d().navigation_map
 	var global_target := spot_to_global(target)
 	var snapped := NavigationServer2D.map_get_closest_point(map, global_target)
@@ -630,6 +635,12 @@ func can_reach(tile_position: Vector2) -> bool:
 		return false
 	var path := NavigationServer2D.map_get_path(map, global_position, snapped, true)
 	return not path.is_empty() and path[path.size() - 1].distance_to(snapped) < 4.0
+
+# True when their body could slide straight to the tile without hitting
+# anything on its collision mask right now. In world pixels, so it holds on
+# the rocking ship too.
+func can_walk_straight_to(tile_position: Vector2) -> bool:
+	return not test_move(global_transform, spot_to_global(tile_position * TILE) - global_position)
 
 # True when their body, standing at the tile, would overlap something solid.
 func overlaps_at(tile_position: Vector2) -> bool:
@@ -715,7 +726,7 @@ func _start_walk(target: Vector2, speed: float, stuck_seconds: float, order: boo
 	working = false
 	_walk = {"target": target, "speed": speed, "stuck_limit": stuck_seconds, "order": order,
 			"through": through, "face": null, "best": INF, "since_progress": 0.0, "caught": 0.0,
-			"last_distance": INF, "navigating": _has_navigation()}
+			"last_distance": INF, "navigating": _has_navigation() and (order or habit_walks_navigate)}
 	if _walk.navigating:
 		_agent.max_speed = speed * SPEED
 		_agent.target_position = spot_to_global(target)
@@ -726,10 +737,16 @@ func _update_walk(delta: float) -> void:
 	var to_target: Vector2 = _walk.target - position
 	var distance := to_target.length()
 	var step: float = _walk.speed * SPEED * delta
-	# Avoidance moves them a frame late, so allow a little more than one
-	# frame's step, or they hop back and forth over the spot.
-	if distance <= maxf(2.0, step * 1.5):
-		position = _walk.target
+	if _agent.avoidance_enabled and not is_passing_through():
+		# Avoidance moves them a frame late, so allow a little more than one
+		# frame's step, or they hop back and forth over the spot.
+		if distance <= maxf(2.0, step * 1.5):
+			position = _walk.target
+			_stop_walk(true)
+			return
+	elif distance <= maxf(1.0, step):
+		# Moved this frame: within one step counts as there. No snap onto the
+		# spot, which would jump the sprite a pixel or two on arrival.
 		_stop_walk(true)
 		return
 	# Progress is measured along the path: walking around a wall takes them

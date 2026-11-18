@@ -1,0 +1,90 @@
+[gd_resource type="TileSet" format=3 uid="uid://8f6h6wjvhkyv"]
+
+[ext_resource type="Texture2D" uid="uid://qnjpc4bgu3rv" path="res://world/tilesets/terrain.png" id="0_tex"]
+[ext_resource type="Texture2D" uid="uid://drt8browvj31b" path="res://world/tilesets/jerusalem/structures.png" id="1_tex"]
+[ext_resource type="Texture2D" uid="uid://tb00sbiiw3bw" path="res://world/tilesets/jerusalem/trees_living.png" id="2_tex"]
+[ext_resource type="Texture2D" uid="uid://c6ctxairdsjn6" path="res://world/tilesets/jerusalem/undergrowth.png" id="3_tex"]
+
+[sub_resource type="TileSetAtlasSource" id="Atlas_0"]
+texture = ExtResource("0_tex")
+texture_region_size = Vector2i(32, 32)
+15:0/0 = 0
+15:0/0/texture_origin = Vector2i(0, -16)
+21:0/0 = 0
+15:1/0 = 0
+16:1/0 = 0
+17:1/0 = 0
+15:2/0 = 0
+17:2/0 = 0
+15:3/0 = 0
+16:3/0 = 0
+17:3/0 = 0
+1:9/0 = 0
+10:9/0 = 0
+0:11/0 = 0
+1:11/0 = 0
+2:11/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="Atlas_1"]
+texture = ExtResource("1_tex")
+texture_region_size = Vector2i(32, 32)
+1:0/0 = 0
+1:0/0/y_sort_origin = 96
+6:1/0 = 0
+1:2/0 = 0
+1:2/0/y_sort_origin = 96
+1:4/0 = 0
+12:4/0 = 0
+13:4/0 = 0
+3:12/0 = 0
+3:12/0/y_sort_origin = 96
+4:12/0 = 0
+4:12/0/y_sort_origin = 96
+5:12/0 = 0
+5:12/0/y_sort_origin = 96
+3:13/0 = 0
+4:13/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="Atlas_2"]
+texture = ExtResource("2_tex")
+texture_region_size = Vector2i(32, 32)
+18:12/size_in_atlas = Vector2i(3, 4)
+18:12/0 = 0
+18:12/0/texture_origin = Vector2i(0, 43)
+0:16/size_in_atlas = Vector2i(3, 4)
+0:16/0 = 0
+0:16/0/texture_origin = Vector2i(0, 43)
+0:20/size_in_atlas = Vector2i(3, 4)
+0:20/0 = 0
+0:20/0/texture_origin = Vector2i(0, 43)
+0:24/size_in_atlas = Vector2i(3, 4)
+0:24/0 = 0
+0:24/0/texture_origin = Vector2i(0, 42)
+3:24/size_in_atlas = Vector2i(3, 4)
+3:24/0 = 0
+3:24/0/texture_origin = Vector2i(5, 41)
+18:24/size_in_atlas = Vector2i(3, 4)
+18:24/0 = 0
+18:24/0/texture_origin = Vector2i(3, 43)
+
+[sub_resource type="TileSetAtlasSource" id="Atlas_3"]
+texture = ExtResource("3_tex")
+texture_region_size = Vector2i(32, 32)
+2:1/0 = 0
+28:9/size_in_atlas = Vector2i(2, 2)
+28:9/0 = 0
+30:9/size_in_atlas = Vector2i(1, 2)
+30:9/0 = 0
+31:9/size_in_atlas = Vector2i(1, 2)
+31:9/0 = 0
+1:14/0 = 0
+1:14/0/y_sort_origin = -16
+1:15/0 = 0
+1:15/0/y_sort_origin = -16
+
+[resource]
+tile_size = Vector2i(32, 32)
+sources/0 = SubResource("Atlas_0")
+sources/1 = SubResource("Atlas_1")
+sources/2 = SubResource("Atlas_2")
+sources/3 = SubResource("Atlas_3")

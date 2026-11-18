@@ -4,6 +4,16 @@
 # (voice/<speaker>/<ID>.mp3), made by tools/voice/generate.py. Leave the IDs
 # off new lines: tools/voice/build_manifest.py adds them.
 
+~ intro_jerusalem
+narrator: Many years ago, my family and I lived in Jerusalem. My father, a prophet of God, saw in a vision that Jerusalem would be destroyed. [ID:MANY_YEARS_AGO_MY_FAMILY_AND_A2D619]
+narrator: We left our home and traveled in the wilderness for many years. [ID:WE_LEFT_OUR_HOME_AND_TRAVELED_1CC3F1]
+=> END
+
+~ intro_bountiful
+narrator: The Lord led us to a land which we called Bountiful, as it had much fruit and honey and was along the seashore. [ID:THE_LORD_LED_US_TO_A_LAND_22D35B]
+narrator: There I and my family built a ship and loaded it with enough provisions to cross the sea. [ID:THERE_I_AND_MY_FAMILY_BUILT_A_8539F9]
+=> END
+
 ~ talk_sheep
 sheep: Baa-aa-aa! [i](The sheep keeps chewing and stares at you.)[/i] [ID:BAA_AA_AA_I_THE_SHEEP_KEEPS_CH_495A30]
 => END

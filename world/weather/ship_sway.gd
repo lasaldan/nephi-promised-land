@@ -56,6 +56,16 @@ enum Style { ROLL_AND_HEAVE, HEAVE_ONLY }
 
 const GROUP := "ship_sway"
 
+## Where the ship rides with the swell taken out, in its parent's
+## coordinates. Setting it moves the ship, and on the next physics frame
+## whoever stands on deck moves with it, as they do with the sway. A tween
+## on it sails the ship (the intro sails it off the shore of Bountiful).
+var anchor: Vector2:
+	get:
+		return _base.origin
+	set(value):
+		_base.origin = value
+
 var _base: Transform2D
 var _pivot: Vector2
 # The ship's tiles, in its own coordinates. Who stands inside is carried.

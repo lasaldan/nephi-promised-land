@@ -1,7 +1,12 @@
 clip,character,title,text,tts_text,tts_override,status,hash,generated_hash,notes
+MANY_YEARS_AGO_MY_FAMILY_AND_A2D619,narrator,intro_jerusalem,"Many years ago, my family and I lived in Jerusalem. My father, a prophet of God, saw in a vision that Jerusalem would be destroyed.","Many years ago, my family and I lived in Jerusalem. My father, a prophet of God, saw in a vision that Jerusalem would be destroyed.",,done,41e8a1f01a1e,41e8a1f01a1e,
+WE_LEFT_OUR_HOME_AND_TRAVELED_1CC3F1,narrator,intro_jerusalem,We left our home and traveled in the wilderness for many years.,We left our home and traveled in the wilderness for many years.,,done,4b65807de644,4b65807de644,
+THE_LORD_LED_US_TO_A_LAND_22D35B,narrator,intro_bountiful,"The Lord led us to a land which we called Bountiful, as it had much fruit and honey and was along the seashore.","The Lord led us to a land which we called Bountiful, as it had much fruit and honey and was along the seashore.",,done,d2014144f86e,d2014144f86e,
+THERE_I_AND_MY_FAMILY_BUILT_A_8539F9,narrator,intro_bountiful,There I and my family built a ship and loaded it with enough provisions to cross the sea.,There I and my family built a ship and loaded it with enough provisions to cross the sea.,,done,241c10b455b0,241c10b455b0,
 BAA_AA_AA_I_THE_SHEEP_KEEPS_CH_495A30,sheep,talk_sheep,Baa-aa-aa!,Baa-aa-aa!,,skip,bbc7e3d25d0b,,
 BAWK_BAWK_BAWK_BAWK_I_SHE_SEEM_1B9313,chicken,talk_chicken,"Bawk! Bawk, bawk... BAWK!","Bawk! Bawk, bawk... BAWK!",,skip,37f6fbaf0c03,,
 MAAA_I_THE_GOAT_TRIES_TO_NIBBL_57AA79,goat,talk_goat,Maaa!,Maaa!,,skip,420d37212c3f,,
+1_nephi_18_8,narrator,scripture,"And it came to pass after we had all gone down into the ship, ... we did put forth into the sea and were driven forth before the wind towards the promised land.","And it came to pass after we had all gone down into the ship, ... we did put forth into the sea and were driven forth before the wind towards the promised land.",,done,65b03fdc2bdd,65b03fdc2bdd,
 tour_walk_touch,nephi,ui_tour,Drag here to help me walk around.,Drag here to help me walk around.,,done,8d7d6d910a36,8d7d6d910a36,
 tour_walk_desktop,nephi,ui_tour,Use the WASD keys to help me walk around.,"Use the W, A, S, D keys to help me walk around.",,done,3b0dcb3b0d50,3b0dcb3b0d50,
 tour_use_touch,nephi,ui_tour,"When I'm close to something, tap here to pick it up, or to talk to someone.","When I'm close to something, tap here to pick it up, or to talk to someone.",,done,ef033c8627ce,ef033c8627ce,

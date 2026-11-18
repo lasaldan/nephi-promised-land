@@ -48,6 +48,9 @@ func _init() -> void:
 	pause_min = 2.5
 	pause_max = 5.0
 	pauses_for_dialogue = false
+	# Straight walks, no avoidance steering, as in Nephi Builds a Ship.
+	avoidance = false
+	habit_walks_navigate = false
 
 
 func _ready() -> void:

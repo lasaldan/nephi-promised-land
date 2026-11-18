@@ -87,12 +87,14 @@ func _init() -> void:
 	look_around_chance = 0.0
 	# Animals keep pottering about while people talk.
 	pauses_for_dialogue = false
+	# Walk straight at the spot and bump into whoever is there, as in Nephi
+	# Builds a Ship. Avoidance steering bends the walk and changes its speed,
+	# so the feet slide and the facing doesn't match the way they move.
+	avoidance = false
+	habit_walks_navigate = false
 
 
 func _ready() -> void:
-	if hops:
-		# Its speed jumps about with the gait, which avoidance would clamp.
-		avoidance = false
 	super()
 	_voice = AudioStreamPlayer2D.new()
 	_voice.name = "Voice"
@@ -105,22 +107,13 @@ func _ready() -> void:
 	_call_timer = randf_range(0.0, call_interval_max)
 
 
-# Before choosing a spot, check it can really walk there. Npc's check asks the
-# world's navigation map, which only knows the ground and props, not walls on
-# other physics layers (the ship's decks). So also: the spot must be clear
-# for its body, and its body must be able to slide along every leg of the
-# path to it without hitting anything on its own collision mask. A spot
-# across a fence or hold wall is skipped rather than walked at.
+# Before choosing a spot, check it can really walk there. Habit walks go in a
+# straight line (habit_walks_navigate is off), so Npc's check is that its
+# body slides straight to the spot without hitting anything on its own
+# collision mask, ship walls included. Also the spot must be clear for its
+# body. A spot across a fence or hold wall, or round a corner, is skipped.
 func can_reach(tile_position: Vector2) -> bool:
-	if not super(tile_position) or overlaps_at(tile_position):
-		return false
-	var body := global_transform
-	var target := spot_to_global(tile_position * TILE)
-	for point in WorldNavigation.path(self, target):
-		if test_move(body, point - body.origin):
-			return false
-		body.origin = point
-	return true
+	return super(tile_position) and not overlaps_at(tile_position)
 
 
 # Animal sheets have no sit, kneel or pray rows.

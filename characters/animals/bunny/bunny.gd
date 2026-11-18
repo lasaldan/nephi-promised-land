@@ -58,6 +58,8 @@ func _init() -> void:
 	pauses_for_dialogue = false
 	# Hops are its own movement; it does not steer around walkers.
 	avoidance = false
+	# Only hops to spots in a clear straight line.
+	habit_walks_navigate = false
 
 
 func _ready() -> void:
