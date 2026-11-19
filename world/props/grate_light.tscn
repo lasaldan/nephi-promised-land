@@ -1,0 +1,53 @@
+[gd_scene load_steps=8 format=3]
+
+[ext_resource type="Script" path="res://world/props/grate_light.gd" id="1_grate"]
+[ext_resource type="Texture2D" path="res://world/props/grate_light.png" id="2_tex"]
+[ext_resource type="Shader" path="res://world/props/grate_motes.gdshader" id="3_motes"]
+[ext_resource type="Texture2D" path="res://world/lighting/light_falloff.tres" id="4_fall"]
+[ext_resource type="Texture2D" path="res://world/props/grate_light_diffuse.png" id="5_diffuse"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_motes"]
+resource_local_to_scene = true
+shader = ExtResource("3_motes")
+shader_parameter/beams = ExtResource("2_tex")
+shader_parameter/light_color = Color(1, 1, 1, 1)
+shader_parameter/energy = 1.0
+
+[sub_resource type="Gradient" id="Gradient_motes"]
+offsets = PackedFloat32Array(0, 0.25, 0.75, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 0.9, 1, 1, 1, 0.9, 1, 1, 1, 0)
+
+
+[node name="GrateLight" type="Node2D"]
+script = ExtResource("1_grate")
+
+[node name="Glow" type="PointLight2D" parent="."]
+range_item_cull_mask = 2
+energy = 0.35
+texture = ExtResource("4_fall")
+texture_scale = 3.0
+
+[node name="Light" type="PointLight2D" parent="."]
+range_item_cull_mask = 2
+texture = ExtResource("2_tex")
+
+[node name="Diffuse" type="PointLight2D" parent="."]
+range_item_cull_mask = 2
+energy = 0.0
+texture = ExtResource("5_diffuse")
+
+[node name="Motes" type="CPUParticles2D" parent="."]
+material = SubResource("ShaderMaterial_motes")
+amount = 20
+lifetime = 6.0
+local_coords = true
+preprocess = 6.0
+randomness = 0.5
+emission_shape = 3
+emission_rect_extents = Vector2(28, 28)
+direction = Vector2(0, 1)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 0.5
+initial_velocity_max = 2.0
+color_ramp = SubResource("Gradient_motes")

@@ -20,7 +20,9 @@ extends Node2D
 # like the hour, the fog outlasts the chapter and is saved with each one.
 #   await fog.fade_to(0.7, 6.0)
 #   fog.wind = Vector2(40, 0)    # at sea: the ship sails west through it
+#   fog.drift(0.1)               # thin wisps coming and going
 
+const SCREEN_SHAPE := preload("res://core/screen_shape.gd")
 const GROUP := "fog"
 const SHADER := preload("res://world/weather/fog.gdshader")
 
@@ -107,6 +109,17 @@ func fade_to(target: float, seconds := 5.0) -> void:
 			.set_trans(Tween.TRANS_SINE)
 	await _tween.finished
 
+# Wisps drifting by: ease to a random density up to max_density, then on to
+# another, each step taking between the seconds range's x and y, until the
+# next fade_to() or drift().
+func drift(max_density: float, seconds := Vector2(3.0, 6.0)) -> void:
+	if _tween:
+		_tween.kill()
+	_tween = create_tween()
+	_tween.tween_property(self, "density", randf_range(0.0, clampf(max_density, 0.0, 1.0)),
+			randf_range(seconds.x, seconds.y)).set_trans(Tween.TRANS_SINE)
+	_tween.tween_callback(drift.bind(max_density, seconds))
+
 func _add_layer(spec: Dictionary) -> void:
 	var material := ShaderMaterial.new()
 	material.shader = SHADER
@@ -146,10 +159,8 @@ func _add_layer(spec: Dictionary) -> void:
 # How many textures across a square must be to stay wider than the viewport,
 # with one to spare for drift and camera motion.
 func _copies_to_cover(tile: float) -> int:
-	var view := Vector2(
-			ProjectSettings.get_setting("display/window/size/viewport_width"),
-			ProjectSettings.get_setting("display/window/size/viewport_height"))
-	return maxi(2, ceili(maxf(view.x, view.y) / tile) + 1)
+	# The widest view a window can show (core/screen_shape.gd), not just 512.
+	return maxi(2, ceili(SCREEN_SHAPE.widest_view() / tile) + 1)
 
 func _apply() -> void:
 	for i in _layers.size():

@@ -16,6 +16,11 @@ const MIN_ASPECT := 4.0 / 3.0
 # 21 by 9 tiles.
 const MAX_ASPECT := 21.0 / 9.0
 
+# The widest the view ever gets, in px: BASE's height at MAX_ASPECT (672).
+# Anything repeated to cover the screen (the sea, rain, fog) must cover this.
+static func widest_view() -> float:
+	return BASE.y * MAX_ASPECT
+
 func _ready() -> void:
 	get_tree().root.size_changed.connect(fit)
 	fit()

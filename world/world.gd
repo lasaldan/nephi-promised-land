@@ -69,6 +69,8 @@ const RAIN_FLAG := "rain_intensity"
 const LIGHTNING_FLAG := "lightning_every"
 # And how rough the sea is under the ship.
 const SEA_FLAG := "sea_state"
+# And which way the ship's bow points (ShipSway.heading).
+const HEADING_FLAG := "ship_heading"
 
 func _ready() -> void:
 	GameSettings.ensure_loaded()
@@ -101,6 +103,7 @@ func _ready() -> void:
 	rain.intensity = StoryState.get_flag(RAIN_FLAG, rain.intensity)
 	rain.lightning_every = StoryState.get_flag(LIGHTNING_FLAG, rain.lightning_every)
 	ship.sea = StoryState.get_flag(SEA_FLAG, ship.sea)
+	ship.heading = StoryState.get_flag(HEADING_FLAG, ship.heading)
 	continueStoryline()
 
 func _physics_process(_delta: float) -> void:
@@ -177,6 +180,7 @@ func continueStoryline() -> void:
 		StoryState.set_flag(RAIN_FLAG, rain.intensity)
 		StoryState.set_flag(LIGHTNING_FLAG, rain.lightning_every)
 		StoryState.set_flag(SEA_FLAG, ship.sea)
+		StoryState.set_flag(HEADING_FLAG, ship.heading)
 		if not _debug_started:
 			StoryState.save_game()
 		print("Checkpoint: %s complete%s" % [chapter.id, " (debug start, not saved)" if _debug_started else ", saved"])
@@ -318,14 +322,16 @@ func _ready_hud() -> void:
 	# A RichTextLabel stops the mouse by default; let taps on the words reach the plaque.
 	%QuestText.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	%UseButton.pressed.connect(func() -> void: player.use())
-	%PrayButton.pressed.connect(func() -> void: player.prayer.pray())
+	%PrayButton.pressed.connect(func() -> void: player.prayer.button_pressed())
+	%PrayButton.button_down.connect(func() -> void: player.prayer.press_held())
+	%PrayButton.button_up.connect(func() -> void: player.prayer.release_held())
 	_enlarge_use_button_for_touch()
 
 func _update_hud(delta: float) -> void:
 	var prayer: Prayer = player.prayer
 	# Up while a prayer has somewhere to point and Nephi is free to pray, and
 	# while he prays, so it does not blink away.
-	%PrayButton.visible = prayer.praying or prayer.can_pray()
+	%PrayButton.visible = prayer.praying or prayer.can_pray() or prayer.can_hold()
 	_highlight_use_button()
 	_show_use_icon()
 	_show_joystick(delta)

@@ -25,3 +25,35 @@ chicken: Bawk! Bawk, bawk... BAWK! [i](She seems to have a lot to say.)[/i] [ID:
 ~ talk_goat
 goat: Maaa! [i](The goat tries to nibble your sleeve.)[/i] [ID:MAAA_I_THE_GOAT_TRIES_TO_NIBBL_57AA79]
 => END
+
+~ ship_at_sea_opening
+nephi: The land Bountiful was so beautiful. It was hard to leave, but now we are on our way to the promised land. [ID:THE_LAND_BOUNTIFUL_WAS_SO_BEAU_ACF98C]
+nephi: I'll go check on Sam and see how the ship is working. [ID:I_LL_GO_CHECK_ON_SAM_AND_SEE_H_A85AC8]
+=> END
+
+~ sam_at_helm
+sam: This is a great ship, Nephi. It's working very well. And the Liahona is pointing straight ahead. [ID:THIS_IS_A_GREAT_SHIP_NEPHI_IT_AF6550]
+nephi: Good job, Sam. I'm going to go check on the others below, and the animals, and see if everything is right. [ID:GOOD_JOB_SAM_I_M_GOING_TO_GO_C_6EA4EC]
+=> END
+
+~ artifact_liahona
+liahona: This is the Liahona. My father found it outside his tent one morning. It shows us where to go. [ID:THIS_IS_THE_LIAHONA_WHICH_MY_F_4DDD41]
+liahona: The pointers only work when we have faith and obey the Lord. Sometimes new writing appears on it to teach us his ways. [ID:THE_POINTERS_ONLY_WORK_WHEN_WE_BDB7C1]
+=> END
+
+~ animals_settled
+nephi: The animals look like they're settled. [ID:THE_ANIMALS_LOOK_LIKE_THEY_RE_0AD456]
+sariah: Nephi, would you please bring me a banana to eat? I don't know if I can make it up the stairs with the boat moving. [ID:NEPHI_WOULD_YOU_PLEASE_BRING_M_08EF04]
+nephi: Of course, Mother. [ID:OF_COURSE_MOTHER_EE2C3B]
+=> END
+
+~ sariah_banana
+sariah: Thank you, Nephi. You are always so thoughtful. [ID:THANK_YOU_NEPHI_YOU_ARE_ALWAYS_6CA9EF]
+sariah: I am excited to see the promised land. But I worry about this long voyage. I am getting old, and the sea is hard on me. [ID:I_AM_EXCITED_TO_SEE_THE_PROMIS_5FF94A]
+nephi: I trust the Lord will carry us there safely, Mother. He has led us this far. [ID:I_TRUST_THE_LORD_WILL_CARRY_US_622467]
+nephi: I'll go make sure the ship is still on course. [ID:I_LL_GO_MAKE_SURE_THE_SHIP_IS_432776]
+=> END
+
+~ sam_off_course
+sam: We're veering a bit off course. Let's get this ship pointed straight to the promised land. [ID:WE_RE_VEERING_A_BIT_OFF_COURSE_2EB95C]
+=> END

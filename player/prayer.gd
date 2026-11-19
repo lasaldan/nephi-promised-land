@@ -13,6 +13,13 @@ class_name Prayer
 # arm_trigger) register it while they wait, and a chapter can name one itself
 # with setGuidance(). With none registered, an armed one-shot StoryTrigger is
 # the goal, and failing that the nearest pickup the backpack will take.
+#
+# A held prayer (arm_held(), StoryChapter.waitForHeldPrayer()) is for one
+# beat: Nephi praying at the Liahona so the storm calms. While it is armed
+# the button works by holding: hands stay folded and held climbs from 0 to 1
+# while it is down, and sinks back a third as fast once let go, so a tap does
+# little. A soft light grows at his feet with it. At 1 the prayer is
+# answered. The chapter decides what held does to the world.
 
 # The cast rows of the LPC sheet, by direction.
 const CAST_ROWS := {"up": 0, "left": 1, "down": 2, "right": 3}
@@ -37,6 +44,24 @@ const DOT_GLOW_RADIUS := 3.5
 const DOT_COLOR := Color(1, 1, 1)
 
 var praying := false
+
+# A held prayer: progress (0 to 1) as it changes, and once it reaches 1.
+signal held_progress(progress: float)
+signal held_answered
+# Letting go sinks the held prayer back this fraction as fast as holding
+# raises it.
+const HELD_FALL_RATE := 1.0 / 3.0
+const HELD_GLOW_COLOR := Color(1.0, 0.95, 0.75)
+const HELD_GLOW_RADIUS := Vector2(6.0, 22.0)
+
+var held_armed := false
+var held := 0.0
+var _held_seconds := 4.0
+var _holding := false
+var _hold_time := 0.0
+# The button's pressed comes on release. After a press the held prayer took,
+# it should not also start a prayer for guidance.
+var _swallow_press := false
 
 # Registered goals, newest last. Each is [token, Callable returning a Vector2
 # global position, or null when it has nothing to point at].
@@ -133,10 +158,76 @@ func center_of(node: Node2D) -> Vector2:
 			return (child as CollisionShape2D).global_position
 	return node.global_position
 
+# --- Held prayer ---
+
+# Arms a held prayer that is answered after seconds of holding the button.
+# Returns once it is.
+func arm_held(seconds: float = 4.0) -> void:
+	held_armed = true
+	held = 0.0
+	_held_seconds = maxf(seconds, 0.1)
+	_holding = false
+	await held_answered
+
+# The pray button can be held now.
+func can_hold() -> bool:
+	return held_armed and player.controls_enabled and not player.menu_open
+
+# The pray button went down and up (world.gd). Only a held prayer uses them.
+func press_held() -> void:
+	_swallow_press = held_armed
+	if not can_hold() or _holding:
+		return
+	_holding = true
+	_hold_time = 0.0
+	praying = true
+	player.velocity = Vector2.ZERO
+	player.facing = "down"
+	player.update_blend_positions(Vector2(0, -1))
+	_show_fold_frame(0, _begin_fold("down"))
+
+func release_held() -> void:
+	if not _holding:
+		return
+	_holding = false
+	praying = false
+	unfold_hands()
+
+# The pray button's pressed: a prayer for guidance, unless the press was a
+# held prayer's.
+func button_pressed() -> void:
+	if _swallow_press:
+		_swallow_press = false
+		return
+	pray()
+
+func _process(delta: float) -> void:
+	if not held_armed:
+		return
+	if _holding and not player.controls_enabled:
+		release_held()
+	var before := held
+	if _holding:
+		_hold_time += delta
+		var frame := mini(int(_hold_time / (FOLD_SECONDS / FOLD_FRAMES)), FOLD_FRAMES - 1)
+		_show_fold_frame(frame, CAST_ROWS["down"])
+		held = minf(held + delta / _held_seconds, 1.0)
+	else:
+		held = maxf(held - delta / _held_seconds * HELD_FALL_RATE, 0.0)
+	if held != before:
+		held_progress.emit(held)
+		queue_redraw()
+	if held >= 1.0:
+		held_armed = false
+		release_held()
+		held = 0.0
+		queue_redraw()
+		held_answered.emit()
+
 # --- Praying ---
 
 func can_pray() -> bool:
-	return not praying and player.controls_enabled and not player.menu_open \
+	return not held_armed and not praying and player.controls_enabled and not player.menu_open \
 			and goal_position() != null
 
 func pray() -> void:
@@ -219,6 +310,13 @@ func _aim() -> void:
 
 # The way he faces, from the stand pose's blend position (y is up there).
 func _draw() -> void:
+	if held > 0.0:
+		# A pool of light at his feet, wider and brighter as the prayer holds.
+		var radius := lerpf(HELD_GLOW_RADIUS.x, HELD_GLOW_RADIUS.y, held)
+		var color := HELD_GLOW_COLOR
+		for ring in 3:
+			color.a = 0.12 * held * (ring + 1)
+			draw_circle(Vector2.ZERO, radius * (1.0 - ring * 0.3), color, true, -1.0, true)
 	if _dots_time < 0.0 or _direction == Vector2.ZERO:
 		return
 	for i in DOT_COUNT:

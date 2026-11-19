@@ -42,6 +42,7 @@ extends Node2D
 #   rain.lightning_every = 8.0
 #   await rain.strike()  # right on cue
 
+const SCREEN_SHAPE := preload("res://core/screen_shape.gd")
 const GROUP := "rain"
 const STREAK_SHADER := preload("res://world/weather/rain.gdshader")
 const SPLASH_SHADER := preload("res://world/weather/rain_splash.gdshader")
@@ -124,16 +125,12 @@ const SPLASH_SHADER := preload("res://world/weather/rain_splash.gdshader")
 ## How far under cover he is, 0 to 1 (below a ship's deck; world/props/
 ## ship_stairs.gd fades it with the upper deck). The streaks and splashes fade
 ## out as it rises and the sound drops toward sheltered_volume_db; at 1 none
-## is drawn, and no lightning flashes. The rain itself carries on, so coming
-## out finds it as it was. Overcast still dims the light.
+## is drawn. The rain itself carries on, so coming out finds it as it was.
+## Overcast still dims the light, and lightning still flashes: the DayNight
+## lets only a little of it into the hold, but all of it through a grate.
 var shelter := 0.0:
 	set(value):
 		shelter = clampf(value, 0.0, 1.0)
-		# A flash already going would light the hold.
-		if shelter > 0.0 and _flash_tween:
-			_flash_tween.kill()
-			if is_instance_valid(_day_night):
-				_day_night.flash = 0.0
 		_apply()
 
 # The layers of streaks, far first. size: texture px (drawn at 1:1, as pixel
@@ -237,8 +234,8 @@ func strike(strength := 1.0) -> void:
 	strength = clampf(strength, 0.0, 1.0)
 	if thunder and not Engine.is_editor_hint():
 		_thunder_after(lerpf(2.5, 0.25, strength), strength)
-	# Below decks there is no sky to light up, only the thunder.
-	if _day_night == null or shelter > 0.0:
+	# Below decks too: the DayNight keeps most of it out of the hold.
+	if _day_night == null:
 		return
 	if _flash_tween:
 		_flash_tween.kill()
@@ -439,10 +436,10 @@ func _add_layer(spec: Dictionary) -> void:
 	_layers.append(layer)
 	add_child(layer, false, Node.INTERNAL_MODE_FRONT)
 
-# The longer side of the viewport, in px.
+# The longer side of the widest view, in px: a wide window shows more than
+# the project's 512 across (core/screen_shape.gd), up to 21:9.
 func _view_size() -> float:
-	return maxf(ProjectSettings.get_setting("display/window/size/viewport_width"),
-			ProjectSettings.get_setting("display/window/size/viewport_height"))
+	return SCREEN_SHAPE.widest_view()
 
 # Redraws each layer's streaks, leaning along the way the drops now fall.
 func _draw_streaks() -> void:

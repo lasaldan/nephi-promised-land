@@ -31,6 +31,13 @@ enum Style { ROLL_AND_HEAVE, HEAVE_ONLY }
 @export_range(0.0, 1.0, 0.01) var sea := 0.0:
 	set(value):
 		sea = clampf(value, 0.0, 1.0)
+## Which way the bow points, in degrees off the course, clockwise, about the
+## same pivot as the roll. The steering board (ui/activities/steer_board.gd)
+## turns it with the wheel, and chapters turn it with set_heading()
+## (StoryChapter.setShipHeading()). Saved with each chapter.
+@export_range(-10.0, 10.0, 0.1) var heading := 0.0:
+	set(value):
+		heading = clampf(value, -MAX_HEADING, MAX_HEADING)
 ## Scales the whole motion on top of sea. 0 holds the ship still.
 @export_range(0.0, 3.0, 0.01, "or_greater") var amount := 1.0
 ## Rise and fall in whole art pixels, the way the rest of the art moves. Off
@@ -55,6 +62,8 @@ enum Style { ROLL_AND_HEAVE, HEAVE_ONLY }
 @export_range(1.0, 20.0, 0.1) var storm_period := 7.0
 
 const GROUP := "ship_sway"
+# How far off the course the bow can be turned, either way, in degrees.
+const MAX_HEADING := 10.0
 
 ## Where the ship rides with the swell taken out, in its parent's
 ## coordinates. Setting it moves the ship, and on the next physics frame
@@ -77,6 +86,7 @@ var _last: Transform2D
 var _phase := 0.0
 var _phase2 := 1.1
 var _tween: Tween
+var _heading_tween: Tween
 
 func _ready() -> void:
 	add_to_group(GROUP)
@@ -111,6 +121,25 @@ func set_sea(target: float, seconds := 5.0) -> void:
 			.set_trans(Tween.TRANS_SINE)
 	await _tween.finished
 
+# Turn the bow to degrees off the course over seconds. 0 seconds turns it at
+# once.
+func set_heading(degrees: float, seconds := 3.0) -> void:
+	if _heading_tween:
+		_heading_tween.kill()
+	if seconds <= 0.0:
+		heading = degrees
+		return
+	_heading_tween = create_tween()
+	_heading_tween.tween_property(self, "heading", clampf(degrees, -MAX_HEADING, MAX_HEADING), seconds) \
+			.set_trans(Tween.TRANS_SINE)
+	await _heading_tween.finished
+
+# Stop a set_heading() partway, so something else (the wheel) can steer.
+func stop_turning() -> void:
+	if _heading_tween:
+		_heading_tween.kill()
+		_heading_tween = null
+
 func roll() -> float:
 	return lerpf(calm_roll, storm_roll, sea)
 
@@ -138,6 +167,7 @@ func _physics_process(delta: float) -> void:
 	var angle := 0.0
 	if style == Style.ROLL_AND_HEAVE:
 		angle = deg_to_rad(roll()) * amount * slope
+	angle += deg_to_rad(heading)
 
 	var tilt := Transform2D(0.0, _pivot) * Transform2D(angle, Vector2.ZERO) \
 			* Transform2D(0.0, -_pivot)

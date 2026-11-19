@@ -24,8 +24,13 @@ extends CanvasModulate
 #
 # indoors (0 to 1) dims everything by indoor_color, for below decks: the
 # ShipStairs fades it in as he goes down. Lamps (world/props/oil_lamp.tscn)
-# are lights, so they still shine at full strength in the gloom. A lightning
-# flash shows faintly through the deck.
+# are lights, so they still shine at full strength in the gloom. Only
+# indoor_flash of a lightning flash shows through the deck.
+#
+# outdoor_color is the sky's own light (hour, overcast and flash, but not
+# indoors), for light let in from outside: a deck grate's squares of light
+# on the hold floor (world/props/grate_light.gd) follow it, outdoor_changed
+# says when it moves.
 #
 # Time stands still unless a cycle is running. Chapters use the StoryChapter
 # helpers (nightfall(), daybreak(), setTimeOfDay(), startDayCycle()); the
@@ -34,6 +39,7 @@ extends CanvasModulate
 #   day_night.start_cycle(10.0)   # a whole day every ten real minutes
 
 signal night_amount_changed(amount: float)
+signal outdoor_changed(color: Color)
 
 const GROUP := "day_night"
 const CRICKETS_SOUND := preload("res://audio/ambience/crickets_loop.ogg")
@@ -62,6 +68,9 @@ const NIGHT := 21.5
 @export var flash_color := Color(1.6, 1.65, 1.85)
 ## What the light is multiplied by when fully indoors (below decks).
 @export var indoor_color := Color(0.42, 0.40, 0.44)
+## How much of a lightning flash lights the whole hold while indoors. The
+## light through a grate gets all of it (outdoor_color).
+@export_range(0.0, 1.0, 0.05) var indoor_flash := 0.2
 @export_group("Sound")
 ## How loud the crickets are at full night.
 @export var crickets_volume_db := -6.0
@@ -71,6 +80,9 @@ var _keys: Array = []
 
 # 0 is full day, 1 is full night.
 var night_amount := 0.0
+
+# The light outside, whatever indoors is. See outdoor_changed.
+var outdoor_color := Color.WHITE
 
 # 0 is the hour's own light, 1 is that light under heavy cloud. Not saved with
 # the scene; the weather sets it as it runs.
@@ -188,8 +200,12 @@ func _apply() -> void:
 			var t: float = inverse_lerp(a[0], b[0], hour)
 			var light := (a[1] as Color).lerp(b[1], t)
 			light = light.lerp(light * overcast_color, overcast)
-			light = light.lerp(flash_color, flash)
-			color = light.lerp(light * indoor_color, indoors)
+			var outdoor := light.lerp(flash_color, flash)
+			var indoor := light.lerp(flash_color, flash * indoor_flash) * indoor_color
+			color = outdoor.lerp(indoor, indoors)
+			if outdoor != outdoor_color:
+				outdoor_color = outdoor
+				outdoor_changed.emit(outdoor)
 			_set_night_amount(lerpf(a[2], b[2], t))
 			return
 

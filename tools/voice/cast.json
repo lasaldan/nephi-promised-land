@@ -217,6 +217,10 @@
     "chicken": {
       "skip": true,
       "description": "Bawk. Use a real chicken sound effect."
+    },
+    "liahona": {
+      "voice_of": "nephi",
+      "description": "Nephi telling about the Liahona when the player looks at it closely (story/artifacts.gd). Takes Nephi's voice settings."
     }
   }
 }

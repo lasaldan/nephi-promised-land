@@ -22,7 +22,8 @@ const GROUP := "activity_scroll"
 
 # Activity id -> board script. Each is a ScrollBoard that emits finished.
 const BOARDS := {
-	# "plant": preload("res://ui/activities/plant_board.gd"),
+	"steer": preload("res://ui/activities/steer_board.gd"),
+	"pan": preload("res://ui/activities/pan_board.gd"),
 }
 
 signal opened
@@ -79,8 +80,9 @@ func board() -> ScrollBoard:
 # start_step is how many of its steps were done on an earlier open.
 # focus, a world position, is what the open half of the screen should show
 # along with Nephi, such as where the activity's work appears in the world.
-# Without one, Nephi stands in the middle of it.
-func open_activity(activity_id: String, facing: String = "", start_step: int = 0, focus: Vector2 = Vector2.INF) -> bool:
+# Without one, Nephi stands in the middle of it. config is handed to the
+# board (ScrollBoard.config).
+func open_activity(activity_id: String, facing: String = "", start_step: int = 0, focus: Vector2 = Vector2.INF, config: Dictionary = {}) -> bool:
 	if _open:
 		push_warning("The scroll is already open; cannot start activity '%s'" % activity_id)
 		return false
@@ -89,6 +91,7 @@ func open_activity(activity_id: String, facing: String = "", start_step: int = 0
 		return false
 	var board: ScrollBoard = BOARDS[activity_id].new()
 	board.start_step = start_step
+	board.config = config
 	add_child(board)
 	_place_board(board)
 	board.close_requested.connect(close)

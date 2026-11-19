@@ -12,6 +12,9 @@ extends Area2D
 # Layer Names > 2D Physics). The ship TileSet's physics layer 0 is the upper
 # deck and physics layer 1 the lower. The player only collides with the deck
 # he is on (player.gd set_deck), so NPCs on the other deck keep theirs.
+# Props and people need no marking: put them under Upper or Lower and, when
+# the game runs, every body there moves off the "world" layer onto its
+# deck's layer (_put_on_deck). The inspector still shows the layer they had.
 #
 # The upper rails close the stairwell on the north, south and west, open to
 # the east. Lower-deck walls should close it on the north, south and east,
@@ -49,6 +52,11 @@ enum Deck { UPPER, LOWER }
 ## the upper deck fading out over them.
 const BELOW_DECKS_LIGHT := 1 << 1
 
+## Physics layers (Layer Names > 2D Physics): world, upper_deck, lower_deck.
+const WORLD_LAYER := 1
+const DECK_UPPER_LAYER := 2
+const DECK_LOWER_LAYER := 4
+
 ## Where on the stairs the decks change over, in this node's coordinates (the
 ## Ship's, when it sits at the Ship's origin). West of it is below decks.
 @export var threshold_x := 208.0
@@ -84,9 +92,10 @@ func _ready() -> void:
 	_add_below_light(_player)
 	if lower:
 		_add_below_light(lower)
-		get_tree().node_added.connect(func(node: Node) -> void:
-			if lower.is_ancestor_of(node):
-				_add_below_light(node))
+	for deck in [upper, lower]:
+		if deck:
+			_put_on_deck(deck, _deck_layer(deck))
+	get_tree().node_added.connect(_on_node_added)
 	# Hiding the ship's chapter hides this too, and must not leave the world
 	# sheltered.
 	visibility_changed.connect(func() -> void: _show_deck(_player.deck, false))
@@ -168,6 +177,32 @@ func _weather() -> Array[Node]:
 	for group in [Rain.GROUP, Fog.GROUP]:
 		found.append_array(get_tree().get_nodes_in_group(group))
 	return found
+
+func _on_node_added(node: Node) -> void:
+	if lower and lower.is_ancestor_of(node):
+		_add_below_light(node)
+	for deck in [upper, lower]:
+		if deck and deck.is_ancestor_of(node):
+			_put_on_deck(node, _deck_layer(deck))
+
+# The physics layer of a deck: the tiles' layers (player.gd DECK_MASKS).
+func _deck_layer(deck: CanvasItem) -> int:
+	return DECK_UPPER_LAYER if deck == upper else DECK_LOWER_LAYER
+
+# Every body under a deck (a fruit box, a sleeper, a goat) belongs to that
+# deck alone, so nothing has to be marked by hand: whatever was on the
+# "world" layer, which the player hits on both decks, moves to the deck's
+# layer, and whatever collided with the world collides with the deck's
+# walls too. Areas (triggers, pickups) are left as they are.
+func _put_on_deck(node: Node, deck_layer: int) -> void:
+	var body := node as PhysicsBody2D
+	if body:
+		if body.collision_layer & WORLD_LAYER:
+			body.collision_layer = (body.collision_layer & ~WORLD_LAYER) | deck_layer
+		if body.collision_mask & WORLD_LAYER:
+			body.collision_mask |= deck_layer
+	for child in node.get_children():
+		_put_on_deck(child, deck_layer)
 
 func _add_below_light(node: Node) -> void:
 	var item := node as CanvasItem

@@ -27,8 +27,10 @@ static var _cache := {}
 
 # The frame (column, row) of sheet as its own texture, eyes closed. Cached per
 # sheet and frame. If no eyes are found, they are left open.
-static func frame(sheet: Texture2D, coords: Vector2i) -> Texture2D:
-	var key := "%d:%d:%d" % [sheet.get_instance_id(), coords.x, coords.y]
+# With eyes_open, the same frame without the shadow but awake, for someone
+# lying down who is not asleep (the "lie" pose).
+static func frame(sheet: Texture2D, coords: Vector2i, eyes_open := false) -> Texture2D:
+	var key := "%d:%d:%d:%s" % [sheet.get_instance_id(), coords.x, coords.y, eyes_open]
 	if _cache.has(key):
 		return _cache[key]
 	var image := sheet.get_image()
@@ -39,7 +41,8 @@ static func frame(sheet: Texture2D, coords: Vector2i) -> Texture2D:
 	image = image.get_region(Rect2i(coords * FRAME, Vector2i(FRAME, FRAME)))
 	image.convert(Image.FORMAT_RGBA8)
 	_drop_shadow(image)
-	_close_eyes(image)
+	if not eyes_open:
+		_close_eyes(image)
 	var texture := ImageTexture.create_from_image(image)
 	_cache[key] = texture
 	return texture

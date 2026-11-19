@@ -19,6 +19,10 @@ class_name Artifacts
 #       "portrait": "res://world/items/liahona_64.png",
 #   },
 const LIST := {
+	"liahona": {
+		"name": "The Liahona",
+		"portrait": "res://world/items/liahona_disk_64.png",
+	},
 }
 
 const TITLE_PREFIX := "artifact_"

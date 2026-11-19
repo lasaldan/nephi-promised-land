@@ -9,7 +9,11 @@ class_name Quests
 #   world.setQuest("quest_more_ore", "", left)
 # Keep each entry on one line so tools/voice/build_manifest.py can read it.
 const TEXT := {
-	# "quest_find_lehi": "Find Father by the river",
+	"quest_check_on_sam": "Check on Sam at the helm",
+	"quest_check_animals": "Check on the animals below deck",
+	"quest_banana_for_mother": "Get Mother a banana from upstairs",
+	"quest_banana_to_mother": "Take the banana to Mother",
+	"quest_check_course": "Make sure the ship is on course",
 }
 
 # Quests that count down, by the key a tap reads (which leaves the number

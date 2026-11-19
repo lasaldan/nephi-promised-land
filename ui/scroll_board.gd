@@ -33,6 +33,11 @@ const CLOSE_RECT := Rect2(222, 6, 14, 14)
 # from here.
 var start_step := 0
 
+# Settings from the chapter for this open, such as how much gold a spot in
+# the stream holds ({"flakes": 3}). Set before reset(). Each board says
+# which keys it reads.
+var config := {}
+
 # Called each time the scroll opens on this board.
 func reset() -> void:
 	pass

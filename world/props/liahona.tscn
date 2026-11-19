@@ -1,0 +1,19 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://world/props/artifact.gd" id="1_artifact"]
+[ext_resource type="Texture2D" path="res://world/items/liahona_disk_32.png" id="2_texture"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_base"]
+size = Vector2(22, 8)
+
+[node name="Liahona" type="StaticBody2D"]
+script = ExtResource("1_artifact")
+artifact_id = "liahona"
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_texture")
+offset = Vector2(0, -15)
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+position = Vector2(0, -4)
+shape = SubResource("RectangleShape2D_base")

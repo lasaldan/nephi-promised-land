@@ -48,6 +48,7 @@ enum Kind {
 	PLANTAIN,
 	COCONUT,
 	CORN,
+	FIG,
 }
 
 # How much of it there is: the rows under the single fruit.
@@ -90,6 +91,8 @@ const TILES := {
 	Kind.PLANTAIN: Vector2i(1, 35),
 	Kind.COCONUT: Vector2i(4, 35),
 	Kind.CORN: Vector2i(28, 10),
+	# Drawn more like a brown pear, but it stands in for a fig.
+	Kind.FIG: Vector2i(7, 30),
 }
 
 # The part of SHEET showing that much of it, in pixels. A crate is two tiles

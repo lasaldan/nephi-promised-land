@@ -440,6 +440,24 @@ func startPraying() -> void:
 func stopPraying() -> void:
 	_prayer().unfold_hands()
 
+# A prayer the player holds, for a beat such as Nephi praying at the
+# Liahona to calm the storm. The pray button shows even with nothing to point
+# at. Holding it folds Nephi's hands and raises progress from 0 to 1 over
+# seconds; letting go lets it sink back slowly, so a tap does little. Returns
+# when it reaches 1. on_progress(p) is called as it changes, so the chapter
+# can ease the storm itself (rain and sea are each the chapter's to move).
+# Controls must be on, so the player can press the button.
+#   await waitForHeldPrayer(4.0, func(p: float) -> void:
+#       world.rain.intensity = lerpf(1.0, 0.15, p)
+#       world.ship.sea = 1.0 - p)
+func waitForHeldPrayer(seconds: float = 4.0, on_progress: Callable = Callable()) -> void:
+	var prayer := _prayer()
+	if on_progress.is_valid():
+		prayer.held_progress.connect(on_progress)
+	await prayer.arm_held(seconds)
+	if on_progress.is_valid():
+		prayer.held_progress.disconnect(on_progress)
+
 func _prayer() -> Prayer:
 	var player = world.get_node_or_null("Player")
 	return player.prayer if player else null
@@ -693,6 +711,15 @@ func seaCalms(seconds: float = 8.0) -> void:
 func setSea(roughness: float, seconds: float = 5.0) -> void:
 	await world.ship.set_sea(roughness, seconds)
 
+# Which way the ship's bow points, in degrees off the course (-10 to 10,
+# clockwise). The steering board ("steer") turns it with the wheel; a chapter
+# turns it off course first, or lets the storm drive it astray. Like the sea
+# it outlasts the chapter.
+#   await setShipHeading(3.0, 3.0)   # drifting off course
+#   await doActivity("steer", "up")  # and back by the Liahona
+func setShipHeading(degrees: float, seconds: float = 3.0) -> void:
+	await world.ship.set_heading(degrees, seconds)
+
 # Which items the player may pick up, by InventoryItem name. Once one is
 # in the pack, only that same item can be added until emptyBackpack().
 # Call with no names to allow nothing. Clears any setPickupLimit().
@@ -764,12 +791,16 @@ func waitForPlayerAt(tile: Vector2, tiles: float = 1.0) -> void:
 # returns with isActivityDone() still false. start_step opens it again at
 # the step it reached. focus, a world position in pixels, is kept in view
 # beside Nephi while the scroll is open (ActivityScroll.open_activity()),
-# such as where the activity's work shows up in the world.
-func doActivity(activity_id: String, facing: String = "", start_step: int = 0, focus: Vector2 = Vector2.INF) -> void:
+# such as where the activity's work shows up in the world. config is for the
+# board (each board says which keys it reads), such as how much gold a spot
+# in the stream holds.
+#   resetActivity("pan")
+#   await doActivity("pan", "down", 0, Vector2.INF, {"flakes": 4})
+func doActivity(activity_id: String, facing: String = "", start_step: int = 0, focus: Vector2 = Vector2.INF, config: Dictionary = {}) -> void:
 	if isActivityDone(activity_id):
 		return
 	var scroll := world.get_node_or_null("ActivityScroll") as ActivityScroll
-	if scroll == null or not scroll.open_activity(activity_id, facing, start_step, focus):
+	if scroll == null or not scroll.open_activity(activity_id, facing, start_step, focus, config):
 		return
 	await scroll.closed
 	await delay(scroll.slide_seconds)
