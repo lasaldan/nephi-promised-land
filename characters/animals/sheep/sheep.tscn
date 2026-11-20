@@ -350,5 +350,4 @@ parameters/StateMachine/MoveState/StandState/blend_position = Vector2(0.00325465
 parameters/StateMachine/MoveState/WalkState/blend_position = Vector2(0.20097637, -0.0089126825)
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
-scale = Vector2(2.5781248, 1.0546875)
-polygon = PackedVector2Array(-5.8181825, 0, 1.4305115e-06, -9.955555, 5.8181825, 0, 1.4305115e-06, 4.2666664)
+polygon = PackedVector2Array(15, -2, 14.54, 0.3, 13.24, 2.24, 11.3, 3.54, 9, 4, -9, 4, -11.3, 3.54, -13.24, 2.24, -14.54, 0.3, -15, -2, -15, -20, -14.54, -22.3, -13.24, -24.24, -11.3, -25.54, -9, -26, 9, -26, 11.3, -25.54, 13.24, -24.24, 14.54, -22.3, 15, -20)

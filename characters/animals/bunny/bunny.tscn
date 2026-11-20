@@ -2,6 +2,9 @@
 
 [ext_resource type="Script" uid="uid://c8rkh6rkcrxy1" path="res://characters/animals/bunny/bunny.gd" id="1_bunny"]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_body"]
+radius = 7.0
+
 [node name="Bunny" type="CharacterBody2D" unique_id=1559181699]
 y_sort_enabled = true
 motion_mode = 1
@@ -11,5 +14,6 @@ script = ExtResource("1_bunny")
 centered = false
 offset = Vector2(-32, -56)
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." unique_id=1571731548]
-polygon = PackedVector2Array(-7, -5, 0, -13, 7, -5, 0, 3)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1571731548]
+position = Vector2(0, -5)
+shape = SubResource("CircleShape2D_body")

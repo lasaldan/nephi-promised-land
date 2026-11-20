@@ -1,0 +1,5 @@
+Add straw under animal area
+Rotate ship slower when it first goes off course, maybe half as fast, with an ease in out
+Fix z-index when ship is rotated on: stairs, blankets, animal fence, south bow railing, south rope raise, mast when close, upper deck railing
+Have water move the opposite direction the ship is facing
+Add froth behind ship?

@@ -367,6 +367,9 @@ nodes/StateMachine/node = SubResource("AnimationNodeStateMachine_yw30f")
 nodes/StateMachine/position = Vector2(-40, 130)
 node_connections = [&"output", 0, &"StateMachine"]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_body"]
+radius = 8.0
+
 [node name="Player" type="CharacterBody2D" unique_id=1617508738 groups=["player"]]
 motion_mode = 1
 script = ExtResource("1_rkbax")
@@ -394,7 +397,6 @@ parameters/StateMachine/MoveState/WorkState/blend_position = Vector2(0, 0)
 process_callback = 0
 position_smoothing_enabled = true
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." unique_id=1936356346]
-position = Vector2(-7.1525574e-07, -0.5)
-scale = Vector2(1.328125, 1.0546875)
-polygon = PackedVector2Array(-8, 0, 0, -8, 8, 0, 0, 8)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1936356346]
+position = Vector2(0, -0.5)
+shape = SubResource("CircleShape2D_body")

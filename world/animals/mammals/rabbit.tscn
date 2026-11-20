@@ -3,6 +3,9 @@
 [ext_resource type="Script" path="res://world/animals/animal.gd" id="1_animal"]
 [ext_resource type="Texture2D" path="res://world/animals/mammals/rabbit.png" id="2_sheet"]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_body"]
+radius = 4.0
+
 [node name="Rabbit" type="CharacterBody2D"]
 y_sort_enabled = true
 motion_mode = 1
@@ -24,5 +27,5 @@ hframes = 4
 vframes = 8
 frame = 24
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
-polygon = PackedVector2Array(-6, 0, 0, -3, 6, 0, 0, 3)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_body")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://80nmpaeyje5e"]
+[gd_scene load_steps=35 format=3 uid="uid://80nmpaeyje5e"]
 
 [ext_resource type="Script" uid="uid://b0uvaw36mwua4" path="res://characters/animals/farm_animal.gd" id="1_cqa2e"]
 [ext_resource type="Texture2D" uid="uid://dow41h0m8tegr" path="res://characters/animals/farm_animals.png" id="2_afq4u"]
@@ -323,6 +323,9 @@ nodes/StateMachine/node = SubResource("AnimationNodeStateMachine_yw30f")
 nodes/StateMachine/position = Vector2(-40, 130)
 node_connections = [&"output", 0, &"StateMachine"]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_body"]
+radius = 4.0
+
 [node name="Chicken" type="CharacterBody2D"]
 y_sort_enabled = true
 motion_mode = 1
@@ -348,6 +351,5 @@ anim_player = NodePath("../AnimationPlayer")
 parameters/StateMachine/MoveState/StandState/blend_position = Vector2(0.2262001, 0.030303001)
 parameters/StateMachine/MoveState/WalkState/blend_position = Vector2(-0.001627326, 0.44741535)
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
-scale = Vector2(2.5781248, 1.0546875)
-polygon = PackedVector2Array(-5.8181825, 0, 1.4305115e-06, -9.955555, 5.8181825, 0, 1.4305115e-06, 4.2666664)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_body")

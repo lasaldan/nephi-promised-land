@@ -57,6 +57,14 @@
 [ext_resource type="PackedScene" path="res://world/props/fruit_pickup.tscn" id="64_fruit_pickup"]
 [ext_resource type="Resource" uid="uid://dxmu218wybd0p" path="res://world/items/BananaInventoryItem.tres" id="65_banana"]
 [ext_resource type="PackedScene" path="res://world/props/grate_light.tscn" id="70_grate_light"]
+[ext_resource type="PackedScene" uid="uid://mbuypbh71qw4" path="res://characters/cast/joseph/joseph.tscn" id="71_joseph"]
+[ext_resource type="PackedScene" uid="uid://da40ct1j37d55" path="res://characters/cast/ishmael_daughter_1/ishmael_daughter_1.tscn" id="72_daughter1"]
+[ext_resource type="PackedScene" uid="uid://b6awx54gcxtua" path="res://characters/cast/ishmael_daughter_2/ishmael_daughter_2.tscn" id="73_daughter2"]
+[ext_resource type="PackedScene" uid="uid://c5j3kxwqevc3b" path="res://characters/cast/ishmael_daughter_3/ishmael_daughter_3.tscn" id="74_daughter3"]
+[ext_resource type="PackedScene" uid="uid://oui5lhe4r75w" path="res://characters/cast/ishmael_daughter_4/ishmael_daughter_4.tscn" id="75_daughter4"]
+[ext_resource type="PackedScene" uid="uid://ciwwy1a5wkgpx" path="res://characters/cast/ishmael_daughter_5/ishmael_daughter_5.tscn" id="76_daughter5"]
+[ext_resource type="PackedScene" path="res://world/props/bunk_bed.tscn" id="77_bunk"]
+[ext_resource type="PackedScene" path="res://world/props/bassinets.tscn" id="78_bassinets"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_stairs"]
 size = Vector2(44, 15.024994)
@@ -135,60 +143,138 @@ tile_set = ExtResource("6_3ljsx")
 [node name="Deck" type="TileMapLayer" parent="Chapters/ShipAtSea/Ship/Lower" unique_id=743082872]
 light_mask = 3
 y_sort_enabled = true
-tile_map_data = PackedByteArray("AAAFAAQAAAAGABQAAAAFAAUAAAAGABUAAAAGAAQAAAAHABQAAAAGAAUAAAAHABUAAAAHAAMAAAAIABMAAAAHAAQAAAAIABQAAAAJAAIAAAATAAIAAAALAAIAAAATAAIAAAANAAIAAAATAAIAAAAPAAIAAAATAAIAAAAHAAIAAAATAAIAAAAFAAIAAAATAAIAAAAMAAMAAAANAAAAAQAKAAMAAAANAAAAAQAOAAMAAAANAAAAAQAMAAIAAAANAAAAAgAKAAIAAAANAAAAAgAIAAIAAAANAAAAAgAIAAMAAAANAAAAAQAEAAMAAAANAAAAAQAOAAIAAAANAAAAAgAGAAIAAAANAAAAAgAEAAIAAAANAAAAAgAGAAMAAAAHABMAAAAFAAcAAAATAAIAAAAHAAcAAAATAAIAAAAJAAcAAAATAAIAAAALAAcAAAATAAIAAAANAAcAAAATAAIAAAAMAAcAAAANAAAAAgAKAAcAAAANAAAAAgAIAAcAAAANAAAAAgAGAAcAAAANAAAAAgAEAAcAAAANAAAAAgD//wUAAwADABkAAAD+/wQAAwAGABkAAAD+/wUAAwAFABoAAAD//wQAAwALABcAAAAAAAYAAwADABkAAAABAAYAAwADABkAAAAHAAUAAAAIABUAAAAAAAMAAwANABUAAQAAAAQAAwAGABkAAAAAAAUAAwACABoAAAD//wMAAwACABoAAQAQAAIAAwAGABkAAAARAAMAAwABABwAAAARAAIAAwAVAAMAAAACAAYAAwAeAAQAAAAOAAcABQAAAAEAAAAOAAYABQABAAEAAAAOAAUABQABAAEAAAAOAAQABQAAAAIAAAAPAAQABQABAAAAAAAQAAQABQABAAAAAAARAAQABQACAAAAAAA=")
+tile_map_data = PackedByteArray("AAAFAAQAAAAGABQAAAAFAAUAAAAGABUAAAAGAAQAAAAHABQAAAAGAAUAAAAHABUAAAAHAAMAAAAIABMAAAAHAAQAAAAIABQAAAAGAAMAAAAHABMAAAD//wUAAwADABkAAAD+/wQAAwAGABkAAAD+/wUAAwAFABoAAAD//wQAAwALABcAAAAAAAYAAwADABkAAAABAAYAAwADABkAAAAHAAUAAAAIABUAAAAAAAMAAwANABUAAQAAAAQAAwAGABkAAAAAAAUAAwACABoAAAD//wMAAwACABoAAQAQAAIAAwAGABkAAAARAAMAAwABABwAAAARAAIAAwAVAAMAAAACAAYAAwAeAAQAAAAOAAcABQAAAAEAAAAOAAYABQABAAEAAAAOAAUABQABAAEAAAAOAAQABQAAAAIAAAAPAAQABQABAAAAAAAQAAQABQABAAAAAAARAAQABQACAAAAAAA=")
 tile_set = ExtResource("6_3ljsx")
 
 [node name="Front" type="TileMapLayer" parent="Chapters/ShipAtSea/Ship/Lower" unique_id=482508712]
 light_mask = 3
 y_sort_enabled = true
-tile_map_data = PackedByteArray("AAD9/wQAAAATAAYAAAD9/wUAAAAAAA0AAAD9/wYAAAAAAA4AAAD+/wQAAAAUAAYAAAD+/wYAAAABAA4AAAD+/wcAAAABAA8AAAD//wUAAAAQAAcAAAD//wYAAAAQAAgAAAD//wcAAAACAA8AAAAAAAUAAAARAAcAAAAAAAYAAAARAAgAAAAAAAcAAAADAA8AAAABAAUAAAASAAcAAAABAAYAAAASAAgAAAABAAcAAAAEAA8AAAAAAAgAAAADABAAAAABAAgAAAAEABAAAAACAAYAAAATAAgAAAACAAcAAAAFAA8AAAACAAgAAAAFABAAAAADAAYAAAAUAAgAAAADAAcAAAAGAA8AAAADAAgAAAAGABAAAAAEAAYAAAAUAAsAAQAEAAcAAAAHAA8AAAAEAAgAAAAHABAAAAAFAAYAAAAUAAsAAQAFAAcAAAAIAA8AAAAFAAgAAAAIABAAAAAGAAcAAAAIAA8AAAAGAAgAAAAIABAAAAAHAAcAAAAIAA8AAAAHAAgAAAAIABAAAAAIAAcAAAAIAA8AAAAIAAgAAAAIABAAAAAJAAcAAAAIAA8AAAAJAAgAAAAIABAAAAAKAAcAAAAIAA8AAAAKAAgAAAAIABAAAAALAAcAAAAIAA8AAAALAAgAAAAIABAAAAAMAAcAAAAIAA8AAAAMAAgAAAAIABAAAAANAAcAAAAIAA8AAAANAAgAAAAIABAAAAAOAAYAAAAKAAgAAAAOAAcAAAAIAA8AAAAOAAgAAAAIABAAAAAPAAcAAAAIAA8AAAAPAAgAAAAIABAAAAAQAAcAAAAIAA8AAAAQAAgAAAARABAAAAAGAAYAAAAUAAsAAQAHAAYAAAAUAAsAAQAIAAYAAAAUAAsAAQAJAAYAAAAUAAsAAQAKAAYAAAAUAAsAAQALAAYAAAAUAAsAAQAMAAYAAAAUAAsAAQANAAYAAAAUAAsAAQARAAgAAAASABAAAAARAAcAAAAXABAAAAARAAYAAAAXAA8AAAARAAQAAAAUAAsAAgARAAMAAAAUAAsAAgARAAIAAAAUAAsAAgARAAEAAAAUAAsAAgAPAAYAAAAIAA8AAAAQAAYAAAAIAA8AAAAPAAUAAAAOAA4AAAAQAAUAAAAOAA4AAAAOAAUAAAAKAAcAAAAKAAAAAAANAAMAAAALAAAAAAANAAMAAAALAAEAAAANAAQAAAAMAAAAAAAOAAMAAAAMAAEAAAAOAAQAAAAJAAAAAAANAAMAAAAJAAEAAAANAAQAAAAIAAAAAAAMAAMAAAAIAAEAAAAMAAQAAAAOAAAAAAAFAAwAAAAOAAEAAAAPAAgAAAARAAAAAAAVAAcAAAARAAUAAAAVAAgAAAAKAAEAAAANAAQAAAD+/wUAAAAUAAcAAAAKAAIAAAATAAAAAAAMAAIAAAATAAAAAAAOAAIAAAATAAAAAAAIAAIAAAATAAAAAAAGAAIAAAATAAAAAAAEAAIAAAATAAAAAAD//wQAAwADABkAAAA=")
+tile_map_data = PackedByteArray("AAD9/wQAAAATAAYAAAD9/wUAAAAAAA0AAAD9/wYAAAAAAA4AAAD+/wQAAAAUAAYAAAD+/wYAAAABAA4AAAD+/wcAAAABAA8AAAD//wUAAAAQAAcAAAD//wYAAAAQAAgAAAD//wcAAAACAA8AAAAAAAUAAAARAAcAAAAAAAYAAAARAAgAAAAAAAcAAAADAA8AAAABAAUAAAASAAcAAAABAAYAAAASAAgAAAABAAcAAAAEAA8AAAAAAAgAAAADABAAAAABAAgAAAAEABAAAAACAAYAAAATAAgAAAACAAcAAAAFAA8AAAACAAgAAAAFABAAAAADAAYAAAAUAAgAAAADAAcAAAAGAA8AAAADAAgAAAAGABAAAAAEAAYAAAAUAAsAAQAEAAcAAAAHAA8AAAAEAAgAAAAHABAAAAAFAAYAAAAUAAsAAQAFAAcAAAAIAA8AAAAFAAgAAAAIABAAAAAGAAcAAAAIAA8AAAAGAAgAAAAIABAAAAAHAAcAAAAIAA8AAAAHAAgAAAAIABAAAAAIAAcAAAAIAA8AAAAIAAgAAAAIABAAAAAJAAcAAAAIAA8AAAAJAAgAAAAIABAAAAAKAAcAAAAIAA8AAAAKAAgAAAAIABAAAAALAAcAAAAIAA8AAAALAAgAAAAIABAAAAAMAAcAAAAIAA8AAAAMAAgAAAAIABAAAAANAAcAAAAIAA8AAAANAAgAAAAIABAAAAAOAAYAAAAKAAgAAAAOAAcAAAAIAA8AAAAOAAgAAAAIABAAAAAPAAcAAAAIAA8AAAAPAAgAAAAIABAAAAAQAAcAAAAIAA8AAAAQAAgAAAARABAAAAAGAAYAAAAUAAsAAQAHAAYAAAAUAAsAAQAIAAYAAAAUAAsAAQAJAAYAAAAUAAsAAQAKAAYAAAAUAAsAAQALAAYAAAAUAAsAAQAMAAYAAAAUAAsAAQANAAYAAAAUAAsAAQARAAgAAAASABAAAAARAAcAAAAXABAAAAARAAYAAAAXAA8AAAARAAQAAAAUAAsAAgARAAMAAAAUAAsAAgARAAIAAAAUAAsAAgARAAEAAAAUAAsAAgAPAAYAAAAIAA8AAAAQAAYAAAAIAA8AAAAPAAUAAAAOAA4AAAAQAAUAAAAOAA4AAAAOAAUAAAAKAAcAAAAKAAAAAAANAAMAAAALAAAAAAANAAMAAAALAAEAAAANAAQAAAAMAAAAAAAOAAMAAAAMAAEAAAAOAAQAAAAJAAAAAAANAAMAAAAJAAEAAAANAAQAAAAIAAAAAAAMAAMAAAAIAAEAAAAMAAQAAAAOAAAAAAAFAAwAAAAOAAEAAAAPAAgAAAARAAAAAAAVAAcAAAARAAUAAAAVAAgAAAAKAAEAAAANAAQAAAD+/wUAAAAUAAcAAAD//wQAAwADABkAAAA=")
 tile_set = ExtResource("6_3ljsx")
+collision_visibility_mode = 1
+
+[node name="BunkNorth1" parent="Chapters/ShipAtSea/Ship/Lower" unique_id=283369373 node_paths=PackedStringArray("top", "bottom") instance=ExtResource("77_bunk")]
+position = Vector2(160, 112)
+top = NodePath("../SleepingIshmaelWife")
+bottom = NodePath("../SleepingLehi")
+
+[node name="BunkNorth2" parent="Chapters/ShipAtSea/Ship/Lower" unique_id=1681280162 instance=ExtResource("77_bunk")]
+position = Vector2(224, 112)
+
+[node name="BunkNorth3" parent="Chapters/ShipAtSea/Ship/Lower" unique_id=394356134 node_paths=PackedStringArray("bottom") instance=ExtResource("77_bunk")]
+position = Vector2(288, 112)
+bottom = NodePath("../SleepingIshmaelDaughter5")
+
+[node name="BunkNorth4" parent="Chapters/ShipAtSea/Ship/Lower" unique_id=1909193760 node_paths=PackedStringArray("bottom") instance=ExtResource("77_bunk")]
+position = Vector2(352, 112)
+bottom = NodePath("../SleepingIshmaelDaughter4")
+
+[node name="BunkNorth5" parent="Chapters/ShipAtSea/Ship/Lower" unique_id=314541687 node_paths=PackedStringArray("top", "bottom") instance=ExtResource("77_bunk")]
+position = Vector2(416, 112)
+top = NodePath("../SleepingSister2")
+bottom = NodePath("../SleepingSariah")
+
+[node name="Bassinets" parent="Chapters/ShipAtSea/Ship/Lower" unique_id=917510570 instance=ExtResource("78_bassinets")]
+position = Vector2(480, 112)
+fuss_every = Vector2(25, 60)
+
+[node name="BunkSouth1" parent="Chapters/ShipAtSea/Ship/Lower" unique_id=1696502224 node_paths=PackedStringArray("top") instance=ExtResource("77_bunk")]
+position = Vector2(160, 254)
+top = NodePath("../SleepingIshmaelDaughter1")
+exit_offset = Vector2(-20, -58)
+exit_facing = "up"
+extra_depth = 20.0
+
+[node name="BunkSouth2" parent="Chapters/ShipAtSea/Ship/Lower" unique_id=245029750 node_paths=PackedStringArray("top") instance=ExtResource("77_bunk")]
+position = Vector2(224, 254)
+top = NodePath("../SleepingIshmaelSon2")
+exit_offset = Vector2(-20, -58)
+exit_facing = "up"
+extra_depth = 20.0
+
+[node name="BunkSouth3" parent="Chapters/ShipAtSea/Ship/Lower" unique_id=405880482 node_paths=PackedStringArray("top") instance=ExtResource("77_bunk")]
+position = Vector2(288, 254)
+top = NodePath("../SleepingIshmaelDaughter2")
+exit_offset = Vector2(-20, -58)
+exit_facing = "up"
+extra_depth = 20.0
+
+[node name="BunkSouth4" parent="Chapters/ShipAtSea/Ship/Lower" unique_id=512412717 instance=ExtResource("77_bunk")]
+position = Vector2(352, 254)
+exit_offset = Vector2(-20, -58)
+exit_facing = "up"
+extra_depth = 20.0
+
+[node name="BunkSouth5" parent="Chapters/ShipAtSea/Ship/Lower" unique_id=1514862747 node_paths=PackedStringArray("top") instance=ExtResource("77_bunk")]
+position = Vector2(416, 254)
+top = NodePath("../SleepingIshmaelDaughter3")
+exit_offset = Vector2(-20, -58)
+exit_facing = "up"
+extra_depth = 20.0
 
 [node name="SleepingLehi" parent="Chapters/ShipAtSea/Ship/Lower" unique_id=795425564 instance=ExtResource("31_lehi")]
 position = Vector2(156, 107)
 collision_layer = 4
 collision_mask = 5
-start_pose = "sleep"
-start_facing = "left"
 
 [node name="SleepingSariah" parent="Chapters/ShipAtSea/Ship/Lower" unique_id=423946139 instance=ExtResource("32_sariah")]
 position = Vector2(412, 107)
 collision_layer = 4
 collision_mask = 5
-start_pose = "sleep"
-start_facing = "left"
 
 [node name="SleepingIshmaelWife" parent="Chapters/ShipAtSea/Ship/Lower" unique_id=255555737 instance=ExtResource("36_wife")]
 position = Vector2(156, 85)
 collision_layer = 4
 collision_mask = 5
-start_pose = "sleep"
-start_facing = "left"
-lying_lift = 18.0
 
 [node name="SleepingIshmaelSon2" parent="Chapters/ShipAtSea/Ship/Lower" unique_id=1250797845 instance=ExtResource("38_son2")]
-position = Vector2(284, 85)
+position = Vector2(220, 214)
 collision_layer = 4
 collision_mask = 5
-start_pose = "sleep"
-start_facing = "left"
-lying_lift = 18.0
 
 [node name="SleepingSister2" parent="Chapters/ShipAtSea/Ship/Lower" unique_id=885310972 instance=ExtResource("40_sister2")]
 position = Vector2(412, 85)
 collision_layer = 4
 collision_mask = 5
-start_pose = "sleep"
-start_facing = "left"
-lying_lift = 18.0
 
-[node name="SleepingJacob" parent="Chapters/ShipAtSea/Ship/Lower" unique_id=1351527726 instance=ExtResource("41_jacob")]
-position = Vector2(476, 85)
+[node name="SleepingIshmaelDaughter1" parent="Chapters/ShipAtSea/Ship/Lower" unique_id=1846203517 instance=ExtResource("72_daughter1")]
+position = Vector2(156, 214)
 collision_layer = 4
 collision_mask = 5
-start_pose = "sleep"
-start_facing = "left"
-lying_lift = 18.0
+
+[node name="SleepingIshmaelDaughter2" parent="Chapters/ShipAtSea/Ship/Lower" unique_id=708214963 instance=ExtResource("73_daughter2")]
+position = Vector2(284, 214)
+collision_layer = 4
+collision_mask = 5
+
+[node name="SleepingIshmaelDaughter3" parent="Chapters/ShipAtSea/Ship/Lower" unique_id=1290457731 instance=ExtResource("74_daughter3")]
+position = Vector2(412, 214)
+collision_layer = 4
+collision_mask = 5
+
+[node name="SleepingIshmaelDaughter4" parent="Chapters/ShipAtSea/Ship/Lower" unique_id=563019284 instance=ExtResource("75_daughter4")]
+position = Vector2(348, 107)
+collision_layer = 4
+collision_mask = 5
+
+[node name="SleepingIshmaelDaughter5" parent="Chapters/ShipAtSea/Ship/Lower" unique_id=1975316640 instance=ExtResource("76_daughter5")]
+position = Vector2(284, 107)
+collision_layer = 4
+collision_mask = 5
+
+[node name="Jacob" parent="Chapters/ShipAtSea/Ship/Lower" unique_id=1351527726 instance=ExtResource("41_jacob")]
+position = Vector2(352, 160)
+collision_layer = 4
+collision_mask = 5
+avoidance = false
+habit_walks_navigate = false
+
+[node name="Joseph" parent="Chapters/ShipAtSea/Ship/Lower" unique_id=1137420958 instance=ExtResource("71_joseph")]
+position = Vector2(128, 160)
+collision_layer = 4
+collision_mask = 5
+avoidance = false
+habit_walks_navigate = false
 
 [node name="OilLamp" parent="Chapters/ShipAtSea/Ship/Lower" unique_id=1134949790 instance=ExtResource("42_lamp")]
 visible = false
@@ -231,12 +317,12 @@ collision_layer = 4
 collision_mask = 5
 
 [node name="Chicken3" parent="Chapters/ShipAtSea/Ship/Lower" unique_id=957487656 instance=ExtResource("21_pfbnl")]
-position = Vector2(527, 227)
+position = Vector2(519, 235)
 collision_layer = 4
 collision_mask = 5
 
 [node name="Chicken2" parent="Chapters/ShipAtSea/Ship/Lower" unique_id=536597997 instance=ExtResource("21_pfbnl")]
-position = Vector2(496, 225)
+position = Vector2(485, 235)
 collision_layer = 4
 collision_mask = 5
 
@@ -246,7 +332,7 @@ collision_layer = 4
 collision_mask = 5
 
 [node name="Goat2" parent="Chapters/ShipAtSea/Ship/Lower" unique_id=1031260645 instance=ExtResource("26_kvuv0")]
-position = Vector2(503, 176)
+position = Vector2(504, 209)
 collision_layer = 4
 collision_mask = 5
 
@@ -256,11 +342,12 @@ collision_layer = 4
 collision_mask = 5
 
 [node name="Sheep2" parent="Chapters/ShipAtSea/Ship/Lower" unique_id=336951322 instance=ExtResource("27_sg5c8")]
-position = Vector2(541, 203)
+position = Vector2(540, 209)
 collision_layer = 4
 collision_mask = 5
 
 [node name="Upper" type="Node2D" parent="Chapters/ShipAtSea/Ship" unique_id=1758937695]
+visible = false
 y_sort_enabled = true
 
 [node name="Deck" type="TileMapLayer" parent="Chapters/ShipAtSea/Ship/Upper" unique_id=615076428]
@@ -313,18 +400,18 @@ habit_walks_navigate = false
 position = Vector2(501, 125)
 
 [node name="Zoram" parent="Chapters/ShipAtSea/Ship/Upper" unique_id=203694312 instance=ExtResource("35_zoram")]
-position = Vector2(216, 64)
+position = Vector2(232, 68)
 collision_layer = 2
 collision_mask = 3
-facing = "up"
+facing = "right"
 avoidance = false
 habit_walks_navigate = false
 
 [node name="IshmaelSon1" parent="Chapters/ShipAtSea/Ship/Upper" unique_id=1863673106 instance=ExtResource("37_son1")]
-position = Vector2(416, 64)
+position = Vector2(264, 68)
 collision_layer = 2
 collision_mask = 3
-facing = "up"
+facing = "left"
 avoidance = false
 habit_walks_navigate = false
 
@@ -337,7 +424,7 @@ avoidance = false
 habit_walks_navigate = false
 
 [node name="Lemuel" parent="Chapters/ShipAtSea/Ship/Upper" unique_id=1497871144 instance=ExtResource("34_lemuel")]
-position = Vector2(400, 188)
+position = Vector2(216, 204)
 collision_layer = 2
 collision_mask = 3
 facing = "down"

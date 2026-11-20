@@ -16,20 +16,35 @@ extends StoryChapter
 const NEPHI_START := Vector2(3.5, 3.6)
 
 # Who is up on deck at the start (Ship/Upper in world.tscn, placed and facing
-# there): Sam at the helm, Zoram and Ishmael's son at the north rail, Laman
-# and Lemuel at the south rail, Nephi's sister in the bow looking west, the
-# way the ship is going. They hold that for DECK_HOLD_SECONDS, then wander a
-# little, each this many tiles from where they stood. The radii keep them clear
-# of the stairwell's open east end, which only Nephi can use. Sam stays at
-# the helm, steering: he faces west, the way the ship is going, and now and
-# then reaches out to make a small turn (Tend).
-const DECK_HOLD_SECONDS := 10.0
+# there): Sam at the helm, Zoram and Ishmael's son face to face by the north
+# rail, talking, Laman and Lemuel side by side at the south rail, Nephi's
+# sister in the bow looking west, the way the ship is going. Once Nephi is
+# free, each holds that for the seconds given, then wanders a little, this
+# many tiles from where they stood. The radii keep them clear of the
+# stairwell's open east end, which only Nephi can use. Sam stays at the helm,
+# steering: he faces west, the way the ship is going, and now and then reaches
+# out to make a small turn (Tend).
 const DECK_WANDER := {
-	"Zoram": 1.5,
-	"IshmaelSon1": 1.5,
-	"Laman": 1.5,
-	"Lemuel": 1.5,
-	"Sister1": 1.0,
+	"Zoram": {"hold": TALK_SECONDS + LOOK_OUT_SECONDS, "radius": 1.5},
+	"IshmaelSon1": {"hold": TALK_SECONDS + LOOK_OUT_SECONDS, "radius": 1.5},
+	"Laman": {"hold": 3.0, "radius": 1.5},
+	"Lemuel": {"hold": 3.0, "radius": 1.5},
+	"Sister1": {"hold": 10.0, "radius": 1.0},
+}
+
+# Zoram and Ishmael's son talk on for TALK_SECONDS after Nephi is free, then
+# both turn to look out over the north rail for LOOK_OUT_SECONDS before they
+# wander off.
+const TALK_SECONDS := 4.0
+const LOOK_OUT_SECONDS := 4.0
+const LOOK_OUT := ["Zoram", "IshmaelSon1"]
+
+# Below decks the other adults are asleep in their bunks, and the two boys,
+# Jacob and Joseph (Ship/Lower), run about the hold this many tiles from
+# where they start, which covers most of its floor.
+const KIDS_WANDER := {
+	"Jacob": 6.0,
+	"Joseph": 6.0,
 }
 
 # How close Nephi walks up to Sam for their talk to start, in tiles.
@@ -86,6 +101,8 @@ func setup(w):
 	(world.get_node("Player/Camera") as Camera2D).reset_smoothing()
 	(_upper().get_node("Sam") as Npc).set_habit(Tend.new("left"))
 	_sariah().pose("lie", "left")
+	for kid in KIDS_WANDER:
+		(_lower().get_node(kid) as Npc).set_habit(Meander.new(KIDS_WANDER[kid]))
 
 func play():
 	# Fade in from the black the intro's title left.
@@ -184,9 +201,14 @@ func _upper() -> Node:
 # (the menu) pauses it too.
 func _wander_after_hold() -> void:
 	var upper := _upper()
-	var timer: SceneTreeTimer = world.get_tree().create_timer(DECK_HOLD_SECONDS, false)
+	var tree: SceneTree = world.get_tree()
 	for person in DECK_WANDER:
 		var npc := upper.get_node_or_null(person) as Npc
-		if npc:
-			timer.timeout.connect(npc.set.bind("facing", ""))
-			timer.timeout.connect(npc.set_habit.bind(Meander.new(DECK_WANDER[person])))
+		if npc == null:
+			continue
+		var plan: Dictionary = DECK_WANDER[person]
+		var timer: SceneTreeTimer = tree.create_timer(plan.hold, false)
+		timer.timeout.connect(npc.set.bind("facing", ""))
+		timer.timeout.connect(npc.set_habit.bind(Meander.new(plan.radius)))
+		if person in LOOK_OUT:
+			tree.create_timer(TALK_SECONDS, false).timeout.connect(npc.set.bind("facing", "up"))

@@ -14,8 +14,8 @@ class_name SteerBoard
 # out of the turn; the spindle swings to match. To hold the new course, the
 # wheel has to go back to center. Let go near center and it settles there.
 # While the spindle is in the wedge, a ring around the dial fills; out of it,
-# the ring only stops. After ALIGN_SECONDS in the wedge the dial pulses and the
-# board emits finished. The ship keeps its heading and the wheel rights itself.
+# the ring slowly drains. Once it is full the dial pulses and the board
+# emits finished. The ship keeps its heading and the wheel rights itself.
 #
 # The wheel follows the finger around its hub from wherever the drag starts,
 # so grabbing a handle and turning works, and so does a swipe across the top.
@@ -28,6 +28,8 @@ class_name SteerBoard
 
 # Seconds in the wedge to finish.
 const ALIGN_SECONDS := 4.0
+# Seconds out of the wedge for a full ring to drain empty.
+const DRAIN_SECONDS := 10.0
 # How close to the target counts as on course, in ship degrees either way.
 const WEDGE_DEGREES := 0.75
 # Degrees of wheel for one degree per second of turn. 90 makes a quarter turn
@@ -159,6 +161,8 @@ func _process(delta: float) -> void:
 			_done_time = 0.0
 			_dragging = false
 			_sound.play()
+	else:
+		progress = maxf(progress - delta / DRAIN_SECONDS, 0.0)
 	queue_redraw()
 
 func _gui_input(event: InputEvent) -> void:

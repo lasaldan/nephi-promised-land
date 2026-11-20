@@ -24,4 +24,4 @@ vframes = 8
 frame = 24
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
-polygon = PackedVector2Array(-14, 0, 0, -5, 14, 0, 0, 5)
+polygon = PackedVector2Array(14, 0, 13.62, 1.91, 12.54, 3.54, 10.91, 4.62, 9, 5, -9, 5, -10.91, 4.62, -12.54, 3.54, -13.62, 1.91, -14, 0, -14, -18, -13.62, -19.91, -12.54, -21.54, -10.91, -22.62, -9, -23, 9, -23, 10.91, -22.62, 12.54, -21.54, 13.62, -19.91, 14, -18)

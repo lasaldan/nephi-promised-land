@@ -17,6 +17,9 @@ class_name Npc
 # Sent when a go_to() order finishes. reached is false when they got stuck,
 # or when another order, release(), or set_habit() cut the walk short.
 signal arrived(reached: bool)
+# Sent when they take a pose or come out of one: the pose's name, or "" back
+# on their feet. A BunkBed listens, to show its blanket and to see them out.
+signal pose_changed(pose_name: String)
 
 const TILE := 32.0
 # Pixels per second at walk_speed 1.0.
@@ -106,6 +109,8 @@ var _pose_token := 0
 # The sprite as it was before lying down, to put back on getting up. Empty
 # while not lying.
 var _standing_sprite := {}
+# Set while pose() clears the old pose on its way to the new one.
+var _switching_pose := false
 
 ## A pose from POSES (sit, sit_lean, sit_ground, kneel, pray, sleep, lie) to take
 ## when they appear, held, as if a chapter had called pose(). For placing
@@ -364,7 +369,10 @@ func pose(pose_name: String, direction := "", keep_habit := false) -> bool:
 		push_warning("%s has no %s rows in their sheet." % [name, pose_name])
 		return false
 	if not keep_habit:
+		# Straight from one pose into the next: no pose_changed("") between.
+		_switching_pose = true
 		hold()
+		_switching_pose = false
 	var rows: Dictionary = POSES[pose_name].rows
 	if direction != "":
 		facing = direction
@@ -376,6 +384,7 @@ func pose(pose_name: String, direction := "", keep_habit := false) -> bool:
 	_pose = pose_name
 	_pose_token += 1
 	var token := _pose_token
+	pose_changed.emit(pose_name)
 	var frames: Array = POSES[pose_name].frames
 	var step: float = POSES[pose_name].get("seconds", 0.0) / frames.size()
 	for i in frames.size():
@@ -418,6 +427,8 @@ func clear_pose() -> void:
 	_stand_up()
 	if animation_tree:
 		animation_tree.active = true
+	if not _switching_pose:
+		pose_changed.emit("")
 
 func is_posed(pose_name := "") -> bool:
 	return _pose != "" if pose_name == "" else _pose == pose_name
@@ -427,6 +438,10 @@ func is_sitting() -> bool:
 
 func is_sleeping() -> bool:
 	return _pose == "sleep"
+
+# Asleep or awake, on their back (sleep, lie).
+func is_lying() -> bool:
+	return _pose != "" and POSES[_pose].get("lying", false)
 
 func can_pose(pose_name: String) -> bool:
 	var sheet := sprite as Sprite2D
