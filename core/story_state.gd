@@ -43,6 +43,10 @@ var records: Dictionary = {}
 # quitting partway. The world adds to it while unpaused and writes it with
 # save_played_time().
 var played_seconds := 0.0
+# How hard the activities are on this slot (the steering board, so far).
+# Picked in the pause menu and written to the save at once (set_difficulty).
+enum Difficulty { NORMAL, HARD }
+var difficulty := Difficulty.NORMAL
 # A debug start never touches the save file, so achievements earned during
 # one are not written either. world.gd sets it after reset().
 var debug_run := false
@@ -202,6 +206,7 @@ func save_game() -> void:
 	for key in _progress():
 		file.set_value("save", key, _progress()[key])
 	file.set_value("save", "played_seconds", played_seconds)
+	file.set_value("save", "difficulty", difficulty)
 	var err := _write_save(file)
 	if err != OK:
 		push_error("Could not save the game to %s (error %d)" % [save_path(), err])
@@ -217,6 +222,14 @@ func _progress() -> Dictionary:
 # chapter save, which writes everything.
 func _save_progress() -> void:
 	_update_save(_progress())
+
+# Changes the difficulty and writes just that into the slot's save, so it
+# holds even when the player quits partway through a chapter. Before the
+# first chapter save, that save writes it.
+func set_difficulty(value: Difficulty) -> void:
+	difficulty = value
+	if _save_is_ours:
+		_update_save({"difficulty": difficulty})
 
 # Writes only played_seconds into the slot's save, so time spent partway
 # through a chapter is kept when the player quits.
@@ -256,6 +269,7 @@ func load_game() -> bool:
 	counts = file.get_value("save", "counts", {})
 	records = file.get_value("save", "records", {})
 	played_seconds = file.get_value("save", "played_seconds", 0.0)
+	difficulty = clampi(file.get_value("save", "difficulty", Difficulty.NORMAL), 0, Difficulty.size() - 1)
 	_save_is_ours = true
 	print("Loaded slot %d: %s" % [slot, completed_chapter_ids])
 	changed.emit()
@@ -274,6 +288,7 @@ func reset() -> void:
 	counts.clear()
 	records.clear()
 	played_seconds = 0.0
+	difficulty = Difficulty.NORMAL
 	debug_run = false
 	_save_is_ours = false
 	changed.emit()

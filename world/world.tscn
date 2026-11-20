@@ -327,17 +327,17 @@ collision_layer = 4
 collision_mask = 5
 
 [node name="Goat" parent="Chapters/ShipAtSea/Ship/Lower" unique_id=340745006 instance=ExtResource("26_kvuv0")]
-position = Vector2(482, 169)
+position = Vector2(485, 177)
 collision_layer = 4
 collision_mask = 5
 
 [node name="Goat2" parent="Chapters/ShipAtSea/Ship/Lower" unique_id=1031260645 instance=ExtResource("26_kvuv0")]
-position = Vector2(504, 209)
+position = Vector2(502, 212)
 collision_layer = 4
 collision_mask = 5
 
 [node name="Sheep" parent="Chapters/ShipAtSea/Ship/Lower" unique_id=2103261061 instance=ExtResource("27_sg5c8")]
-position = Vector2(528, 168)
+position = Vector2(527, 180)
 collision_layer = 4
 collision_mask = 5
 

@@ -324,6 +324,18 @@ msgstr "Reducir destellos"
 msgid "Language"
 msgstr "Idioma"
 
+#: ui/pause_menu.tscn
+msgid "Difficulty"
+msgstr "Dificultad"
+
+#: ui/pause_menu.gd
+msgid "Normal"
+msgstr "Normal"
+
+#: ui/pause_menu.gd
+msgid "Hard"
+msgstr "Difícil"
+
 #: ui/pause_menu.tscn:193 ui/save_slot.tscn:66
 msgid "See achievements"
 msgstr "Ver logros"

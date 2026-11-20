@@ -120,22 +120,30 @@ wedge sits at the top of the dial: that is straight ahead, over the bow. The
 spindle points the way the Lord would have them go, so it swings as the ship
 turns. Below the dial is the ship's wheel.
 
+**Difficulty:** each save slot picks Normal or Hard in the pause menu
+(`StoryState.difficulty`, written to the save at once). The board reads it
+each time it opens. Normal is for the youngest players.
+
 **Play:**
 1. Grab the wheel anywhere and turn it. It follows the finger around its hub,
-   so a swipe across the top of the wheel turns it too.
-2. The wheel sets how fast the ship turns, not where it points. One spoke,
-   the king spoke, is marked in brass: while it stands at the top the ship
-   holds its heading. Turned off center, the ship comes around
-   (`ShipSway.heading`, from -10 to +10 degrees), the further the quicker,
-   easing into and out of the turn. The spindle swings to match.
-3. To hold the new course, put the wheel back to center. Let go near center
-   and it settles there by itself.
-4. While the spindle is in the wedge, the wedge glows brighter and a ring
-   around the dial fills. Out of the wedge, the ring just stops filling. It
-   never empties.
+   so a swipe across the top of the wheel turns it too. One spoke, the king
+   spoke, is marked in brass.
+2. *Normal:* the wheel points the ship. Turning it turns the ship in the
+   world (`ShipSway.heading`, from -10 to +10 degrees), easing a little behind
+   the wheel like a real helm. The king spoke at the top means on course.
+   The wedge is wide (±1.5 degrees).
+3. *Hard:* the wheel sets how fast the ship turns, not where it points.
+   While the king spoke stands at the top the ship holds its heading. Turned
+   off center, the ship comes around, the further the quicker, easing into
+   and out of the turn. To hold the new course, put the wheel back to center;
+   let go near center and it settles there by itself. The wedge is half as
+   wide (±0.75 degrees).
+4. Either way the spindle swings with the ship. While it is in the wedge, the
+   wedge glows brighter and a ring around the dial fills. Out of the wedge,
+   the ring just stops filling. It never empties.
 5. A curved arrow over the wheel shows which way to turn it: toward the
-   course while off it, then back to center as the ship comes onto it. It
-   hides while the wheel is already right.
+   course while off it, and on hard, back to center as the ship comes onto
+   it. It hides while the wheel is already right.
 
 **Done:** after `ALIGN_SECONDS` (4) with the spindle in the wedge, the dial
 pulses and the board emits finished. The ship keeps the heading it was
@@ -154,12 +162,15 @@ given, and the wheel rights itself.
 
 The heading is saved with each chapter, like the sea (`World.HEADING_FLAG`).
 
-**Knobs:** `ALIGN_SECONDS`; `WEDGE_DEGREES`, how close counts as on course
-(in ship degrees); `WHEEL_PER_RATE`, wheel degrees for one degree a second of
-turn; `WHEEL_LIMIT`, how far the wheel turns either way; `CENTER_DEGREES`,
-the slack at center; `HELM_RESPONSE`, how quickly the turn follows the
-wheel; `DIAL_SCALE`, how far the spindle swings per ship degree. `config`
-can set `"target"`, the heading the spindle points to (default 0).
+**Knobs:** `ALIGN_SECONDS`; `NORMAL_WEDGE_DEGREES` and `HARD_WEDGE_DEGREES`,
+how close counts as on course (in ship degrees); `NORMAL_DIAL_SCALE` and
+`HARD_DIAL_SCALE`, how far the spindle swings per ship degree. Normal:
+`WHEEL_TURN_PER_DEGREE`, how far the wheel turns for one degree of ship;
+`HELM_DEGREES_PER_SECOND`, how quickly the ship follows. Hard:
+`WHEEL_PER_RATE`, wheel degrees for one degree a second of turn;
+`WHEEL_LIMIT`, how far the wheel turns either way; `CENTER_DEGREES`, the
+slack at center; `HELM_RESPONSE`, how quickly the turn follows the wheel.
+`config` can set `"target"`, the heading the spindle points to (default 0).
 
 ---
 

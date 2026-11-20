@@ -5,7 +5,8 @@ class_name PauseMenu
 # The pause tab poking down from the top centre of the screen, and the menu it opens: on/off and
 # loudness for music, sounds and the narrator, full screen on desktop, reduced
 # flashing (soft lightning), the
-# language (English or Spanish, GameSettings.language()), the
+# language (English or Spanish, GameSettings.language()), the slot's
+# difficulty (StoryState.difficulty, in game only), the
 # slot's achievements (the star), a replay of the controls tour, and the way back to the main menu. Escape,
 # P or a gamepad's Start opens and closes it too. The tree is paused while it is open. Chapter.delay() and
 # other story waits use pausable timers, so a cutscene waits as well.
@@ -79,6 +80,9 @@ func _ready() -> void:
 	%KeepButton.pressed.connect(_close_clear)
 	%EraseButton.pressed.connect(_erase)
 	_fill_language_picker()
+	%DifficultyRow.visible = in_game
+	if in_game:
+		_fill_difficulty_picker()
 
 # Each language under its own name. Picking one switches the game over at
 # once; it is saved with the rest when the menu closes.
@@ -92,6 +96,17 @@ func _fill_language_picker() -> void:
 			picker.select(picker.item_count - 1)
 	picker.item_selected.connect(func(index: int) -> void:
 		GameSettings.set_language(picker.get_item_metadata(index)))
+
+# This slot's difficulty. It is written to the save as soon as it is picked.
+# The steering board reads it each time it opens.
+func _fill_difficulty_picker() -> void:
+	var picker: OptionButton = %DifficultyPicker
+	picker.clear()
+	picker.add_item("Normal", StoryState.Difficulty.NORMAL)
+	picker.add_item("Hard", StoryState.Difficulty.HARD)
+	picker.select(picker.get_item_index(StoryState.difficulty))
+	picker.item_selected.connect(func(index: int) -> void:
+		StoryState.set_difficulty(picker.get_item_id(index)))
 
 # The labels set from the scene translate themselves; these are built from
 # pieces, so they are built again in the new language.

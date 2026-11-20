@@ -7,8 +7,15 @@ class_name SteerBoard
 # is straight ahead, over the bow. Its spindle points the way to go, so it
 # swings as the ship turns. Below it is the ship's wheel.
 #
-# The wheel sets how fast the ship turns, not where it points, like a real
-# helm: one spoke, the king spoke, is marked in brass, and while it stands at
+# Two ways to steer, by the slot's difficulty (StoryState.difficulty), read
+# each time the board opens:
+#
+# Normal: the wheel points the ship. Turning it turns the ship in the world
+# (ShipSway.heading), easing a little behind the wheel, and the spindle
+# swings to match. The wedge is wide (NORMAL_WEDGE_DEGREES).
+#
+# Hard: the wheel sets how fast the ship turns, not where it points, like a
+# real helm: one spoke, the king spoke, is marked in brass, and while it stands at
 # the top the ship holds its heading. Turn the wheel off center and the ship
 # comes around (ShipSway.heading), the further the quicker, easing into and
 # out of the turn; the spindle swings to match. To hold the new course, the
@@ -20,7 +27,7 @@ class_name SteerBoard
 # The wheel follows the finger around its hub from wherever the drag starts,
 # so grabbing a handle and turning works, and so does a swipe across the top.
 # A curved arrow over the wheel shows which way to turn it: toward the course
-# while off it, and back to center as the ship comes onto it.
+# while off it, and (on hard) back to center as the ship comes onto it.
 #
 # config: "target", the heading the spindle points to, in ship degrees
 # (default 0, the course). The board starts from wherever the ship is turned,
@@ -31,7 +38,15 @@ const ALIGN_SECONDS := 4.0
 # Seconds out of the wedge for a full ring to drain empty.
 const DRAIN_SECONDS := 10.0
 # How close to the target counts as on course, in ship degrees either way.
-const WEDGE_DEGREES := 0.75
+const NORMAL_WEDGE_DEGREES := 1.5
+const HARD_WEDGE_DEGREES := 0.75
+
+# Normal: degrees the wheel turns for one degree of ship. 36 makes a whole
+# turn of the wheel ten degrees of ship. And how quickly the ship follows.
+const WHEEL_TURN_PER_DEGREE := 36.0
+const HELM_DEGREES_PER_SECOND := 5.0
+
+# Hard, from here to ARROW_LEAD_SECONDS.
 # Degrees of wheel for one degree per second of turn. 90 makes a quarter turn
 # of the wheel turn the ship a degree each second.
 const WHEEL_PER_RATE := 90.0
@@ -53,8 +68,9 @@ const HELM_RESPONSE := 1.5
 const ARROW_LEAD_SECONDS := 1.2
 # Degrees the spindle swings for one degree of ship off course, so a small
 # turn of the ship reads plainly on the dial. It never swings past
-# SPINDLE_LIMIT.
-const DIAL_SCALE := 12.0
+# SPINDLE_LIMIT. Larger on hard, so its narrow wedge still reads.
+const NORMAL_DIAL_SCALE := 8.0
+const HARD_DIAL_SCALE := 12.0
 const SPINDLE_LIMIT := 150.0
 # A press closer than this to the hub does not turn the wheel: there the
 # angle jumps about with the slightest move.
@@ -90,6 +106,8 @@ const DONE_SOUND := preload("res://audio/sfx/craft_success.wav")
 
 var target := 0.0
 var progress := 0.0
+# Set from StoryState.difficulty at reset().
+var hard := false
 
 var _ship: ShipSway
 # Without a ship (a test), the board steers this instead.
@@ -113,6 +131,7 @@ func _ready() -> void:
 
 func reset() -> void:
 	target = float(config.get("target", 0.0))
+	hard = StoryState.difficulty == StoryState.Difficulty.HARD
 	progress = 0.0
 	_done_time = -1.0
 	_dragging = false
@@ -120,7 +139,7 @@ func reset() -> void:
 	if _ship:
 		_ship.stop_turning()
 		_heading = _ship.heading
-	_wheel = 0.0
+	_wheel = 0.0 if hard else deg_to_rad(_heading * WHEEL_TURN_PER_DEGREE)
 	_rate = 0.0
 	queue_redraw()
 
@@ -128,9 +147,19 @@ func heading() -> float:
 	return _ship.heading if _ship else _heading
 
 func is_aligned() -> bool:
-	return absf(heading() - target) <= WEDGE_DEGREES
+	return absf(heading() - target) <= _wedge_degrees()
 
-# How fast the wheel asks the ship to turn, in degrees a second.
+func _wedge_degrees() -> float:
+	return HARD_WEDGE_DEGREES if hard else NORMAL_WEDGE_DEGREES
+
+func _dial_scale() -> float:
+	return HARD_DIAL_SCALE if hard else NORMAL_DIAL_SCALE
+
+# Normal: where the wheel asks the ship to point.
+func _commanded() -> float:
+	return clampf(rad_to_deg(_wheel) / WHEEL_TURN_PER_DEGREE, -ShipSway.MAX_HEADING, ShipSway.MAX_HEADING)
+
+# Hard: how fast the wheel asks the ship to turn, in degrees a second.
 func _commanded_rate() -> float:
 	var turned := rad_to_deg(_wheel)
 	if absf(turned) <= CENTER_DEGREES:
@@ -139,14 +168,8 @@ func _commanded_rate() -> float:
 
 func _process(delta: float) -> void:
 	_time += delta
-	# Settling: after finishing, or let go near center.
-	if _done_time >= 0.0 or (not _dragging and absf(rad_to_deg(_wheel)) <= CENTER_SNAP_DEGREES):
-		_wheel = move_toward(_wheel, 0.0, deg_to_rad(SETTLE_DEGREES_PER_SECOND) * delta)
-	var wanted := 0.0 if _done_time >= 0.0 else _commanded_rate()
-	_rate = move_toward(_rate, wanted, HELM_RESPONSE * delta)
-	var now := clampf(heading() + _rate * delta, -ShipSway.MAX_HEADING, ShipSway.MAX_HEADING)
-	if absf(now) >= ShipSway.MAX_HEADING:
-		_rate = 0.0
+	var now := _steer_hard(delta) if hard \
+			else move_toward(heading(), _commanded(), HELM_DEGREES_PER_SECOND * delta)
 	if _ship:
 		_ship.heading = now
 	else:
@@ -161,9 +184,19 @@ func _process(delta: float) -> void:
 			_done_time = 0.0
 			_dragging = false
 			_sound.play()
-	else:
-		progress = maxf(progress - delta / DRAIN_SECONDS, 0.0)
 	queue_redraw()
+
+# The heading after delta on hard, and the wheel settling toward center.
+func _steer_hard(delta: float) -> float:
+	# Settling: after finishing, or let go near center.
+	if _done_time >= 0.0 or (not _dragging and absf(rad_to_deg(_wheel)) <= CENTER_SNAP_DEGREES):
+		_wheel = move_toward(_wheel, 0.0, deg_to_rad(SETTLE_DEGREES_PER_SECOND) * delta)
+	var wanted := 0.0 if _done_time >= 0.0 else _commanded_rate()
+	_rate = move_toward(_rate, wanted, HELM_RESPONSE * delta)
+	var now := clampf(heading() + _rate * delta, -ShipSway.MAX_HEADING, ShipSway.MAX_HEADING)
+	if absf(now) >= ShipSway.MAX_HEADING:
+		_rate = 0.0
+	return now
 
 func _gui_input(event: InputEvent) -> void:
 	if is_emulated(event) or _done_time >= 0.0:
@@ -179,7 +212,7 @@ func _gui_input(event: InputEvent) -> void:
 		if at.distance_to(WHEEL_CENTER) <= HUB_DEAD_ZONE:
 			return
 		var angle := (at - WHEEL_CENTER).angle()
-		var limit := deg_to_rad(WHEEL_LIMIT)
+		var limit := deg_to_rad(WHEEL_LIMIT if hard else ShipSway.MAX_HEADING * WHEEL_TURN_PER_DEGREE)
 		_wheel = clampf(_wheel + wrapf(angle - _last_angle, -PI, PI), -limit, limit)
 		_last_angle = angle
 		accept_event()
@@ -223,7 +256,7 @@ func _draw_dial() -> void:
 		draw_line(c + dir * inner, c + dir * (r - 8), BRASS_LIGHT if i % 6 == 0 else BRASS_SHADE, 1.0)
 
 	# The wedge at the top: straight ahead.
-	var half := WEDGE_DEGREES * DIAL_SCALE
+	var half := _wedge_degrees() * _dial_scale()
 	var wedge := PackedVector2Array([c])
 	for i in 9:
 		wedge.append(c + _dial_dir(lerpf(-half, half, i / 8.0)) * (r - 9))
@@ -235,7 +268,7 @@ func _draw_dial() -> void:
 	draw_colored_polygon(wedge, wedge_color)
 
 	# The spindle, pointing the way to go. It trembles a little, alive.
-	var swing := clampf((target - heading()) * DIAL_SCALE, -SPINDLE_LIMIT, SPINDLE_LIMIT)
+	var swing := clampf((target - heading()) * _dial_scale(), -SPINDLE_LIMIT, SPINDLE_LIMIT)
 	swing += sin(_time * 1.7) * 1.2 + sin(_time * 4.3) * 0.5
 	var dir := _dial_dir(swing)
 	var side := Vector2(-dir.y, dir.x)
@@ -300,6 +333,11 @@ func _draw_wheel() -> void:
 # soon (or is), and not at all when the wheel is already right.
 func _draw_turn_arrow() -> void:
 	var off := target - heading()
+	if not hard:
+		if is_aligned():
+			return
+		_draw_arrow(off > 0.0)
+		return
 	var ahead := target - (heading() + _rate * ARROW_LEAD_SECONDS)
 	var turned := rad_to_deg(_wheel)
 	var clockwise: bool
@@ -311,6 +349,9 @@ func _draw_turn_arrow() -> void:
 		if signf(turned) == signf(off) and absf(turned) > CENTER_DEGREES:
 			return
 		clockwise = off > 0.0
+	_draw_arrow(clockwise)
+
+func _draw_arrow(clockwise: bool) -> void:
 	var c := WHEEL_CENTER
 	var color := INK
 	color.a = (0.35 if _dragging else 0.55) + 0.3 * sin(_time * 4.0)
