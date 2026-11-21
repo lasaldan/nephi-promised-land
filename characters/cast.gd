@@ -42,6 +42,15 @@ const DISPLAY_NAMES := {
 	"ishmael_son_2": "Ishmael's Son",
 }
 
+# The women and girls, by name. Their sheets have female bodies, which sit
+# on the floor differently (Npc.floor_sit_pose()).
+const WOMEN: Array[String] = ["sariah", "sister_1", "sister_2", "ishmael_wife",
+	"ishmael_daughter_1", "ishmael_daughter_2", "ishmael_daughter_3",
+	"ishmael_daughter_4", "ishmael_daughter_5"]
+
+static func is_woman(character_name: String) -> bool:
+	return character_name in WOMEN
+
 static func display_name(character_name: String) -> String:
 	return DISPLAY_NAMES.get(character_name, character_name.capitalize())
 

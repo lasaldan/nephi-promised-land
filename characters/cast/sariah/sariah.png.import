@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://mb21ajo2j30h"
-path="res://.godot/imported/Sariah.png-7ba2f6b0ddf7ee72d66a94de30366aca.ctex"
+path="res://.godot/imported/sariah.png-c8e94d983cd373ef6a118f4703300354.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://characters/cast/sariah/Sariah.png"
-dest_files=["res://.godot/imported/Sariah.png-7ba2f6b0ddf7ee72d66a94de30366aca.ctex"]
+source_file="res://characters/cast/sariah/sariah.png"
+dest_files=["res://.godot/imported/sariah.png-c8e94d983cd373ef6a118f4703300354.ctex"]
 
 [params]
 

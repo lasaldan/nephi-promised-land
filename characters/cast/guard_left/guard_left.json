@@ -1,0 +1,266 @@
+{
+  "bodyTypeName": "male",
+  "url": "https://liberatedpixelcup.github.io/Universal-LPC-Spritesheet-Character-Generator/#?body=Body_color_light&head=Human_male_light&shadow=Shadow_shadow&wound_arm=none_Arm&wound_brain=none_Brain&expression=Looking_Left_light&beard=Basic_Beard_dark_brown&mustache=Mustache_dark_brown&hat=Norman_helm_bronze&accessory=Plumage_orange&shoulders=Legion_bronze&armour=Leather_brown&belt=Double_Belt_tan&legs=Leggings_brown&shoes=Revised_Boots_leather&weapon=Spear_brass&shield=Shield_round_gold&eye_color=Eye_Color_gray",
+  "spritesheets": "https://liberatedpixelcup.github.io/Universal-LPC-Spritesheet-Character-Generator/spritesheets/",
+  "version": 1,
+  "datetime": "11/10/2025, 12:52:23 PM",
+  "credits": [
+    {
+      "fileName": "shadow/adult/shadow.png",
+      "licenses": "CC0",
+      "authors": "drjamgo@hotmail.com",
+      "urls": "https://opengameart.org/content/shadow-for-lpc-sprite",
+      "notes": ""
+    },
+    {
+      "fileName": "body/bodies/male/light.png",
+      "licenses": "OGA-BY 3.0,CC-BY-SA 3.0,GPL 3.0",
+      "authors": "bluecarrot16,JaidynReiman,Benjamin K. Smith (BenCreating),Evert,Eliza Wyatt (ElizaWy),TheraHedwig,MuffinElZangano,Durrani,Johannes Sjölund (wulax),Stephen Challener (Redshrike)",
+      "urls": "https://opengameart.org/content/liberated-pixel-cup-lpc-base-assets-sprites-map-tiles,https://opengameart.org/content/lpc-medieval-fantasy-character-sprites,https://opengameart.org/content/lpc-male-jumping-animation-by-durrani,https://opengameart.org/content/lpc-runcycle-and-diagonal-walkcycle,https://opengameart.org/content/lpc-revised-character-basics,https://opengameart.org/content/lpc-be-seated,https://opengameart.org/content/lpc-runcycle-for-male-muscular-and-pregnant-character-bases-with-modular-heads,https://opengameart.org/content/lpc-jump-expanded,https://opengameart.org/content/lpc-character-bases",
+      "notes": "see details at https://opengameart.org/content/lpc-character-bases; 'Thick' Male Revised Run/Climb by JaidynReiman (based on ElizaWy's LPC Revised)"
+    },
+    {
+      "fileName": "head/heads/human/male/light.png",
+      "licenses": "OGA-BY 3.0,CC-BY-SA 3.0,GPL 3.0",
+      "authors": "bluecarrot16,Benjamin K. Smith (BenCreating),Stephen Challener (Redshrike)",
+      "urls": "https://opengameart.org/content/liberated-pixel-cup-lpc-base-assets-sprites-map-tiles,https://opengameart.org/content/lpc-character-bases",
+      "notes": "original head by Redshrike, tweaks by BenCreating, modular version by bluecarrot16"
+    },
+    {
+      "fileName": "head/faces/male/look_l/light.png",
+      "licenses": "OGA-BY 3.0",
+      "authors": "JaidynReiman,ElizaWy,Stephen Challener (Redshrike)",
+      "urls": "https://github.com/ElizaWy/LPC/tree/main/Characters/Head,https://opengameart.org/content/ulpc-expanded-expressions",
+      "notes": "Original by Redshrike, Expressions by ElizaWy, mapped to all frames by JaidynReiman"
+    },
+    {
+      "fileName": "eyes/human/adult/look_l/gray.png",
+      "licenses": "OGA-BY 3.0,CC-BY-SA 3.0,GPL 3.0",
+      "authors": "JaidynReiman,Matthew Krohn (makrohn),Stephen Challener (Redshrike)",
+      "urls": "https://opengameart.org/content/liberated-pixel-cup-lpc-base-assets-sprites-map-tiles",
+      "notes": "original by Redshrike, mapped to all frames by Matthew Krohn & JaidynReiman"
+    },
+    {
+      "fileName": "beards/beard/basic/dark_brown.png",
+      "licenses": "CC-BY-SA 3.0,GPL 3.0",
+      "authors": "JaidynReiman,Carlo Enrico Victoria (Nemisys)",
+      "urls": "https://opengameart.org/content/lpc-white-beard",
+      "notes": "Original by Nemisys, repositioning by JaidynReiman."
+    },
+    {
+      "fileName": "beards/mustache/basic/dark_brown.png",
+      "licenses": "CC-BY-SA 3.0,GPL 3.0",
+      "authors": "JaidynReiman,Carlo Enrico Victoria (Nemisys)",
+      "urls": "https://opengameart.org/content/lpc-brunet-mustache",
+      "notes": "Original by Nemisys, repositioning by JaidynReiman."
+    },
+    {
+      "fileName": "hat/helmet/norman/adult/bronze.png",
+      "licenses": "OGA-BY 3.0,CC-BY-SA 4.0,CC-BY-SA 3.0,GPL 3.0",
+      "authors": "ElizaWy,Sander Frenken (castelonia)",
+      "urls": "https://opengameart.org/content/lpc-realistic-helmet-pack,https://opengameart.org/content/lpc-expanded-hats-facial-helmets",
+      "notes": ""
+    },
+    {
+      "fileName": "hat/accessory/plumage/adult/orange.png",
+      "licenses": "OGA-BY 3.0,CC-BY-SA 3.0,CC-BY-SA 4.0,GPL 3.0",
+      "authors": "ElizaWy",
+      "urls": "https://opengameart.org/content/lpc-realistic-helmet-pack,https://opengameart.org/content/lpc-expanded-hats-facial-helmets",
+      "notes": ""
+    },
+    {
+      "fileName": "shoulders/legion/male/bronze.png",
+      "licenses": "OGA-BY 3.0,CC-BY-SA 3.0,GPL 2.0,GPL 3.0",
+      "authors": "Nila122",
+      "urls": "https://opengameart.org/content/lpc-roman-armor",
+      "notes": ""
+    },
+    {
+      "fileName": "torso/armour/leather/male/brown.png",
+      "licenses": "OGA-BY 3.0,CC-BY-SA 3.0,GPL 3.0",
+      "authors": "Johannes Sjölund (wulax)",
+      "urls": "https://opengameart.org/content/lpc-medieval-fantasy-character-sprites,http://opengameart.org/content/lpc-clothing-updates",
+      "notes": "adapted to v3 bases by bluecarrot16"
+    },
+    {
+      "fileName": "torso/waist/belt_double/male/tan.png",
+      "licenses": "OGA-BY 3.0,CC-BY-SA 3.0,GPL 3.0",
+      "authors": "bluecarrot16,Johannes Sjölund (wulax),Matthew Krohn (makrohn)",
+      "urls": "https://opengameart.org/content/lpc-combat-armor-for-women,https://opengameart.org/content/lpc-pirates",
+      "notes": ""
+    },
+    {
+      "fileName": "legs/leggings/male/brown.png",
+      "licenses": "OGA-BY 3.0,GPL 3.0",
+      "authors": "bluecarrot16,ElizaWy,JaidynReiman,Mandi Paugh,William.Thompsonj,Johannes Sjölund (wulax),Stephen Challener (Redshrike)",
+      "urls": "https://github.com/ElizaWy/LPC/tree/main/Characters/Clothing,https://opengameart.org/content/lpc-expanded-pants",
+      "notes": "Original bases by Redshrike, thrust/shoot bases by Wulax, original overalls by ElizaWy, base animations adapted from v3 overalls by bluecarrot16, leggings by JaidynReiman"
+    },
+    {
+      "fileName": "feet/boots/revised/male/leather.png",
+      "licenses": "OGA-BY 3.0,GPL 3.0",
+      "authors": "JaidynReiman,ElizaWy,Bluecarrot16,Stephen Challener (Redshrike),Johannes Sjölund (wulax)",
+      "urls": "https://github.com/ElizaWy/LPC/tree/main/Characters/Clothing,https://opengameart.org/content/lpc-expanded-socks-shoes",
+      "notes": "original overalls and boots by ElizaWy, base animations adapted from v3 overalls by bluecarrot16, boots by JaidynReiman"
+    },
+    {
+      "fileName": "shield/male/round_gold.png",
+      "licenses": "CC-BY-SA 3.0,GPL 3.0",
+      "authors": "Johannes Sjölund (wulax),Michael Whitlock (bigbeargames),DarkwallLKE,Tuomo Untinen (reemax)",
+      "urls": "https://opengameart.org/content/lpc-medieval-fantasy-character-sprites,https://opengameart.org/content/lpc-shields-pack",
+      "notes": "?"
+    },
+    {
+      "fileName": "weapon/polearm/spear/foreground/brass.png",
+      "licenses": "CC-BY-SA 3.0",
+      "authors": "Pierre Vigier (pvigier),Johannes Sjölund (wulax),Inboxninja",
+      "urls": "https://opengameart.org/content/lpc-medieval-fantasy-character-sprites,https://opengameart.org/content/lpc-spear-and-shovel-reworked",
+      "notes": "original by wulax, walk animations redone by pvigier, split into layers and tweaked for v3 character bases by bluecarrot16"
+    },
+    {
+      "fileName": "weapon/polearm/spear/background/brass.png",
+      "licenses": "CC-BY-SA 3.0",
+      "authors": "Pierre Vigier (pvigier),Johannes Sjölund (wulax),Inboxninja",
+      "urls": "https://opengameart.org/content/lpc-medieval-fantasy-character-sprites,https://opengameart.org/content/lpc-spear-and-shovel-reworked",
+      "notes": "original by wulax, walk animations redone by pvigier, split into layers and tweaked for v3 character bases by bluecarrot16"
+    }
+  ],
+  "layers": [
+    {
+      "fileName": "shadow/adult/shadow.png",
+      "zPos": 0,
+      "parentName": "shadow",
+      "name": "Shadow",
+      "variant": "shadow",
+      "supportedAnimations": "spellcast,thrust,walk,slash,shoot,hurt,watering"
+    },
+    {
+      "fileName": "weapon/polearm/spear/background/brass.png",
+      "zPos": 9,
+      "parentName": "weapon",
+      "name": "Spear",
+      "variant": "brass",
+      "supportedAnimations": "walk,thrust,hurt"
+    },
+    {
+      "fileName": "body/bodies/male/light.png",
+      "zPos": 10,
+      "parentName": "body",
+      "name": "Body_color",
+      "variant": "light",
+      "supportedAnimations": "spellcast,thrust,walk,slash,shoot,hurt,watering,idle,jump,run,sit,emote,climb,combat,1h_slash,1h_backslash,1h_halfslash"
+    },
+    {
+      "fileName": "legs/leggings/male/brown.png",
+      "zPos": 20,
+      "parentName": "legs",
+      "name": "Leggings",
+      "variant": "brown",
+      "supportedAnimations": "spellcast,thrust,walk,slash,shoot,hurt,watering,idle,jump,run,sit,emote,climb,combat,1h_slash,1h_backslash,1h_halfslash"
+    },
+    {
+      "fileName": "feet/boots/revised/male/leather.png",
+      "zPos": 25,
+      "parentName": "shoes",
+      "name": "Revised_Boots",
+      "variant": "leather",
+      "supportedAnimations": "spellcast,thrust,walk,slash,shoot,hurt,watering,idle,jump,run,sit,emote,climb,combat,1h_slash,1h_backslash,1h_halfslash"
+    },
+    {
+      "fileName": "shoulders/legion/male/bronze.png",
+      "zPos": 60,
+      "parentName": "shoulders",
+      "name": "Legion",
+      "variant": "bronze",
+      "supportedAnimations": "spellcast,thrust,walk,slash,shoot,hurt,watering"
+    },
+    {
+      "fileName": "torso/armour/leather/male/brown.png",
+      "zPos": 60,
+      "parentName": "armour",
+      "name": "Leather",
+      "variant": "brown",
+      "supportedAnimations": "spellcast,thrust,walk,slash,shoot,hurt,watering"
+    },
+    {
+      "fileName": "torso/waist/belt_double/male/tan.png",
+      "zPos": 70,
+      "parentName": "belt",
+      "name": "Double_Belt",
+      "variant": "tan",
+      "supportedAnimations": "spellcast,thrust,walk,slash,shoot,hurt,watering"
+    },
+    {
+      "fileName": "head/heads/human/male/light.png",
+      "zPos": 100,
+      "parentName": "head",
+      "name": "Human_male",
+      "variant": "light",
+      "supportedAnimations": "spellcast,thrust,walk,slash,shoot,hurt,watering,idle,jump,run,sit,emote,climb,combat,1h_slash,1h_backslash,1h_halfslash"
+    },
+    {
+      "fileName": "head/faces/male/look_l/light.png",
+      "zPos": 101,
+      "parentName": "expression",
+      "name": "Looking_Left",
+      "variant": "light",
+      "supportedAnimations": "spellcast,thrust,walk,slash,shoot,hurt,watering,idle,jump,run,sit,emote,climb,combat,1h_slash,1h_backslash,1h_halfslash"
+    },
+    {
+      "fileName": "eyes/human/adult/look_l/gray.png",
+      "zPos": 105,
+      "parentName": "eye_color",
+      "name": "Eye_Color",
+      "variant": "gray",
+      "supportedAnimations": "spellcast,thrust,walk,slash,shoot,hurt,watering,idle,jump,run,sit,emote,climb,combat,1h_slash,1h_backslash,1h_halfslash"
+    },
+    {
+      "fileName": "beards/beard/basic/dark_brown.png",
+      "zPos": 110,
+      "parentName": "beard",
+      "name": "Basic_Beard",
+      "variant": "dark brown",
+      "supportedAnimations": "spellcast,thrust,walk,slash,shoot,hurt,watering,idle,jump,run,sit,emote,climb,combat,1h_slash,1h_backslash,1h_halfslash"
+    },
+    {
+      "fileName": "shield/male/round_gold.png",
+      "zPos": 110,
+      "parentName": "shield",
+      "name": "Shield",
+      "variant": "round gold",
+      "supportedAnimations": "spellcast,thrust,walk,slash,shoot,hurt,watering"
+    },
+    {
+      "fileName": "beards/mustache/basic/dark_brown.png",
+      "zPos": 111,
+      "parentName": "mustache",
+      "name": "Mustache",
+      "variant": "dark brown",
+      "supportedAnimations": "spellcast,thrust,walk,slash,shoot,hurt,watering,idle,jump,run,sit,emote,climb,combat,1h_slash,1h_backslash,1h_halfslash"
+    },
+    {
+      "fileName": "hat/helmet/norman/adult/bronze.png",
+      "zPos": 135,
+      "parentName": "hat",
+      "name": "Norman_helm",
+      "variant": "bronze",
+      "supportedAnimations": "spellcast,thrust,walk,slash,shoot,hurt,watering,idle,jump,run,sit,emote,climb,combat,1h_slash,1h_backslash,1h_halfslash"
+    },
+    {
+      "fileName": "hat/accessory/plumage/adult/orange.png",
+      "zPos": 139,
+      "parentName": "accessory",
+      "name": "Plumage",
+      "variant": "orange",
+      "supportedAnimations": "spellcast,thrust,walk,slash,shoot,hurt,watering,idle,jump,run,sit,emote,climb,combat,1h_slash,1h_backslash,1h_halfslash"
+    },
+    {
+      "fileName": "weapon/polearm/spear/foreground/brass.png",
+      "zPos": 140,
+      "parentName": "weapon",
+      "name": "Spear",
+      "variant": "brass",
+      "supportedAnimations": "walk,thrust,hurt"
+    }
+  ]
+}

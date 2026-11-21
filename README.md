@@ -73,7 +73,9 @@ Put the map under `GroundLayer` and delete `PlaceholderGround`. Then:
     var lehi := getCharacter("lehi") as Npc
     await walkTo(lehi, Vector2(12, 8))          # along the path, around walls and walkers
     lehi.go_to(Vector2(3, 4)).then_face("up")   # without waiting
-    await lehi.pose("kneel")                    # sit, sit_lean, sit_ground, kneel, pray
+    await lehi.pose("kneel")                    # sit, sit_lean, sit_ground, sit_floor, kneel, pray
+    await lehi.sit_on_floor("left")             # sit_ground for men, sit_lean for women
+    bunk.sit_on_edge(lehi)                      # "sit": the third frame, for sitting on something
     await lehi.end_pose(true)
     lehi.set_habit(Meander.new(3))
     sariah.set_habit(Station.new(Vector2(-7, 9), "up", "work"))
@@ -87,6 +89,9 @@ CharGen sheets (21 rows) cannot sit; `Station` falls back to standing.
 A new person: make their sheet, put it in `characters/cast/<name>/`, and
 copy any cast scene there, changing the texture. `<name>` is also their
 dialogue speaker, their voice folder and their `tools/voice/cast.json` entry.
+`characters/cast/cast_links.html` opens each cast member in the Universal LPC
+generator; export 54-row sheets with the Shadow on, and dress them in pieces
+that have sit frames (see the generator's `sheet_definitions` "animations").
 
 ## Talking, looking, picking up
 

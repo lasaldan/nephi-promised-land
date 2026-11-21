@@ -1,0 +1,191 @@
+{
+  "bodyTypeName": "female",
+  "url": "https://liberatedpixelcup.github.io/Universal-LPC-Spritesheet-Character-Generator/#?body=Body_color_olive&head=Human_female_elderly_olive&shadow=Shadow_shadow&apron=none_Apron&hair=Loose_white&updo=none_High_Bun&beard=none_Winter_Beard&mustache=none_Mustache&headcover=Kerchief_lavender&neck=none_Scarf&clothes=none_Longsleeve&cape=none_Tattered&legs=none_Plain_skirt&sash=none_Sash&weapon=none_Cane&eye_color=Eye_Color_gray&sex=female&wrinkes=Wrinkles_olive&necklace=Simple_Necklace_brass&dress=Kimono_leather&dress_trim=Kimono_Trim_tan&dress_sleeves=Kimono_Sleeves_leather",
+  "spritesheets": "https://liberatedpixelcup.github.io/Universal-LPC-Spritesheet-Character-Generator/spritesheets/",
+  "version": 1,
+  "datetime": "11/4/2025, 9:54:16 PM",
+  "credits": [
+    {
+      "fileName": "shadow/adult/shadow.png",
+      "licenses": "CC0",
+      "authors": "drjamgo@hotmail.com",
+      "urls": "https://opengameart.org/content/shadow-for-lpc-sprite",
+      "notes": ""
+    },
+    {
+      "fileName": "body/bodies/female/olive.png",
+      "licenses": "OGA-BY 3.0,CC-BY-SA 3.0,GPL 3.0",
+      "authors": "Benjamin K. Smith (BenCreating),bluecarrot16,TheraHedwig,Evert,MuffinElZangano,Durrani,Pierre Vigier (pvigier),ElizaWy,Matthew Krohn (makrohn),Johannes Sjölund (wulax),Stephen Challener (Redshrike)",
+      "urls": "https://opengameart.org/content/liberated-pixel-cup-lpc-base-assets-sprites-map-tiles,https://opengameart.org/content/lpc-medieval-fantasy-character-sprites,https://opengameart.org/content/lpc-ladies,https://opengameart.org/content/lpc-7-womens-shirts,https://opengameart.org/content/lpc-jump-expanded,https://opengameart.org/content/lpc-be-seated,https://opengameart.org/content/lpc-revised-character-basics,https://gitlab.com/vagabondgame/lpc-characters,https://opengameart.org/content/lpc-male-jumping-animation-by-durrani,https://opengameart.org/content/lpc-runcycle-and-diagonal-walkcycle",
+      "notes": "see details at https://opengameart.org/content/lpc-character-bases"
+    },
+    {
+      "fileName": "head/heads/human/female_elderly/olive.png",
+      "licenses": "OGA-BY 3.0,CC-BY 3.0",
+      "authors": "Benjamin K. Smith (BenCreating),Eliza Wyatt (ElizaWy),Stephen Challener (Redshrike)",
+      "urls": "https://opengameart.org/content/liberated-pixel-cup-lpc-base-assets-sprites-map-tiles,https://opengameart.org/content/lpc-revised-elders,https://opengameart.org/content/lpc-character-bases",
+      "notes": ""
+    },
+    {
+      "fileName": "eyes/human/elderly/default/gray.png",
+      "licenses": "OGA-BY 3.0,CC-BY-SA 3.0,GPL 3.0",
+      "authors": "JaidynReiman,Matthew Krohn (makrohn),Stephen Challener (Redshrike)",
+      "urls": "https://opengameart.org/content/liberated-pixel-cup-lpc-base-assets-sprites-map-tiles",
+      "notes": "original by Redshrike, mapped to all frames by Matthew Krohn & JaidynReiman"
+    },
+    {
+      "fileName": "head/wrinkles/olive.png",
+      "licenses": "CC0",
+      "authors": "bluecarrot16",
+      "urls": "",
+      "notes": ""
+    },
+    {
+      "fileName": "hair/loose/adult/white.png",
+      "licenses": "CC-BY-SA 3.0,GPL 3.0",
+      "authors": "JaidynReiman,Manuel Riecke (MrBeast)",
+      "urls": "https://opengameart.org/content/liberated-pixel-cup-lpc-base-assets-sprites-map-tiles,https://opengameart.org/content/lpc-expanded-hair",
+      "notes": ""
+    },
+    {
+      "fileName": "hat/pirate/kerchief/adult/lavender.png",
+      "licenses": "OGA-BY 3.0,CC-BY-SA 3.0,GPL 2.0,GPL 3.0",
+      "authors": "bluecarrot16,JaidynReiman,Nila122",
+      "urls": "https://opengameart.org/content/more-lpc-clothes-and-hair,https://opengameart.org/content/lpc-pirates,https://opengameart.org/content/lpc-expanded-hats-facial-helmets",
+      "notes": "original Kerchief by Nila122, recolors by bluecarrot16, more frames by JaidynReiman"
+    },
+    {
+      "fileName": "neck/necklace/simple/female/brass.png",
+      "licenses": "CC0",
+      "authors": "bluecarrot16",
+      "urls": "https://opengameart.org/content/lpc-jewelry",
+      "notes": ""
+    },
+    {
+      "fileName": "dress/kimono/normal/universal/female/leather.png",
+      "licenses": "OGA-BY 3.0+,CC-BY 3.0+,GPL 3.0",
+      "authors": "JaidynReiman,Stephen Challener (Redshrike),Johannes Sjölund (wulax)",
+      "urls": "https://opengameart.org/content/lpc-kimono-relm",
+      "notes": ""
+    },
+    {
+      "fileName": "dress/kimono/normal/trim/universal/female/tan.png",
+      "licenses": "OGA-BY 3.0+,CC-BY 3.0+,GPL 3.0",
+      "authors": "JaidynReiman,Stephen Challener (Redshrike),Johannes Sjölund (wulax)",
+      "urls": "https://opengameart.org/content/lpc-kimono-relm",
+      "notes": ""
+    },
+    {
+      "fileName": "dress/kimono/sleeves/universal/female/leather.png",
+      "licenses": "OGA-BY 3.0+,CC-BY 3.0+,GPL 3.0",
+      "authors": "JaidynReiman,Stephen Challener (Redshrike),Johannes Sjölund (wulax)",
+      "urls": "https://opengameart.org/content/lpc-kimono-relm",
+      "notes": ""
+    },
+    {
+      "fileName": "dress/kimono/sleeves/universal/female_front/leather.png",
+      "licenses": "OGA-BY 3.0+,CC-BY 3.0+,GPL 3.0",
+      "authors": "JaidynReiman,Stephen Challener (Redshrike),Johannes Sjölund (wulax)",
+      "urls": "https://opengameart.org/content/lpc-kimono-relm",
+      "notes": ""
+    }
+  ],
+  "layers": [
+    {
+      "fileName": "shadow/adult/shadow.png",
+      "zPos": 0,
+      "parentName": "shadow",
+      "name": "Shadow",
+      "variant": "shadow",
+      "supportedAnimations": "spellcast,thrust,walk,slash,shoot,hurt,watering"
+    },
+    {
+      "fileName": "body/bodies/female/olive.png",
+      "zPos": 10,
+      "parentName": "body",
+      "name": "Body_color",
+      "variant": "olive",
+      "supportedAnimations": "spellcast,thrust,walk,slash,shoot,hurt,watering,idle,jump,run,sit,emote,climb,combat,1h_slash,1h_backslash,1h_halfslash"
+    },
+    {
+      "fileName": "dress/kimono/normal/universal/female/leather.png",
+      "zPos": 30,
+      "parentName": "dress",
+      "name": "Kimono",
+      "variant": "leather",
+      "supportedAnimations": "spellcast,thrust,walk,slash,shoot,hurt,watering"
+    },
+    {
+      "fileName": "dress/kimono/normal/trim/universal/female/tan.png",
+      "zPos": 31,
+      "parentName": "dress_trim",
+      "name": "Kimono_Trim",
+      "variant": "tan",
+      "supportedAnimations": "spellcast,thrust,walk,slash,shoot,hurt,watering"
+    },
+    {
+      "fileName": "dress/kimono/sleeves/universal/female/leather.png",
+      "zPos": 31,
+      "parentName": "dress_sleeves",
+      "name": "Kimono_Sleeves",
+      "variant": "leather",
+      "supportedAnimations": "spellcast,thrust,walk,slash,shoot,hurt,watering"
+    },
+    {
+      "fileName": "neck/necklace/simple/female/brass.png",
+      "zPos": 80,
+      "parentName": "necklace",
+      "name": "Simple_Necklace",
+      "variant": "brass",
+      "supportedAnimations": "spellcast,thrust,walk,slash,shoot,hurt,watering"
+    },
+    {
+      "fileName": "head/heads/human/female_elderly/olive.png",
+      "zPos": 100,
+      "parentName": "head",
+      "name": "Human_female_elderly",
+      "variant": "olive",
+      "supportedAnimations": "spellcast,thrust,walk,slash,shoot,hurt,watering,idle,jump,run,sit,emote,climb,combat,1h_slash,1h_backslash,1h_halfslash"
+    },
+    {
+      "fileName": "head/wrinkles/olive.png",
+      "zPos": 102,
+      "parentName": "wrinkes",
+      "name": "Wrinkles",
+      "variant": "olive",
+      "supportedAnimations": "spellcast,thrust,walk,slash,shoot,hurt,watering,idle,jump,run,sit,emote,climb,combat,1h_slash,1h_backslash,1h_halfslash"
+    },
+    {
+      "fileName": "eyes/human/elderly/default/gray.png",
+      "zPos": 105,
+      "parentName": "eye_color",
+      "name": "Eye_Color",
+      "variant": "gray",
+      "supportedAnimations": "spellcast,thrust,walk,slash,shoot,hurt,watering,idle,jump,run,sit,emote,climb,combat,1h_slash,1h_backslash,1h_halfslash"
+    },
+    {
+      "fileName": "hair/loose/adult/white.png",
+      "zPos": 120,
+      "parentName": "hair",
+      "name": "Loose",
+      "variant": "white",
+      "supportedAnimations": "spellcast,thrust,walk,slash,shoot,hurt,watering,idle,jump,run,sit,emote,climb,combat,1h_slash,1h_backslash,1h_halfslash"
+    },
+    {
+      "fileName": "hat/pirate/kerchief/adult/lavender.png",
+      "zPos": 125,
+      "parentName": "headcover",
+      "name": "Kerchief",
+      "variant": "lavender",
+      "supportedAnimations": "spellcast,thrust,walk,slash,shoot,hurt,watering,idle,jump,run,sit,emote,climb,combat,1h_slash,1h_backslash,1h_halfslash"
+    },
+    {
+      "fileName": "dress/kimono/sleeves/universal/female_front/leather.png",
+      "zPos": 145,
+      "parentName": "dress_sleeves",
+      "name": "Kimono_Sleeves",
+      "variant": "leather",
+      "supportedAnimations": "spellcast,thrust,walk,slash,shoot,hurt,watering"
+    }
+  ]
+}

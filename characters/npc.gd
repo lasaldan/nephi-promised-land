@@ -82,7 +82,10 @@ var _agent: NavigationAgent2D
 # Each pose names the sheet rows it uses (by facing) and the frames it steps
 # through to get there. The last frame is held.
 #   sit*   the sit rows of a full (54-row) Universal LPC sheet. CharGen sheets
-#          stop at row 20 and cannot sit.
+#          stop at row 20 and cannot sit. "sit" (the third frame) is sitting
+#          on something: a bench, a bunk's edge. On the floor, men use
+#          "sit_ground" (the first) and women "sit_lean" (the second); ask
+#          for "sit_floor" and floor_sit_pose() picks which.
 #   kneel  the start of the hurt row, which only faces south.
 #   pray   the start of the cast rows: hands folding.
 #   sleep  lying on their back: the south-facing stand frame turned on its
@@ -90,6 +93,8 @@ var _agent: NavigationAgent2D
 #          is the way their head points.
 #   lie    the same, eyes open: awake in bed.
 const SIT_ROWS := {"up": 30, "left": 31, "down": 32, "right": 33}
+# Not in POSES: pose() and can_pose() turn it into floor_sit_pose().
+const SIT_FLOOR := "sit_floor"
 const POSES := {
 	"sit": {"rows": SIT_ROWS, "frames": [2]},
 	"sit_lean": {"rows": SIT_ROWS, "frames": [1]},
@@ -112,7 +117,8 @@ var _standing_sprite := {}
 # Set while pose() clears the old pose on its way to the new one.
 var _switching_pose := false
 
-## A pose from POSES (sit, sit_lean, sit_ground, kneel, pray, sleep, lie) to take
+## A pose from POSES (sit, sit_lean, sit_ground, kneel, pray, sleep, lie), or
+## sit_floor, to take
 ## when they appear, held, as if a chapter had called pose(). For placing
 ## someone in a scene by hand: a sleeper below decks. start_facing picks its
 ## direction ("" for the pose's first).
@@ -365,6 +371,8 @@ func pause_for_dialogue(paused: bool) -> void:
 #   await lehi.pose("pray")
 # With keep_habit, the pose does not hold them (for habits such as Station).
 func pose(pose_name: String, direction := "", keep_habit := false) -> bool:
+	if pose_name == SIT_FLOOR:
+		pose_name = floor_sit_pose()
 	if not can_pose(pose_name):
 		push_warning("%s has no %s rows in their sheet." % [name, pose_name])
 		return false
@@ -444,6 +452,8 @@ func is_lying() -> bool:
 	return _pose != "" and POSES[_pose].get("lying", false)
 
 func can_pose(pose_name: String) -> bool:
+	if pose_name == SIT_FLOOR:
+		pose_name = floor_sit_pose()
 	var sheet := sprite as Sprite2D
 	if not POSES.has(pose_name) or animation_tree == null or sheet == null:
 		return false
@@ -510,6 +520,16 @@ func _stand_up() -> void:
 # The familiar names, for chapter scripts.
 func sit(direction := "", pose_name := "sit") -> bool:
 	return await pose(pose_name, direction)
+
+# Sitting on the floor: legs out to the side for women (sit_lean), cross-legged
+# for men (sit_ground).
+#   await daughter.sit_on_floor("left")
+func sit_on_floor(direction := "") -> bool:
+	return await pose(SIT_FLOOR, direction)
+
+# The floor-sitting pose for who they are (Cast.WOMEN).
+func floor_sit_pose() -> String:
+	return "sit_lean" if Cast.is_woman(Cast.name_of(self)) else "sit_ground"
 
 func kneel() -> void:
 	await pose("kneel")

@@ -39,9 +39,24 @@ const TALK_SECONDS := 4.0
 const LOOK_OUT_SECONDS := 4.0
 const LOOK_OUT := ["Zoram", "IshmaelSon1"]
 
-# Below decks the other adults are asleep in their bunks, and the two boys,
-# Jacob and Joseph (Ship/Lower), run about the hold this many tiles from
-# where they start, which covers most of its floor.
+# Below decks most of the other adults are asleep in their bunks. A few are
+# up: sitting on the edge of their (bottom) berth, by the bunk's name...
+const BUNK_SITTERS := {
+	"SleepingLehi": "BunkNorth1",
+	"SleepingIshmaelDaughter5": "BunkNorth3",
+	"SleepingIshmaelDaughter4": "BunkNorth4",
+}
+# ...or out of their (top) berth and sitting on the floor, facing each other
+# in the light from the grate, clear of the stairs: where (on Ship/Lower, in
+# pixels) and which way they face. Npc.sit_on_floor() picks the pose for a
+# man or a woman.
+const FLOOR_SITTERS := {
+	"SleepingIshmaelSon2": {"bunk": "BunkSouth2", "spot": Vector2(304, 150), "facing": "right"},
+	"SleepingIshmaelDaughter1": {"bunk": "BunkSouth1", "spot": Vector2(336, 150), "facing": "left"},
+}
+
+# The two boys, Jacob and Joseph (Ship/Lower), run about the hold this many
+# tiles from where they start, which covers most of its floor.
 const KIDS_WANDER := {
 	"Jacob": 6.0,
 	"Joseph": 6.0,
@@ -101,6 +116,7 @@ func setup(w):
 	(world.get_node("Player/Camera") as Camera2D).reset_smoothing()
 	(_upper().get_node("Sam") as Npc).set_habit(Tend.new("left"))
 	_sariah().pose("lie", "left")
+	_sit_people_up()
 	for kid in KIDS_WANDER:
 		(_lower().get_node(kid) as Npc).set_habit(Meander.new(KIDS_WANDER[kid]))
 
@@ -189,6 +205,21 @@ func _waitForPlayerOnDeck(deck: ShipStairs.Deck, where: Callable, tiles: float) 
 
 func _lower() -> Node2D:
 	return world.get_node("Chapters/ShipAtSea/Ship/Lower")
+
+# BUNK_SITTERS onto their bunk's edge, FLOOR_SITTERS out of bed onto the floor.
+func _sit_people_up() -> void:
+	var lower := _lower()
+	for person in BUNK_SITTERS:
+		var npc := lower.get_node(person) as Npc
+		(lower.get_node(BUNK_SITTERS[person]) as BunkBed).sit_on_edge(npc)
+	for person in FLOOR_SITTERS:
+		var npc := lower.get_node(person) as Npc
+		var plan: Dictionary = FLOOR_SITTERS[person]
+		# Out of the bunk first, or it would see them sit up and put them
+		# at its exit.
+		(lower.get_node(plan.bunk) as BunkBed).let_out(npc)
+		npc.position = plan.spot
+		npc.sit_on_floor(plan.facing)
 
 func _sariah() -> Npc:
 	return _lower().get_node("SleepingSariah") as Npc
